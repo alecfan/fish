@@ -1,4 +1,4 @@
-@extends('admin.parent') @section('content')
+@extends('admin.parent') {{-- 打开左侧分类列表 --}} @section('typeOpen') class="open" @endsection {{-- 选中分类添加显示 --}} @section('typeAddActive') class="active" @endsection {{-- 列表显示 --}} @section('typeShow') style="display:block" @endsection {{-- 显示分类列表页 --}} @section('content')
 <div class="main-content">
   <div class="page-content">
     <div class="page-header">

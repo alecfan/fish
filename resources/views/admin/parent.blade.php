@@ -3,9 +3,9 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>后台</title>
-  <meta name="keywords" content="Bootstrap模版,Bootstrap模版下载,Bootstrap教程,Bootstrap中文" />
-  <meta name="description" content="站长素材提供Bootstrap模版,Bootstrap教程,Bootstrap中文翻译等相关Bootstrap插件下载" />
+  <title>Fish后台管理系统</title>
+  <meta name="keywords" content="闲鱼，二手交易" />
+  <meta name="description" content="闲鱼，二手交易" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="{{ asset('admin/css/bootstrap.min.css') }}" rel="stylesheet" />
   <link rel="stylesheet" href="{{ asset('admin/css/font-awesome.min.css') }}" />
@@ -27,8 +27,8 @@
         <a href="#" class="navbar-brand">
           <small>
               <i class="icon-leaf"></i>
-              ACE后台管理系统
-            </small>
+              Fish后台管理系统
+          </small>
         </a>
       </div>
       <div class="navbar-header pull-right" role="navigation">
@@ -282,92 +282,117 @@
           </div>
         </div>
         <ul class="nav nav-list">
-          <li class="active">
-            <a href="index.html">
+          <li @yield( 'indexActive')>
+            <a href="@yield('indexUrl')">
               <i class="icon-dashboard"></i>
               <span class="menu-text"> 控制台 </span>
             </a>
           </li>
+          <!-- 用户管理开始 -->
           <li>
-            <a href="#" class="dropdown-toggle">
-              <i class="icon-list"></i>
+            <a href="" class="dropdown-toggle">
+              <i class="icon-user"></i>
               <span class="menu-text"> 用户管理 </span>
               <b class="arrow icon-angle-down"></b>
             </a>
-            <ul class="submenu">
-              <li>
+            <ul class="submenu" @yield( 'usersShow')>
+              <li @yield( 'usersListActive')>
                 <a href="/admin/user">
                   <i class="icon-double-angle-right"></i> 用户列表
                 </a>
               </li>
-              <li>
+              <li @yield( 'usersAddActive')>
                 <a href="/admin/user/create">
                   <i class="icon-double-angle-right"></i> 添加用户
                 </a>
               </li>
             </ul>
           </li>
-          <li>
+          <!-- 用户管理结束 -->
+          <!-- 商品管理开始 -->
+          <li @yield( 'goodsOpen')>
             <a href="#" class="dropdown-toggle">
-              <i class="icon-list"></i>
+              <i class="icon-reorder"></i>
               <span class="menu-text"> 商品管理 </span>
               <b class="arrow icon-angle-down"></b>
             </a>
-            <ul class="submenu">
-              <li>
+            <ul class="submenu" @yield( 'goodsShow')>
+              <li @yield( 'goodsListActive')>
                 <a href="/admin/goods">
                   <i class="icon-double-angle-right"></i> 商品列表
                 </a>
               </li>
-              <li>
+              <li @yield( 'goodsAddActive')>
                 <a href="/admin/goods/create">
                   <i class="icon-double-angle-right"></i> 添加商品
                 </a>
               </li>
             </ul>
           </li>
-          <li>
+          <!-- 商品管理结束 -->
+          <!-- 分类管理开始 -->
+          <li @yield( 'typeOpen')>
             <a href="#" class="dropdown-toggle">
-              <i class="icon-list"></i>
+              <i class="icon-sitemap"></i>
               <span class="menu-text"> 分类管理 </span>
               <b class="arrow icon-angle-down"></b>
             </a>
-            <ul class="submenu">
-              <li>
+            <ul class="submenu" @yield( 'typeShow')>
+              <li @yield( 'typeListActive')>
                 <a href="/admin/type">
                   <i class="icon-double-angle-right"></i> 分类列表
                 </a>
               </li>
-              <li>
+              <li @yield( 'typeAddActive')>
                 <a href="/admin/type/create">
                   <i class="icon-double-angle-right"></i> 添加分类
                 </a>
               </li>
             </ul>
           </li>
-          <li>
-            <a href="#" class="dropdown-toggle">
-              <i class="icon-list"></i>
+          <!-- 分类管理结束 -->
+          <!-- 拍卖管理开始 -->
+          <li @yield( 'auctionOpen')>
+            <a href="" class="dropdown-toggle">
+              <i class="icon-legal"></i>
               <span class="menu-text"> 拍卖管理 </span>
               <b class="arrow icon-angle-down"></b>
             </a>
-            <ul class="submenu">
-              <li>
+            <ul class="submenu" @yield( 'auctionShow')>
+              <li @yield( 'auctionListActive')>
                 <a href="/admin/user">
                   <i class="icon-double-angle-right"></i> 拍卖列表
                 </a>
               </li>
-              <li>
+              <li @yield( 'auctionAddActive')>
                 <a href="/admin/user/create">
                   <i class="icon-double-angle-right"></i> 发布拍卖
                 </a>
               </li>
             </ul>
           </li>
+          <!-- 拍卖管理结束 -->
+          <!-- 商品评论开始 -->
           <li>
             <a href="#" class="dropdown-toggle">
-              <i class="icon-list"></i>
-              <span class="menu-text"> 广告管理 </span>
+              <i class="icon-comment"></i>
+              <span class="menu-text"> 商品评论 </span>
+              <b class="arrow icon-angle-down"></b>
+            </a>
+            <ul class="submenu">
+              <li>
+                <a href="/admin/user">
+                  <i class="icon-double-angle-right"></i> 消息列表
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- 商品评论结束 -->
+          <!-- 用户消息开始 -->
+          <li>
+            <a href="#" class="dropdown-toggle">
+              <i class="icon-envelope"></i>
+              <span class="menu-text"> 用户消息 </span>
               <b class="arrow icon-angle-down"></b>
             </a>
             <ul class="submenu">
@@ -379,20 +404,6 @@
               <li>
                 <a href="/admin/user/create">
                   <i class="icon-double-angle-right"></i> 添加广告
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="#" class="dropdown-toggle">
-              <i class="icon-list"></i>
-              <span class="menu-text"> 消息管理 </span>
-              <b class="arrow icon-angle-down"></b>
-            </a>
-            <ul class="submenu">
-              <li>
-                <a href="/admin/user">
-                  <i class="icon-double-angle-right"></i> 消息列表
                 </a>
               </li>
             </ul>
@@ -413,9 +424,8 @@
           </li>
           <li>
             <a href="#" class="dropdown-toggle">
-              <i class="icon-list"></i>
-              <span class="menu-text"> 网站管理 </span>
-              <b class="arrow icon-angle-down"></b>
+              <i class="icon-cog"></i>
+              <span class="menu-text"> 站点设置 </span>
             </a>
           </li>
         </ul>
