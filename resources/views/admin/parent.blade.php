@@ -230,7 +230,7 @@
               </li>
               <li class="divider"></li>
               <li>
-                <a href="#">
+                <a href="{{ url('admin/quit') }}">
                   <i class="icon-off"></i> 退出
                 </a>
               </li>
@@ -253,6 +253,7 @@
       <a class="menu-toggler" id="menu-toggler" href="#">
         <span class="menu-text"></span>
       </a>
+      <!-- 侧边条开始 -->
       <div class="sidebar" id="sidebar">
         <script type="text/javascript">
         try {
@@ -283,13 +284,13 @@
         </div>
         <ul class="nav nav-list">
           <li @yield( 'indexActive')>
-            <a href="@yield('indexUrl')">
+            <a href="/admin/index">
               <i class="icon-dashboard"></i>
               <span class="menu-text"> 控制台 </span>
             </a>
           </li>
           <!-- 用户管理开始 -->
-          <li>
+          <li @yield( 'usersOpen')>
             <a href="" class="dropdown-toggle">
               <i class="icon-user"></i>
               <span class="menu-text"> 用户管理 </span>
@@ -438,49 +439,28 @@
         } catch (e) {}
         </script>
       </div>
-      @yield('content')
-      <div class="ace-settings-container" id="ace-settings-container">
-        <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
-          <i class="icon-cog bigger-150"></i>
+      <!-- 侧边条结束 -->
+      <!-- 内容页开始 -->
+      <div class="main-content">
+        <!-- 面包导航开始 -->
+        <div class="breadcrumbs" id="breadcrumbs">
+          <script type="text/javascript">
+          try {
+            ace.settings.check('breadcrumbs', 'fixed')
+          } catch (e) {}
+          </script>
+          <ul class="breadcrumb">
+            <li>
+              <i class="icon-home home-icon"></i>
+              <a href="/admin/index">主页</a>
+            </li>
+            @yield('parentPath') @yield('path')
+          </ul>
         </div>
-        <div class="ace-settings-box" id="ace-settings-box">
-          <div>
-            <div class="pull-left">
-              <select id="skin-colorpicker" class="hide">
-                <option data-skin="default" value="#438EB9">#438EB9</option>
-                <option data-skin="skin-1" value="#222A2D">#222A2D</option>
-                <option data-skin="skin-2" value="#C6487E">#C6487E</option>
-                <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
-              </select>
-            </div>
-            <span>&nbsp; 选择皮肤</span>
-          </div>
-          <div>
-            <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
-            <label class="lbl" for="ace-settings-navbar"> 固定导航条</label>
-          </div>
-          <div>
-            <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
-            <label class="lbl" for="ace-settings-sidebar"> 固定滑动条</label>
-          </div>
-          <div>
-            <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
-            <label class="lbl" for="ace-settings-breadcrumbs">固定面包屑</label>
-          </div>
-          <div>
-            <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
-            <label class="lbl" for="ace-settings-rtl">切换到左边</label>
-          </div>
-          <div>
-            <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
-            <label class="lbl" for="ace-settings-add-container">
-              切换窄屏
-              <b></b>
-            </label>
-          </div>
-        </div>
+        <!-- 面包导航结束 -->
+        @yield('content')
       </div>
-      <!-- /#ace-settings-container -->
+      <!-- 内容页结束 -->
     </div>
     <!-- /.main-container-inner -->
     <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
@@ -759,8 +739,6 @@
       if (this.checked) $(this).closest('li').addClass('selected');
       else $(this).closest('li').removeClass('selected');
     });
-
-
   })
   </script>
   <div style="display:none">
