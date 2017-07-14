@@ -1,15 +1,8 @@
-@extends('admin.parent') @section('usersOpen') class="open" @endsection @section('usersShow') style="display:block" @endsection @section('usersListActive') class="active" @endsection
-
-@section('parentPath')
-<li>
-  <a href="/admin/user">用户管理</a>
-</li>
+@extends('admin.parent') @section('usersOpen') class="open" @endsection @section('usersShow') style="display:block" @endsection @section('usersListActive') class="active" @endsection @section('parentPath')
+<li><a href="/admin/user">用户管理</a></li>
 @endsection @section('path')
 <li class="active">用户列表</li>
-@endsection @section('parentPathName') 用户管理 @endsection @section('pathName') 用户列表 @endsection
-
-
-@section('content')
+@endsection @section('content')
 <div class="page-content">
   <div class="page-header">
     <h1>

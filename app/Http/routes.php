@@ -14,13 +14,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 //后台
-Route::group(['prefix' => 'admin','middleware' => 'login'] , function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'login'], function () {
     //后台首页
     Route::get('/index', 'Admin\IndexController@index');
     /*******************后台分类路由******************************/
-	//用户管理
+    //用户管理
     Route::resource('/user', 'Admin\UserController');
     //用户退出
     Route::get('/quit', 'Admin\LoginController@quit');
@@ -34,7 +33,8 @@ Route::group(['prefix' => 'admin','middleware' => 'login'] , function () {
     /******************后台商品路由*******************************/
     //商品管理
     Route::resource('/goods', 'Admin\TypeController');
-
+    // 后台拍卖模块路由
+    Route::resource('/auction', 'Admin\AuctionController');
 });
 //后台登录
 Route::get('admin/login', 'Admin\LoginController@index');
