@@ -3,10 +3,10 @@
   <div class="page-content">
     <div class="page-header">
       <h1>
-                分类管理
+                商品管理
                 <small>
                     <i class="icon-double-angle-right"></i>
-                    修改分类
+                    修改商品
                 </small>
             </h1>
     </div>
@@ -23,13 +23,27 @@
     <div class="row">
       <div class="col-xs-12">
         <!-- PAGE CONTENT BEGINS -->
-        <form action="{{ url('admin/type').'/'.$type->id }}" method='post' class="form-horizontal" role="form">
+        <form action="{{ url('admin/goods').'/'.$goods->id }}" method='post' class="form-horizontal" role="form">
           {{ csrf_field() }} {{ method_field('PUT') }}
           <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 类别名 </label>
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 商品名 </label>
             <div class="col-sm-9">
-              <input type="text" name="tname" id="form-field-1" placeholder="name" class="col-xs-10 col-sm-5" />
+              <input type="text" name="title" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5" value='{{ $goods->title }}' />
             </div>
+          </div>
+          <div>
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 商品价格 </label>
+            <div class="col-sm-9">
+              <input type="text" name="price" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5" value='{{ $goods->price }}' />
+            </div>
+          </div>
+          <div style='margin-top: 50px'>
+            <span class="form-group">
+               <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 是否上架 </label>
+                   <input id="id-button-borders" checked="" value='0'type="checkbox" class="ace ace-switch ace-switch-5" class="col-xs-10 col-sm-5" name='status'/>
+                   <span class="lbl"></span>
+            </label>
+            </span>
           </div>
           <div class="space-4"></div>
           <div class="clearfix form-actions">

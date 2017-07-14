@@ -14,6 +14,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 //后台
 Route::group(['prefix' => 'admin'], function () {
     //后台首页
@@ -28,7 +29,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     /******************后台商品路由*******************************/
     //商品管理
-    Route::resource('/goods', 'Admin\TypeController');
+    Route::resource('/goods', 'Admin\GoodsController');
 
 });
 

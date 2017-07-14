@@ -3,10 +3,10 @@
   <div class="page-content">
     <div class="page-header">
       <h1>
-        商品分类管理
+        商品管理
         <small>
           <i class="icon-double-angle-right"></i>
-          分类列表
+          商品列表
         </small>
       </h1>
     </div>
@@ -20,10 +20,10 @@
     </div>
     @endif
     <div class="row">
-      <form action="/admin/type" method='get'>
+      <form action="/admin/goods" method='get'>
         <div class="col-xs-12 col-sm-4">
           <div class="input-group">
-            <input type="text" name="tname" class="form-control search-query" placeholder="分类名" /><span class="input-group-btn">
+            <input type="text" name="title" class="form-control search-query" placeholder="商品标题" /><span class="input-group-btn">
             <button type="submit" class="btn btn-purple btn-sm">
               <i class="icon-search icon-on-right bigger-110"></i>
               搜索
@@ -41,9 +41,13 @@
             <thead>
               <tr>
                 <th>ID</th>
+                <th>商品标题</th>
+                <th>商品描述</th>
+                <th>价格</th>
                 <th>类别名</th>
-                <th>路径</th>
-                <th>父ID</th>
+                <th>卖家姓名</th>
+                <th>添加时间</th>
+                <th>是否下架</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -51,12 +55,18 @@
               @foreach($list as $v)
               <tr>
                 <td>{{ $v->id }}</td>
+                <td>{{ $v->title }}</td>
+                <td>{{ $v->description }}</td>
+                <td>{{ $v->price }}</td>
                 <td>{{ $v->tname }}</td>
-                <td>{{ $v->path }}</td>
-                <td> {{ $v->pid}}</td>
+                <td>{{ $v->username }}</td>
+                <td>
+                  {{ $v->addtime }}
+                </td>
+                <td>{{ ($v->status==0)?'正常':'下架' }}</td>
                 <td>
                   <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-                    <a href='/admin/type/{{ $v->id }}/edit'>
+                    <a href='/admin/goods/{{ $v->id }}/edit'>
                       <button class="btn btn-xs btn-info">
                         <i class="icon-edit bigger-120"></i>
                       </button>
@@ -66,19 +76,14 @@
                         <i class="icon-trash bigger-120"></i>
                       </button>
                     </a>
-                    <a href='{{ url("admin/typeson")."/".$v->id }}'>
-                      <button class="btn btn-warning btn-xs">
-                        <i class="icon-edit bigger-120"></i>
-                      </button>
-                    </a>
                   </div>
                 </td>
               </tr>
               @endforeach
             </tbody>
           </table>
+          {!! $list->appends($where)->render() !!}
         </div>
-        {!! $list->appends($where)->render() !!}
       </div>
     </div>
   </div>
@@ -86,7 +91,7 @@
 <script>
 function doDel(id) {
   var form = document.myform;
-  var url = "{{ url('admin/type') }}"
+  var url = "{{ url('admin/goods') }}"
   form.action = url + '/' + id;
   form.submit();
 }
