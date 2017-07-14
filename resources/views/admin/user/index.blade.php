@@ -40,7 +40,12 @@
           <table id="sample-table-1" class="table table-striped table-bordered table-hover">
             <thead>
               <tr style="text-align:center;">
-                <th>ID</th>
+                <th class="center">
+                  <label>
+                    <input id='check' type="checkbox" class="ace" value='1' onclick="doSelect(this.value)" />
+                    <span class="lbl"></span>
+                  </label>
+                </th>
                 <th>用户名</th>
                 <th>身份</th>
                 <th>状态</th>
@@ -50,14 +55,17 @@
             <tbody>
               @foreach($list as $v)
               <tr>
-                <td>{{ $v->id }}</td>
+                <td class="center">
+                  <label>
+                    <input id='input' type="checkbox" value="{{ $v->id}}" class="ace" />
+                    <span class="lbl"></span>
+                  </label>
+                </td>
                 <td>{{ $v->username }}</td>
                 @if (($v->admin)== '0')
                 <td>普通用户</td>
                 @endif @if(($v->admin)== '1')
                 <td>普通管理员</td>
-                @endif @if(($v->admin)== '2')
-                <td>超级管理员</td>
                 @endif
                 <td>{{ ($v->login) == 1 ? '允许登录':'禁止登录' }}</td>
                 <td>
@@ -89,6 +97,25 @@ function doDel(id) {
   var form = document.myform;
   form.action = '/admin/user/' + id;
   form.submit();
+}
+
+function doSelect(id) {
+  var check = document.getElementById('check');
+  var list = document.getElementsByTagName('input');
+  // alert(list.length);
+  for (var i = 0; i < list.length; i++) {
+    if (id == 1) {
+      alert(list[i].value);
+      list[i].checked = true;
+    } else {
+      list[i].checked = false;
+    }
+  }
+  if (id == 1) {
+    check.value = 2;
+  } else {
+    check.value = 1;
+  }
 }
 </script>
 @endsection

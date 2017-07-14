@@ -27,7 +27,7 @@
         <a href="#" class="navbar-brand">
           <small>
               <i class="icon-leaf"></i>
-              ACE后台管理系统
+              fish后台管理系统
             </small>
         </a>
       </div>
@@ -202,7 +202,7 @@
               </li>
               <li>
                 <a href="inbox.html">
-                    查看所有消息
+                    查看所有消息  session('adminuser')->'photo;
                     <i class="icon-arrow-right"></i>
                   </a>
               </li>
@@ -210,10 +210,10 @@
           </li>
           <li class="light-blue">
             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-              <img class="nav-user-photo" src="{{ asset('admin/avatars/user.jpg') }}" alt="Jason's Photo" />
+              <img class="nav-user-photo" src="{{ asset('admin/images/upload') }}/{{ session('adminuser')->photo }}" alt="Jason's Photo" />
               <span class="user-info">
-                  <small>欢迎光临,</small>
-                  Jason
+                  <small>欢迎光临</small>
+                  {{ session('adminuser')->username }}
                 </span>
               <i class="icon-caret-down"></i>
             </a>
@@ -386,13 +386,13 @@
           <li>
             <a href="#" class="dropdown-toggle">
               <i class="icon-list"></i>
-              <span class="menu-text"> 消息管理 </span>
+              <span class="menu-text"> 留言管理 </span>
               <b class="arrow icon-angle-down"></b>
             </a>
             <ul class="submenu">
               <li>
-                <a href="/admin/user">
-                  <i class="icon-double-angle-right"></i> 消息列表
+                <a href="/admin/comment">
+                  <i class="icon-double-angle-right"></i> 留言列表
                 </a>
               </li>
             </ul>

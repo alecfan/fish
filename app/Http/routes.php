@@ -10,17 +10,15 @@
 | and give it the controller to call when that URI is requested.
 |
  */
-Route::get('/', function () {
-    return view('welcome');
-});
-
+//前台首页
+Route::get('/', 'Home\IndexController@index');
 
 //后台
-Route::group(['prefix' => 'admin','middleware' => 'login'] , function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'login'], function () {
     //后台首页
     Route::get('/index', 'Admin\IndexController@index');
     /*******************后台分类路由******************************/
-	//用户管理
+    //用户管理
     Route::resource('/user', 'Admin\UserController');
     //用户退出
     Route::get('/quit', 'Admin\LoginController@quit');
@@ -30,6 +28,8 @@ Route::group(['prefix' => 'admin','middleware' => 'login'] , function () {
     Route::get('/typeson/{id}', 'Admin\TypeController@createSon');
     //运行添加子分类
     Route::post('/typeson', 'Admin\TypeController@storeSon');
+    //留言管理
+    Route::resource('/comment', 'Admin\CommentController');
 
     /******************后台商品路由*******************************/
     //商品管理

@@ -27,7 +27,7 @@ class LoginController extends Controller
             return back()->with('msg', '登录失败：验证码错误');
         }
         $username = $request->input('username');
-        $ob = DB::table('users')->where('username', $username)->first();
+        $ob = DB::table('users')->where('username', $username)->whereIn('admin', [1, 2])->first();
         if ($ob) {
             if (md5($request->input('password')) == $ob->password) {
                 session()->put('adminuser', $ob);

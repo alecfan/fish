@@ -1,0 +1,125 @@
+
+   callback({
+   "itemNum":" 7",
+   "itemList":[
+       	{
+    		"itemId":"43928825876",
+			"userNick":"colvin1988",
+			"title":"billabong 卫衣 帽衫 男<font color=red>死飞</font>",
+			"picUrl":"../https@img.alicdn.com/bao/uploaded/i3/TB1RqXyHpXXXXXdXFXXyhu_9FXX_200x200.jpg",
+			"itemUrl":"item.htm@id=43928825876",
+			"orgPrice":"399",
+			"price":"168",
+			"isNew":"true",
+			"city":"",
+			"area":"沙市区",
+			"pubTime":"212天前",
+    		"viewCount":"0",
+			"commentCount":"0",
+			"favNum":"0",
+			"sellerTypes":"6"
+    	}
+    	,        	{
+    		"itemId":"542144294333",
+			"userNick":"云儿知道616787",
+			"title":"[转卖]探路者2016春夏新款男女<font color=red>户外</font>情侣弹力旅行长裤TAME81853",
+			"picUrl":"../https@img.alicdn.com/bao/uploaded/i1/TB1HEyfOpXXXXbYXVXXZtRd.pXX_200x200.jpg",
+			"itemUrl":"item.htm@id=542144294333",
+			"orgPrice":"109",
+			"price":"50",
+			"isNew":"false",
+			"city":"",
+			"area":"广陵区",
+			"pubTime":"224天前",
+    		"viewCount":"0",
+			"commentCount":"0",
+			"favNum":"0",
+			"sellerTypes":"14"
+    	}
+    	,        	{
+    		"itemId":"542407182068",
+			"userNick":"乖乖蓉儿8",
+			"title":"[转卖]新款迷彩工作服棉衣服男冬女外套劳保<font color=red>户外</font>棉衣男工人保暖",
+			"picUrl":"../https@img.alicdn.com/bao/uploaded/i4/TB1wA.QOpXXXXaBaXXXWWrZ.VXX_200x200.jpg",
+			"itemUrl":"item.htm@id=542407182068",
+			"orgPrice":"49",
+			"price":"29",
+			"isNew":"false",
+			"city":"",
+			"area":"莱山区",
+			"pubTime":"219天前",
+    		"viewCount":"0",
+			"commentCount":"1",
+			"favNum":"0",
+			"sellerTypes":"6"
+    	}
+    	,        	{
+    		"itemId":"542123470004",
+			"userNick":"axiongxin123",
+			"title":"【转卖】达斯登秋冬<font color=red>户外</font>新款冲锋裤男",
+			"picUrl":"../https@img.alicdn.com/bao/uploaded/i2/TB1qDl9OpXXXXX4aXXX3wp7FpXX_200x200.jpg",
+			"itemUrl":"item.htm@id=542123470004",
+			"orgPrice":"128",
+			"price":"100",
+			"isNew":"false",
+			"city":"",
+			"area":"黄岛区",
+			"pubTime":"224天前",
+    		"viewCount":"0",
+			"commentCount":"0",
+			"favNum":"0",
+			"sellerTypes":"6"
+    	}
+    	,        	{
+    		"itemId":"542168830077",
+			"userNick":"小山花0425",
+			"title":"JEEP吉普262<font color=red>山地车自行车</font>",
+			"picUrl":"../https@img.alicdn.com/bao/uploaded/i3/TB1RfUqOpXXXXaCXFXXr8ba7VXX_200x200.jpg",
+			"itemUrl":"item.htm@id=542168830077",
+			"orgPrice":"3000",
+			"price":"1080",
+			"isNew":"false",
+			"city":"",
+			"area":"海沧区",
+			"pubTime":"222天前",
+    		"viewCount":"0",
+			"commentCount":"3",
+			"favNum":"0",
+			"sellerTypes":"6"
+    	}
+    	,        	{
+    		"itemId":"542258830949",
+			"userNick":"a441309078",
+			"title":"[转卖]男士单肩斜挎包小胸包男韩版挎包<font color=red>户外</font>运动休闲<font color=red>骑行</font>背包胸",
+			"picUrl":"../https@img.alicdn.com/bao/uploaded/i4/TB1eNSDOpXXXXcdaXXXBCUY.XXX_200x200.jpg",
+			"itemUrl":"item.htm@id=542258830949",
+			"orgPrice":"328",
+			"price":"164",
+			"isNew":"false",
+			"city":"",
+			"area":"西工区",
+			"pubTime":"218天前",
+    		"viewCount":"0",
+			"commentCount":"0",
+			"favNum":"0",
+			"sellerTypes":"6"
+    	}
+    	,        	{
+    		"itemId":"542095881282",
+			"userNick":"赛亚兔",
+			"title":"outdoor research OR L码 冬季防风防水 <font color=red>户外</font>运动裤 <font color=red>滑雪</font>裤",
+			"picUrl":"../https@img.alicdn.com/bao/uploaded/i1/TB1D2B7OpXXXXcjapXXW6rx_VXX_200x200.jpg",
+			"itemUrl":"item.htm@id=542095881282",
+			"orgPrice":"1200",
+			"price":"700",
+			"isNew":"false",
+			"city":"",
+			"area":"天宁区",
+			"pubTime":"219天前",
+    		"viewCount":"0",
+			"commentCount":"0",
+			"favNum":"0",
+			"sellerTypes":"14"
+    	}
+    	        ]
+	})
