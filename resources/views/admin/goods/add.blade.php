@@ -3,10 +3,10 @@
   <div class="page-content">
     <div class="page-header">
       <h1>
-                分类管理
+                商品管理
                 <small>
                     <i class="icon-double-angle-right"></i>
-                    添加分类
+                    添加商品
                 </small>
             </h1>
     </div>
@@ -23,25 +23,38 @@
     <div class="row">
       <div class="col-xs-12">
         <!-- PAGE CONTENT BEGINS -->
-        <form action="{{ url('admin/type') }}" method='post' class="form-horizontal" role="form">
+        <form action="{{ url('admin/goods') }}" method='post' class="form-horizontal" role="form">
           {{ csrf_field() }}
           <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 类别名 </label>
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 商品标题 </label>
             <div class="col-sm-9">
-              <input type="text" name="tname" id="form-field-1" placeholder="name" class="col-xs-10 col-sm-5" />
+              <input type="text" name="title" id="form-field-1" placeholder="商品标题" class="col-xs-10 col-sm-5" />
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"></label>
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">商品价格</label>
             <div class="col-sm-9">
-              <input type="hidden" name="path" id="form-field-1" class="col-xs-10 col-sm-5" value='0' />
+              <input type="text" name="price" id="form-field-1" class="col-xs-10 col-sm-5" placeholder="商品价格" />
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> </label>
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">商品描述</label>
             <div class="col-sm-9">
-              <input type="hidden" name="pid" id="form-field-1" class="col-xs-10 col-sm-5" value='0' />
+              <input type="text" name="description" id="form-field-1" class="col-xs-10 col-sm-5" placeholder="商品描述" />
             </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">商品类别</label>
+            <select class="col-xs-10 col-sm-3" id="form-field-select-1" style='margin-left:12px' name='tid'>
+              <option value="1" selected>手机</option>
+              <option value="2">服装</option>
+              <option value="3">电脑</option>
+              <option value="4">运动户外</option>
+              <option value="5">美妆</option>
+            </select>
+          </div>
+          <div>
+            <input type="hidden" value='0' />
           </div>
           <div class="space-4"></div>
           <div class="clearfix form-actions">

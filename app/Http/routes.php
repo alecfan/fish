@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('/auction', 'Admin\AuctionController');
     // ajax
     Route::post('/ajax/del', 'Admin\AjaxController@doDel');
+
 });
 //后台登录
 Route::get('admin/login', 'Admin\LoginController@index');
