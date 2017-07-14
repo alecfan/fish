@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -14,7 +13,7 @@
 Route::get('/', 'Home\IndexController@index');
 
 //后台
-Route::group(['prefix' => 'admin', 'middleware' => 'login'], function () {
+Route::group(['prefix' => 'admin'], function () {
     //后台首页
     Route::get('/index', 'Admin\IndexController@index');
     /*******************后台分类路由******************************/
@@ -33,8 +32,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'login'], function () {
 
     /******************后台商品路由*******************************/
     //商品管理
-    Route::resource('/goods', 'Admin\TypeController');
-
+    Route::resource('/goods', 'Admin\GoodsController');
+    // 后台拍卖模块路由
+    Route::resource('/auction', 'Admin\AuctionController');
+    // ajax
+    Route::post('/ajax/del', 'Admin\AjaxController@doDel');
 });
 //后台登录
 Route::get('admin/login', 'Admin\LoginController@index');
