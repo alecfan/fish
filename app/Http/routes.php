@@ -13,11 +13,15 @@
 Route::get('/', 'Home\IndexController@index');
 
 //后台
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'login'], function () {
+    Route::get('/', function () {
+        return 111;
+    });
     //后台首页
     Route::get('/index', 'Admin\IndexController@index');
     /*******************后台分类路由******************************/
-    //用户管理
+    //用户模块
+    Route::post('/user/del', 'Admin\UserController@doDel');
     Route::resource('/user', 'Admin\UserController');
     //用户退出
     Route::get('/quit', 'Admin\LoginController@quit');
@@ -35,12 +39,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('/goods', 'Admin\GoodsController');
     // 后台拍卖模块路由
     Route::resource('/auction', 'Admin\AuctionController');
-    // ajax
-    Route::post('/ajax/del', 'Admin\AjaxController@doDel');
 
 });
-//后台登录
+//请求后台登录
 Route::get('admin/login', 'Admin\LoginController@index');
 Route::post('admin/login', 'Admin\LoginController@doLogin');
-//验证码
-Route::get('admin/code/{tmp}', 'Admin\LoginController@code');
+//请求验证码
+Route::get('admin/getvcode/{tmp}', 'Admin\LoginController@getVcode');
