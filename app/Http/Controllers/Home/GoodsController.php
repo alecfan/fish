@@ -1,30 +1,32 @@
 <?php
 namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
-class IndexController extends Controller
+class GoodsController extends Controller
 {
 
     /**
-     * 显示前台首页
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('home.index.index');
+        //
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 显示用户发布商品界面
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         //
+        return view('home.goods.add');
     }
 
     /**

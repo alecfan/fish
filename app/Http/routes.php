@@ -1,48 +1,71 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
+ * |--------------------------------------------------------------------------
+ * | Application Routes
+ * |--------------------------------------------------------------------------
+ * |
+ * | Here is where you can register all of the routes for an application.
+ * | It's a breeze. Simply tell Laravel the URIs it should respond to
+ * | and give it the controller to call when that URI is requested.
+ * |
  */
-//前台首页
+// 前台首页显示
 Route::get('/', 'Home\IndexController@index');
+// 前台登录显示
+Route::get('/login', 'Home\LoginController@showLogin');
+// 前台登录处理
+Route::post('/login', 'Home\LoginController@doLogin');
+// 前台用户注册显示
+Route::get('/register', 'Home\LoginController@showReg');
+// 前台用户注册处理
+Route::post('/register', 'Home\LoginController@doReg');
+// 前台用户个人中心首页显示
+Route::get('/person', 'Home\PersonController@showIndex');
+// 前台用户个人信息显示,修改
+Route::get('/person/info', 'Home\PersonController@editInfo');
+Route::post('/person/info', 'Home\PersonController@updateInfo');
+// 用户收货地址添加，显示，修改，删除
+Route::resource('/person/address', 'Home\AddressController');
+// 用户商品管理，添加，显示，删除，修改
+Route::resource('/person/goods', 'Home\GoodsController');
 
-//后台
-Route::group(['prefix' => 'admin', 'middleware' => 'login'], function () {
+// 后台
+Route::group([
+    'prefix' => 'admin',
+    'middleware' => 'login'
+], function () {
     Route::get('/', function () {
         return 111;
     });
-    //后台首页
+    // 后台首页
     Route::get('/index', 'Admin\IndexController@index');
-    /*******************后台分类路由******************************/
-    //用户模块
+    /**
+     * *****************后台分类路由*****************************
+     */
+    // 用户模块
     Route::post('/user/del', 'Admin\UserController@doDel');
     Route::resource('/user', 'Admin\UserController');
-    //用户退出
+    // 用户退出
     Route::get('/quit', 'Admin\LoginController@quit');
-    //分类管理
+    // 分类管理
     Route::resource('/type', 'Admin\TypeController');
-    //添加子分类
+    // 添加子分类
     Route::get('/typeson/{id}', 'Admin\TypeController@createSon');
-    //运行添加子分类
+    // 运行添加子分类
     Route::post('/typeson', 'Admin\TypeController@storeSon');
-    //留言管理
+    // 留言管理
     Route::resource('/comment', 'Admin\CommentController');
 
-    /******************后台商品路由*******************************/
-    //商品管理
+    /**
+     * ****************后台商品路由******************************
+     */
+    // 商品管理
     Route::resource('/goods', 'Admin\GoodsController');
     // 后台拍卖模块路由
     Route::resource('/auction', 'Admin\AuctionController');
-
 });
-//请求后台登录
+// 请求后台登录
 Route::get('admin/login', 'Admin\LoginController@index');
 Route::post('admin/login', 'Admin\LoginController@doLogin');
-//请求验证码
+// 请求验证码
 Route::get('admin/getvcode/{tmp}', 'Admin\LoginController@getVcode');

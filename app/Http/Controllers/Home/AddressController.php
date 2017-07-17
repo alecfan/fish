@@ -1,20 +1,22 @@
 <?php
 namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
-class IndexController extends Controller
+class AddressController extends Controller
 {
 
     /**
-     * 显示前台首页
+     * 显示用户收货地址
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('home.index.index');
+        //
+        return view('home.address.showAddress');
     }
 
     /**
