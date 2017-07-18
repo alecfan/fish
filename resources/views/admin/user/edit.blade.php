@@ -50,7 +50,6 @@
               <select name="admin" id="form-field-2" class="col-xs-10 col-sm-5">
                 <option value="0" @if(($list->admin) == '0') selected @endif >普通用户</option>
                 <option value="1" @if(($list->admin) == '1') selected @endif >普通管理员</option>
-                <option value="2" @if(($list->admin) == '2') selected @endif >超级管理员</option>
               </select>
             </div>
           </div>

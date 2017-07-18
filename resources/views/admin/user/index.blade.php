@@ -35,15 +35,23 @@
         </div>
       </div>
     </form>
+    <button onclick="doCatch()" type="submit" class="btn btn-purple btn-sm">
+      <i class="icon-search icon-on-right bigger-110"></i> 删除选中
+    </button>
     <div class="col-xs-12">
       <div class="table-responsive">
-        <form name='myform' action="" style='display:none' method='post'>
+        <form name='myform' action="" method='post'>
           {{ csrf_field() }} {{ method_field('DELETE') }}
         </form>
         <table id="sample-table-1" class="table table-striped table-bordered table-hover">
           <thead>
             <tr style="text-align:center;">
-              <th>ID</th>
+              <th class="center">
+                <label>
+                  <input type="checkbox" class="ace">
+                  <span class="lbl"></span>
+                </label>
+              </th>
               <th>用户名</th>
               <th>身份</th>
               <th>状态</th>
@@ -53,14 +61,17 @@
           <tbody>
             @foreach($list as $v)
             <tr>
-              <td>{{ $v->id }}</td>
+              <td class="center">
+                <label>
+                  <input id="{{ $v->id }}" name="check" type="checkbox" class="ace">
+                  <span class="lbl"></span>
+                </label>
+              </td>
               <td>{{ $v->username }}</td>
               @if (($v->admin)== '0')
               <td>普通用户</td>
               @endif @if(($v->admin)== '1')
               <td>普通管理员</td>
-              @endif @if(($v->admin)== '2')
-              <td>超级管理员</td>
               @endif
               <td>{{ ($v->login) == 1 ? '允许登录':'禁止登录' }}</td>
               <td>
@@ -86,6 +97,10 @@
     </div>
   </div>
 </div>
+@endsection @section('basejs')
+<script src="{{ asset('admin/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('admin/js/jquery.dataTables.bootstrap.js') }}"></script>
+@endsection @section('inlinejs')
 <script>
 function doDel(id) {
   if (confirm('确定删除？')) {
@@ -94,5 +109,46 @@ function doDel(id) {
     form.submit();
   }
 }
+
+$('table th input:checkbox').on('click', function() {
+  var that = this;
+  $(this).closest('table').find('tr > td:first-child input:checkbox')
+    .each(function() {
+      this.checked = that.checked;
+      $(this).closest('tr').toggleClass('selected');
+    });
+});
+
+var arr = [];
+var sun = $("input[name='check']");
+
+function doCatch() {
+  for (var i = 0; i < sun.length; i++) {
+    if (sun[i].checked) {
+      arr[arr.length] = sun[i].id;
+    }
+  }
+  var id = arr.join("-");
+  var url = "{{ url('admin/ajax/del') }}";
+  $.ajax({
+    id: 'id',
+    url: url,
+    type: 'post',
+    dataType: 'json',
+    data: {
+      id: id,
+      '_token': "{{ csrf_token() }}"
+    },
+    success: function(data) {
+      alert('删除成功');
+      window.location.reload()
+    },
+    error: function() {
+      alert('ajax请求失败');
+    }
+  });
+}
+
+$
 </script>
 @endsection

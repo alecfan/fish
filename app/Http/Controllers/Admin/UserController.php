@@ -15,7 +15,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $where = [];
-        $ob = DB::table('users');
+        //获取普通用户和普通管理员
+        $ob = DB::table('users')->whereIn('admin', [0, 1]);
         if ($request->has('username')) {
             $username = $request->input('username');
             $where['username'] = $username;

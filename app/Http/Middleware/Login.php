@@ -15,7 +15,9 @@ class Login
      */
     public function handle($request, Closure $next)
     {
-        if (session()->has('adminuser')) {
+        // 判断用户是否登录
+        // dd($request);
+        if ($request->session()->has('adminuser')) {
             return $next($request);
         } else {
             return redirect('admin/login');
