@@ -11,15 +11,19 @@ use session;
 class LoginController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 后台登录页面
+     * @return [type] [description]
      */
     public function index()
     {
         return view('admin.login.index');
     }
 
+    /**
+     * 后台登录操作
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function doLogin(Request $request)
     {
         $mycode = session('mycode');
@@ -40,6 +44,10 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * 后台验证码
+     * @return [type] [description]
+     */
     public function code()
     {
         $code = new Vcode();
@@ -48,6 +56,10 @@ class LoginController extends Controller
         return response($code->doImg())->header('Content-type', 'image/jpeg');
     }
 
+    /**
+     * 后台用户退出操作
+     * @return [type] [description]
+     */
     public function quit()
     {
         session()->forget('adminuser');

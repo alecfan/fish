@@ -207,7 +207,7 @@
               </li>
               <li>
                 <a href="inbox.html">
-                    查看所有消息  session('adminuser')->'photo;
+                    查看所有消息
                     <i class="icon-arrow-right"></i>
                   </a>
               </li>
@@ -229,7 +229,7 @@
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="{{ url('admin/info') }}">
                   <i class="icon-user"></i> 个人资料
                 </a>
               </li>

@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Http\Request;
 
-class AjaxController extends Controller
+class InfoController extends Controller
 {
 
     /**
@@ -13,10 +13,13 @@ class AjaxController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function doDel(Request $request)
+    public function index()
     {
-        $arr = explode("-", $request->input('id'));
-        $list = DB::table('users')->whereIn('id', $arr)->delete();
+        $username = session('adminuser')->username;
+        $list = DB::table('users')->where('username', $username)->first();
+        return view('admin.info.index', [
+            'list' => $list
+        ]);
     }
 
     /**
@@ -24,31 +27,14 @@ class AjaxController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $id = $request->input('id');
+        $name = $request->input('name');
+        $value = $request->input('value');
+        $arr[$name] = $value;
+        $list = DB::table('users')->where('id', $id)->update($arr);
+        echo json_encode($list);
     }
 
     /**
@@ -59,7 +45,11 @@ class AjaxController extends Controller
      */
     public function edit($id)
     {
-        //
+        $list = DB::table('users')->where('id', $id)->first();
+        return view('admin.info.edit', [
+            'list' => $list
+        ]);
+        // return view('admin.info.edit');
     }
 
     /**
