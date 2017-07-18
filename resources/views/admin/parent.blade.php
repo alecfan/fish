@@ -229,7 +229,7 @@
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="{{ url('admin/self') }}">
                   <i class="icon-user"></i> 个人资料
                 </a>
               </li>
@@ -366,15 +366,15 @@
           </li>
           <!-- 拍卖管理结束 -->
           <!-- 商品评论开始 -->
-          <li>
-            <a href="#" class="dropdown-toggle">
+          <li @yield( 'commentActive')>
+            <a href="/admin/comment" class="dropdown-toggle">
               <i class="icon-comment"></i>
               <span class="menu-text"> 商品评论 </span>
               <b class="arrow icon-angle-down"></b>
             </a>
             <ul class="submenu">
               <li>
-                <a href="/admin/user">
+                <a href="/admin/comment">
                   <i class="icon-double-angle-right"></i> 消息列表
                 </a>
               </li>
