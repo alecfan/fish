@@ -112,7 +112,6 @@ $('table th input:checkbox').on('click', function() {
 
 var arr = [];
 var sun = $("input[name='check']");
-
 function doCatch() {
   for (var i = 0; i < sun.length; i++) {
     if (sun[i].checked) {

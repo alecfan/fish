@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -10,9 +9,12 @@ use session;
 
 class LoginController extends Controller
 {
+
     /**
-     * 后台登录页面
-     * @return [type] [description]
+     * Display a listing of the resource.
+     * 显示后台登录界面
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -21,19 +23,28 @@ class LoginController extends Controller
 
     /**
      * 后台登录操作
-     * @param  Request $request [description]
-     * @return [type]           [description]
+     *
+     * @param Request $request
+     *            [description]
+     * @return [type] [description]
      */
     public function doLogin(Request $request)
     {
-        $mycode = session('mycode');
-        if ($mycode != $request->input('code')) {
+        $vCode = session('vCode');
+        if ($vCode != $request->input('code')) {
             return back()->with('msg', '登录失败：验证码错误');
         }
         $username = $request->input('username');
-        $ob = DB::table('users')->where('username', $username)->whereIn('admin', [1, 2])->first();
+        $ob = DB::table('users')->select('username', 'password', 'photo')
+            ->where('username', $username)
+            ->whereIn('admin', [
+            1,
+            2
+        ])
+            ->first();
         if ($ob) {
             if (md5($request->input('password')) == $ob->password) {
+                unset($ob->password);
                 session()->put('adminuser', $ob);
                 return redirect('admin/index');
             } else {
@@ -45,20 +56,22 @@ class LoginController extends Controller
     }
 
     /**
-     * 后台验证码
-     * @return [type] [description]
+     * 获取验证码图片
+     *
+     * @return \Illuminate\Http\Response 验证码图片
      */
-    public function code()
+    public function getVcode()
     {
         $code = new Vcode();
         $getCode = $code->getCode();
-        session()->flash('mycode', $getCode);
+        session()->flash('vCode', $getCode);
         return response($code->doImg())->header('Content-type', 'image/jpeg');
     }
 
     /**
-     * 后台用户退出操作
-     * @return [type] [description]
+     * 登录退出
+     *
+     * @return \Illuminate\Http\Response 页面跳转
      */
     public function quit()
     {

@@ -24,11 +24,11 @@
           <div class="login-container">
             <div class="center">
               <h1>
-                <i class="icon-leaf green"></i>
-                <span class="red">Fish</span>
-                <span class="white">Application</span>
+                <i class="icon-fire red"></i>
+                <span class="green">Fish</span>
+                <span class="white">后台管理应用</span>
               </h1>
-              <h4 class="blue">&copy; brother</h4>
+              <h4 class="blue">&copy; lamp184无名团队</h4>
             </div>
             <div class="space-6"></div>
             <div class="position-relative">
@@ -41,7 +41,7 @@
                     </h4> @else
                     <h4 class="header blue lighter bigger">
                         <i class="icon-coffee green"></i>
-                        请输入您的用户信息
+                        管理员登录
                     </h4> @endif
                     <div class="space-6"></div>
                     <form action='{{ url("admin/login") }}' method='post'>
@@ -49,7 +49,7 @@
                       <fieldset>
                         <label class="block clearfix">
                           <span class="block input-icon input-icon-right">
-                              <input type="text" name="username" class="form-control" placeholder="请输入用户名" />
+                              <input type="text" name="username" class="form-control" placeholder="请输入用户名" autocomplete="off" />
                               <i class="icon-user"></i>
                           </span>
                         </label>
@@ -61,21 +61,17 @@
                         </label>
                         <label class="block clearfix">
                           <span class="block input-icon input-icon-right">
-                              <input type="text" name="code" class="form-control" placeholder="请输入验证码" />
+                              <input type="text" name="code" class="form-control" placeholder="请输入验证码" autocomplete="off" />
                               <i class="icon-book"></i>
                           </span>
                         </label>
                         <label class="block clearfix">
                           <span class="block input-icon input-icon-right">
-                            <img src="{{ url('admin/code/'.time() ) }}" onclick="this.src='{{ url('admin/code') }}/'+Math.random()">
+                            <img src="{{ url('admin/getvcode/'.time() ) }}" onclick="this.src='{{ url('admin/getvcode') }}/'+Math.random()">
                           </span>
                         </label>
                         <div class="space"></div>
                         <div class="clearfix">
-                          <label class="inline">
-                            <input type="checkbox" class="ace" />
-                            <span class="lbl"> 记住密码</span>
-                          </label>
                           <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
                             <i class="icon-key"></i> 登录
                           </button>
