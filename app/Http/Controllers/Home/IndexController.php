@@ -3,18 +3,30 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
 
     /**
      * 显示前台首页
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('home.index.index');
+        // 查询分类
+        $data = [];
+        $tmp1 = DB::table('type')->where('pid', '0')->get();
+        foreach ($tmp1 as $one) {
+            $tmp2 = DB::table('type')->where('pid', $one->id)->get();
+            foreach ($tmp2 as $two) {
+                $data[$one->tname][$two->tname] = DB::table('type')->where('pid', $two->id)->get();
+            }
+        }
+
+        // dd($data);
+        return view('home.index.index', [
+            'data' => $data
+        ]);
     }
 
     /**
