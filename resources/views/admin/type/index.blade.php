@@ -41,18 +41,34 @@
             <tr>
               <th>ID</th>
               <th>类别名</th>
-              <th>路径</th>
-              <th>父ID</th>
               <th>操作</th>
             </tr>
           </thead>
           <tbody>
+          <?php
+        $i = ($now - 1) * 8 + 1;
+        ?>
             @foreach($list as $v)
             <tr>
-              <td>{{ $v->id }}</td>
-              <td>{{ $v->tname }}</td>
-              <td>{{ $v->path }}</td>
-              <td> {{ $v->pid}}</td>
+              <td>{{ $i }}</td>
+              <td>
+                <?php
+                if (substr_count($v->path, ',') == 0) {
+                    ?>
+                  <i class="icon-folder-open"></i>
+                  <?php
+                } elseif (substr_count($v->path, ',') == 1) {
+                    ?> &nbsp;&nbsp;&nbsp;&nbsp;|-
+                  <i class=" icon-folder-close"></i>
+                  <?php
+                } elseif (substr_count($v->path, ',') == 2) {
+                    ?>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-
+                  <i class="icon-folder-close-alt"></i>
+                  <?php
+                }
+                ?>
+                   {{ $v->tname }}</td>
               <td>
                 <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
                   <a href='/admin/type/{{ $v->id }}/edit'>
@@ -66,13 +82,17 @@
                     </button>
                   </a>
                   <a href='{{ url("admin/typeson")."/".$v->id }}'>
-                    <button class="btn btn-warning btn-xs">
-                      <i class="icon-edit bigger-120"></i>
-                    </button>
+                    <button class="btn btn-xs btn-warning">
+                      <i class="icon-cog bigger-120"></i>
+                       </button>
                   </a>
                 </div>
               </td>
             </tr>
+            <?php
+
+            $i ++;
+            ?>
             @endforeach
           </tbody>
         </table>
