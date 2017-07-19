@@ -41,9 +41,24 @@
           </div>
 
           <div class="am-form-group">
+            <label for="user-intro" class="am-form-label">商品价格</label>
+            <div class="am-form-content">
+            <input name="price" type="text" id="user-name" placeholder="商品的价格">
+            </div>
+          </div>
+
+          <div class="am-form-group">
             <label for="user-intro" class="am-form-label">添加主图</label>
             <div class="am-form-content">
-              <input type="file" name="file" id="file" multiple="multiple" />
+              <input type="file" name="main" id="main" />
+              <br>
+            </div>
+          </div>
+
+          <div class="am-form-group">
+            <label for="user-intro" class="am-form-label">添加图片</label>
+            <div class="am-form-content">
+              <input type="file" name="minor[]" id="minor" multiple="multiple" />
               <br>
             </div>
           </div>
@@ -87,7 +102,6 @@ $.ajax({
 $("body").on('change','select',function(){
     $(this).nextAll('select').remove();
     var name = $(this).attr('name');
-    alert(name);
     var v = $(this).val();
     if(v != '---请选择---'){
       var ob = $(this);
@@ -101,7 +115,7 @@ $("body").on('change','select',function(){
             if(name == 'first'){
               var select = $("<select name='second'><option>---请选择---</option></select>");
             }else{
-              var select = $("<select name='thirdly'><option>---请选择---</option></select>");
+              var select = $("<select name='tid'><option>---请选择---</option></select>");
             }
             for (var i = 0; i < data.length; i++) {
               $(select).append("<option value="+data[i].id+">"+data[i].tname+'</option>');
@@ -124,10 +138,28 @@ function doAdd()
       alert('描述不能为空!');
     return false;
   }
-//   if (add.province.value == ''||add.province.value == '---请选择---'){
-//       alert('请选择所在地');
-//     return false;
-//   }
+
+  if (add.price.value.match(/^[1-9]\d*$/) == null){
+    alert('输入价格不合法!');
+    return false;
+  }
+
+  if (add.main.value == ''){
+	    alert('请上传主图！');
+	    return false;
+  }
+  if (add.first.value == ''||add.first.value == '---请选择---'){
+      alert('请选择分类');
+    return false;
+  }
+  if (add.second.value == ''||add.second.value == '---请选择---'){
+      alert('请选择分类');
+    return false;
+  }
+  if (add.tid.value == ''||add.tid.value == '---请选择---'){
+      alert('请选择分类');
+    return false;
+  }
   return true;
 }
 </script>
