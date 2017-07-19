@@ -1,5 +1,6 @@
 <?php
 use App\Org\REST;
+use Illuminate\Support\Facades\DB;
 
 /**
  * 发送模板短信
@@ -59,4 +60,37 @@ function sendTemplateSMS($to, $datas, $tempId)
     // echo "smsMessageSid:" . $smsmessage->smsMessageSid . "<br/>";
     // // TODO 添加成功处理逻辑
     // }
+}
+
+/**
+ * 查询指定一级分类下的最新的N个商品
+ *
+ * @param int $tid
+ *            一级分类id
+ * @param int $num
+ *            要查的商品数目
+ * @return array 查出的商品
+ */
+function getGoods($tid, $num)
+{
+    $ids = [];
+    $type2ids = DB::table('type')->select('id')
+        ->where('pid', $tid)
+        ->get();
+
+    foreach ($type2ids as $type2id) {
+        $type3ids = DB::table('type')->where('pid', $type2id->id)->get();
+        foreach ($type3ids as $type3id) {
+            $ids[] = $type3id->id; // 一级分类下所有三级分类的id
+        }
+    }
+
+    $goods = DB::table('goods')->join('goodspics', 'goodspics.gid', '=', 'goods.id')
+        ->select('goods.id', 'goods.title', 'goods.price', 'goodspics.picname')
+        ->whereIn('goods.tid', $ids)
+        ->where('goodspics.mpic', 1)
+        ->orderBy('goods.addtime', 'desc')
+        ->limit($num)
+        ->get();
+    return $goods;
 }

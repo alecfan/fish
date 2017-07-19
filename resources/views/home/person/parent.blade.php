@@ -72,12 +72,12 @@
     <aside class="menu">
       <ul>
         <li class="person @yield('indexActive')"><a href="{{ url('person') }}">个人中心</a></li>
-        <li class="person"><a href="#">个人资料</a>
+        <li class="person">个人资料
           <ul>
             <li class="@yield('infoActive')"><a href="{{ url('person/info') }}">我的资料</a></li>
             <li class="@yield('addActive')"><a href="{{ url('person/address') }}">收货地址</a></li>
           </ul></li>
-        <li class="person"><a href="#">我的交易</a>
+        <li class="person">我的交易
           <ul>
             <li><a href="order.html">我发布的</a></li>
             <li><a href="order.html">我卖出的</a></li>
@@ -85,7 +85,7 @@
             <li><a href="order.html">我收藏的</a></li>
             <li><a href="order.html">我的拍卖</a></li>
           </ul></li>
-        <li class="person"><a href="#">我的小窝</a>
+        <li class="person">我的小窝
           <ul>
             <li><a href="collection.html">收藏</a></li>
             <li><a href="foot.html">足迹</a></li>

@@ -14,18 +14,28 @@ class IndexController extends Controller
     public function index()
     {
         // 查询分类
-        $data = [];
+        $type = [];
         $tmp1 = DB::table('type')->where('pid', '0')->get();
         foreach ($tmp1 as $one) {
             $tmp2 = DB::table('type')->where('pid', $one->id)->get();
             foreach ($tmp2 as $two) {
-                $data[$one->tname][$two->tname] = DB::table('type')->where('pid', $two->id)->get();
+                $type[$one->tname][$two->tname] = DB::table('type')->where('pid', $two->id)->get();
             }
         }
 
-        // dd($data);
+        // 查询母婴类别商品
+        $muyinGoods = getGoods(14, 4);
+
+        // 查询数码类型商品
+        $shumaGoods = getGoods(1, 4);
+
+        // 查询
+
+        // 分配所有变量到主页
         return view('home.index.index', [
-            'data' => $data
+            'data' => $type,
+            'muyinGoods' => $muyinGoods,
+            'shumaGoods' => $shumaGoods
         ]);
     }
 
