@@ -9,6 +9,7 @@
  * | and give it the controller to call when that URI is requested.
  * |
  */
+
 // 前台首页显示
 Route::get('/', 'Home\IndexController@index');
 // ===============前台=======用户登录注册开始==========================
@@ -48,7 +49,11 @@ Route::group([
     /**
      * *****************后台分类路由*****************************
      */
-
+    // 个人资料
+    Route::resource('/info', 'Admin\InfoController');
+    Route::post('/info/create', 'Admin\InfoController@create');
+    // 用户模块
+    Route::post('/user/del', 'Admin\UserController@doDel');
     Route::resource('/user', 'Admin\UserController');
     // 用户退出
     Route::get('/quit', 'Admin\LoginController@quit');
@@ -60,10 +65,6 @@ Route::group([
     Route::post('/typeson', 'Admin\TypeController@storeSon');
     // 留言管理
     Route::resource('/comment', 'Admin\CommentController');
-
-    /**
-     * ****************后台商品路由******************************
-     */
     // 商品管理
 
     Route::resource('/goods', 'Admin\GoodsController');
@@ -88,3 +89,4 @@ Route::get('admin/login', 'Admin\LoginController@index');
 Route::post('admin/login', 'Admin\LoginController@doLogin');
 // 请求验证码
 Route::get('admin/getvcode/{tmp}', 'Admin\LoginController@getVcode');
+

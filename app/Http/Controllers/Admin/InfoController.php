@@ -1,12 +1,11 @@
 <?php
-namespace App\Http\Controllers\Home;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
+use Illuminate\Http\Request;
 
-class GoodsController extends Controller
+class InfoController extends Controller
 {
 
     /**
@@ -16,40 +15,25 @@ class GoodsController extends Controller
      */
     public function index()
     {
-        //
+        $username = session('adminuser')->username;
+        $list = DB::table('users')->where('username', $username)->first();
+        return view('admin.info.index', [
+            'list' => $list
+        ]);
     }
 
     /**
-     * 显示用户发布商品界面
+     * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('home.goods.add');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        dd($request);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
-    {
-        $pid = $request->input('pid');
-        $list = DB::table('type')->where('pid', $pid)->get();
+        $id = $request->input('id');
+        $name = $request->input('name');
+        $value = $request->input('value');
+        $arr[$name] = $value;
+        $list = DB::table('users')->where('id', $id)->update($arr);
         echo json_encode($list);
     }
 
@@ -61,7 +45,11 @@ class GoodsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $list = DB::table('users')->where('id', $id)->first();
+        return view('admin.info.edit', [
+            'list' => $list
+        ]);
+        // return view('admin.info.edit');
     }
 
     /**
