@@ -11,14 +11,22 @@
  */
 // 前台首页显示
 Route::get('/', 'Home\IndexController@index');
-// 前台登录显示
+// ===============前台=======用户登录注册开始==========================
+// 登录显示
 Route::get('/login', 'Home\LoginController@showLogin');
-// 前台登录处理
+// 登录处理
 Route::post('/login', 'Home\LoginController@doLogin');
-// 前台用户注册显示
+// 注册显示
 Route::get('/register', 'Home\LoginController@showReg');
-// 前台用户注册处理
+// 注册发送短信
+Route::post('/register/sendsms', 'Home\LoginController@sendSMS');
+// 验证手机验证码
+Route::post('/register/checksms', 'Home\LoginController@checkSMS');
+// 注册处理
 Route::post('/register', 'Home\LoginController@doReg');
+// 注销
+Route::get('/logout', 'Home\LoginController@logout');
+// ===============前台=======用户登录注册结束==========================
 // 前台用户个人中心首页显示
 Route::get('/person', 'Home\PersonController@showIndex');
 // 前台用户个人信息显示,修改

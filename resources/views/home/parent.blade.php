@@ -32,7 +32,13 @@
         <ul>
           <li class="index"><a href="#">首页</a></li>
           <li class="qc"><a href="{{ url('person/goods/create') }}">发布闲置</a></li>
-          <li class="qc last"><a href="{{ url('person') }}">我的闲置</a></li>
+          <li class="qc last">
+          @if(session('username'))
+            <a href="{{ url('person') }}">我的闲置</a>
+          @else
+            <a href="{{ url('/login') }}">我的闲置</a>
+          @endif
+          </li>
         </ul>
       </div>
 
@@ -1256,26 +1262,26 @@
             </a></li>
 
             <div class="mod-vip">
+              @if(!session('username'))
               <div class="m-baseinfo">
-                <a href="person/index.html"> <img src="{{ asset('home/images/getAvatar.do.jpg') }}"></a> <em> Hi,<span
-                  class="s-name">小叮当</span> <a href="#"><p>点击更多优惠活动</p></a>
-                </em>
+                <a href="person/index.html"> <img src="{{ asset('home/images/getAvatar.do.jpg') }}"></a>
+                <em> Hi,<span class="s-name">小叮当</span></em>
+                <div class="member-logout">
+                  <a class="am-btn-warning btn" href="{{ url('/login') }}">登录</a>
+                  <a class="am-btn-warning btn" href="{{ url('/register') }}">注册</a>
+                </div>
               </div>
-              <div class="member-logout">
-                <a class="am-btn-warning btn" href="login.html">登录</a> <a class="am-btn-warning btn"
-                  href="register.html">注册</a>
+              @else
+              <div class="m-baseinfo">
+                <a href=""><img src="{{ asset('home/images/getAvatar.do.jpg') }}"></a>
+                <em> Hi,<span class="s-name">{{ session('username') }}</span></em>
+                <div class="member-logout">
+                  <a class="am-btn-warning btn" href="{{ url('/logout') }}">注销</a>
+                </div>
               </div>
-              <div class="member-login">
-                <a href="#"><strong>0</strong>待收货</a> <a href="#"><strong>0</strong>待发货</a> <a href="#"><strong>0</strong>待付款</a>
-                <a href="#"><strong>0</strong>待评价</a>
-              </div>
+              @endif
               <div class="clear"></div>
             </div>
-
-            <li><a target="_blank" href="#"><span>[特惠]</span>洋河年末大促，低至两件五折</a></li>
-            <li><a target="_blank" href="#"><span>[公告]</span>华北、华中部分地区配送延迟</a></li>
-            <li><a target="_blank" href="#"><span>[特惠]</span>家电狂欢千亿礼券 买1送1！</a></li>
-
           </ul>
           <div class="advTip">
             <img src="{{ asset('home/images/advTip.jpg') }}" />
