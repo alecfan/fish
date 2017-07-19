@@ -35,6 +35,7 @@ Route::group([
     'prefix' => 'admin',
     'middleware' => 'login'
 ], function () {
+
     // 后台首页
     Route::get('/index', 'Admin\IndexController@index');
     /**
@@ -57,10 +58,24 @@ Route::group([
     // 留言管理
     Route::resource('/comment', 'Admin\CommentController');
     // 商品管理
+
     Route::resource('/goods', 'Admin\GoodsController');
     // 后台拍卖模块路由
     Route::resource('/auction', 'Admin\AuctionController');
+
+    // 评论管理
+    Route::resource('/comment', 'Admin\CommentController');
+
+    /**
+     * ***************后台个人资料路由***************************
+     */
+    Route::get('/self', 'Admin\SelfController@index');
 });
+/**
+ * ********************后台登录路由********************************
+ */
+Route::get('admin/login', 'Admin\LoginController@index');
+Route::post('admin/login', 'Admin\LoginController@doLogin');
 // 请求后台登录
 Route::get('admin/login', 'Admin\LoginController@index');
 Route::post('admin/login', 'Admin\LoginController@doLogin');

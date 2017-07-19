@@ -19,7 +19,7 @@ class TypeController extends Controller
     {
         $where = [];
         // 实例化需要的表
-        $ob = DB::table('type');
+        $ob = DB::table('type')->select(DB::raw('concat(path,",",id) as newpath, id, tname,pid,path'))->orderBy('newpath');
         // dd($ob);
         // dd($request);
         // 判断请求中是否含有name字段
@@ -31,12 +31,15 @@ class TypeController extends Controller
             // 给查询语句添加where条件
             $ob->where('tname', 'like', '%' . $tname . '%');
         }
+
         // 执行分页查询
         $list = $ob->paginate(8);
+        $now = $list->currentPage();
         // 加载模板的同时，把查询的数据，以及分页时需要携带的参数传到模板上
         return view('admin.type.index', [
             'list' => $list,
-            'where' => $where
+            'where' => $where,
+            'now' => $now
         ]);
     }
 

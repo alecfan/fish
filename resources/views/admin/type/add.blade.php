@@ -30,12 +30,7 @@
             <input type="text" name="tname" id="form-field-1" placeholder="name" class="col-xs-10 col-sm-5" />
           </div>
         </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label no-padding-right" for="form-field-1"></label>
-          <div class="col-sm-9">
-            <input type="hidden" name="path" id="form-field-1" class="col-xs-10 col-sm-5" value='0' />
-          </div>
-        </div>
+        <input type="hidden" name="path" id="form-field-1" class="col-xs-10 col-sm-5" value='0' />
         <div class="form-group">
           <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> </label>
           <div class="col-sm-9">
