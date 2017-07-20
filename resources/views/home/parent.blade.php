@@ -59,11 +59,11 @@
                             @foreach($value1 as $key2=>$value2)
                             <dl class="dl-sort">
                               <dt>
-                                <span title="蛋糕">{{ $key2 }}</span>
+                                <span>{{ $key2 }}</span>
                               </dt>
                               @foreach($value2 as $key3=>$value3)
                               <dd>
-                                <a title="蒸蛋糕" href="#"><span>{{ $value3->tname }}</span></a>
+                                <a href="{{ url('/list/' . $value3->id) }}"><span>{{ $value3->tname }}</span></a>
                               </dd>
                               @endforeach
                             </dl>
@@ -248,7 +248,7 @@
               <div class="sub-title ">¥{{ $muyinGood->price }}</div>
               <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
             </div>
-            <a href="# "><img src="{{ asset('home/images/' . $muyinGood->picname) }}"></a>
+            <a href="{{ url('/goods/' . $muyinGood->id) }}"><img src="{{ asset('home/images/' . $muyinGood->picname) }}"></a>
           </div>
           @endforeach
             <!-- 遍历商品结束 -->

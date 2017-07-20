@@ -24,10 +24,10 @@ class IndexController extends Controller
         }
 
         // 查询母婴类别商品
-        $muyinGoods = getGoods(14, 4);
+        $muyinGoods = getGoods(14, 5);
 
         // 查询数码类型商品
-        $shumaGoods = getGoods(1, 4);
+        $shumaGoods = getGoods(1, 5);
 
         // 查询
 
@@ -40,68 +40,16 @@ class IndexController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 分类列表显示页
      *
-     * @return \Illuminate\Http\Response
+     * @param int $tid
+     *            分类id
      */
-    public function create()
+    public function showList(int $tid)
     {
         //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('home.index.list', [
+            'tid' => $tid
+        ]);
     }
 }
