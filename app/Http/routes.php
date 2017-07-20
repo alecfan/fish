@@ -22,6 +22,7 @@ Route::post('/register', 'Home\LoginController@doReg');
 // 前台用户个人中心首页显示
 Route::get('/person', 'Home\PersonController@showIndex');
 // 前台用户个人信息显示,修改
+
 Route::get('/person/info', 'Home\PersonController@editInfo');
 Route::post('/person/info', 'Home\PersonController@updateInfo');
 // 用户收货地址添加，显示，修改，删除
