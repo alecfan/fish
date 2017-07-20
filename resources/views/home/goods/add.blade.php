@@ -20,77 +20,147 @@
 
     <div class="add-dress">
       <div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;">
-        <form class="am-form am-form-horizontal">
+        <form action="{{ url('person/goods') }}" id="add" method='post' onSubmit="return doAdd()" enctype="multipart/form-data" class="am-form am-form-horizontal">
+            {{ csrf_field() }}
+<!--           <div class="am-form-group"> -->
+<!--             <label for="user-name" class="am-form-label">发布标题</label> -->
+<!--           </div> -->
 
           <div class="am-form-group">
             <label for="user-name" class="am-form-label">发布标题</label>
             <div class="am-form-content">
-              <input type="text" id="user-name" placeholder="标题 品类品牌型号">
+              <input name="title" type="text" id="user-name" placeholder="标题 品类品牌型号">
             </div>
           </div>
 
           <div class="am-form-group">
             <label for="user-intro" class="am-form-label">宝贝描述</label>
             <div class="am-form-content">
-              <textarea class="" rows="3" id="user-intro" placeholder="描述一下你的闲置"></textarea>
+              <textarea name="description" class="" rows="3" id="user-intro" placeholder="描述一下你的闲置"></textarea>
+            </div>
+          </div>
+
+          <div class="am-form-group">
+            <label for="user-intro" class="am-form-label">商品价格</label>
+            <div class="am-form-content">
+            <input name="price" type="text" id="user-name" placeholder="商品的价格">
+            </div>
+          </div>
+
+          <div class="am-form-group">
+            <label for="user-intro" class="am-form-label">添加主图</label>
+            <div class="am-form-content">
+              <input type="file" name="main" id="main" />
+              <br>
             </div>
           </div>
 
           <div class="am-form-group">
             <label for="user-intro" class="am-form-label">添加图片</label>
             <div class="am-form-content">
-              <input type="file" name="" id="" multiple="multiple" />
+              <input type="file" name="minor[]" id="minor" multiple="multiple" />
+              <br>
             </div>
           </div>
 
           <div class="am-form-group">
             <label for="user-address" class="am-form-label">分类</label>
             <div class="am-form-content address">
-              <select data-am-selected="" style="display: none;">
-                <option value="a">浙江省</option>
-                <option value="b" selected="">湖北省</option>
-              </select>
-
-              <select data-am-selected="" style="display: none;">
-                <option value="a">温州市</option>
-                <option value="b" selected="">武汉市</option>
-              </select>
-
-              <select data-am-selected="" style="display: none;">
-                <option value="a">瑞安区</option>
-                <option value="b" selected="">洪山区</option>
+              <select id="type" name="first">
+                <option>---请选择---</option>
               </select>
             </div>
           </div>
 
-
-
           <div class="am-form-group">
             <div class="am-u-sm-9 am-u-sm-push-3">
-              <a class="am-btn am-btn-danger">确定发布</a> <a href="javascript: void(0)" class="am-close am-btn am-btn-danger"
+              <button class="am-btn am-btn-danger" type="submit">
+                <i class="icon-ok bigger-110"></i> 添加
+              </button>
+              <a href="" class="am-close am-btn am-btn-danger"
                 data-am-modal-close="">取消</a>
             </div>
           </div>
         </form>
       </div>
-
     </div>
-
   </div>
-
 </div>
-<script type="text/javascript">
-            $(document).ready(function() {
-              $(".new-option-r").click(function() {
-                $(this).parent('.user-addresslist').addClass("defaultAddr").siblings().removeClass("defaultAddr");
-              });
+<script>
+var url = "{{ url('person/goods/1') }}";
+$.ajax({
+  url:url,
+  type:'get',
+  dataType:'json',
+  data:{pid:0},
+  success:function(data){
+    for (var i = 0; i < data.length; i++) {
+      $('#type').append("<option value="+data[i].id+">"+data[i].tname+'</option>');
+    }
+  }
+});
+$("body").on('change','select',function(){
+    $(this).nextAll('select').remove();
+    var name = $(this).attr('name');
+    var v = $(this).val();
+    if(v != '---请选择---'){
+      var ob = $(this);
+      $.ajax({
+        url:url,
+        type:'get',
+        dataType:'json',
+        data:{pid:v},
+        success:function(data){
+          if(data.length>0){
+            if(name == 'first'){
+              var select = $("<select name='second'><option>---请选择---</option></select>");
+            }else{
+              var select = $("<select name='tid'><option>---请选择---</option></select>");
+            }
+            for (var i = 0; i < data.length; i++) {
+              $(select).append("<option value="+data[i].id+">"+data[i].tname+'</option>');
+            }
+            ob.after(select);
+          }
+        }
+      });
+    }
+ });
 
-              var $ww = $(window).width();
-              if($ww>640) {
-                $("#doc-modal-1").removeClass("am-modal am-modal-no-btn")
-              }
+function doAdd()
+{
+  var add = document.getElementById('add');
+  if (add.title.value == ''){
+      alert('标题不能为空！');
+    return false;
+  }
+  if (add.description.value == ''){
+      alert('描述不能为空!');
+    return false;
+  }
 
-            })
-          </script>
-<div class="clear"></div>
+  if (add.price.value.match(/^[1-9]\d*$/) == null){
+    alert('输入价格不合法!');
+    return false;
+  }
+
+  if (add.main.value == ''){
+	    alert('请上传主图！');
+	    return false;
+  }
+  if (add.first.value == ''||add.first.value == '---请选择---'){
+      alert('请选择分类');
+    return false;
+  }
+  if (add.second.value == ''||add.second.value == '---请选择---'){
+      alert('请选择分类');
+    return false;
+  }
+  if (add.tid.value == ''||add.tid.value == '---请选择---'){
+      alert('请选择分类');
+    return false;
+  }
+  return true;
+}
+</script>
 @endsection

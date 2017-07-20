@@ -229,7 +229,7 @@
                 </a>
               </li>
               <li>
-                <a href="{{ url('admin/self') }}">
+                <a href="{{ url('admin/info') }}">
                   <i class="icon-user"></i> 个人资料
                 </a>
               </li>
