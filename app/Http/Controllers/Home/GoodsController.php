@@ -54,7 +54,7 @@ class GoodsController extends Controller
         $main->move('./home/images', $mainname);
         // 判断上传是否成功
         if ($main->getError() > 0) {
-            return redirect('/')->with('error', '发布失败');
+            return redirect('/')->with('update', '发布失败');
         } else {
             // 商品信息入库，并获得该商品ID
             $gid = DB::table('goods')->insertGetId($arr);
@@ -74,7 +74,7 @@ class GoodsController extends Controller
                     // 移动文件
                     $minor->move('./home/images', $minorname);
                     if ($minor->getError() > 0) {
-                        return redirect('/')->with('error', '发布失败');
+                        return redirect('/')->with('update', '发布失败');
                     } else {
                         // 获取多图入库的数据
                         $minorarr['gid'] = $gid;

@@ -40,6 +40,8 @@ Route::resource('/person/address', 'Home\AddressController');
 Route::resource('/person/goods', 'Home\GoodsController');
 // ===============前台=======商品详情页显示===============
 Route::get('/goods/{id}', 'Home\GoodController@showGood');
+// 商品订单页面显示
+Route::resource('/orders', 'Home\OrdersController');
 
 // 后台
 Route::group([

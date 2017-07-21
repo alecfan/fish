@@ -79,7 +79,7 @@
           </ul></li>
         <li class="person">我的交易
           <ul>
-            <li><a href="order.html">我发布的</a></li>
+            <li><a href="{{ url('lala') }}">我发布的</a></li>
             <li><a href="order.html">我卖出的</a></li>
             <li><a href="order.html">我买到的</a></li>
             <li><a href="order.html">我收藏的</a></li>
