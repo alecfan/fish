@@ -15,9 +15,70 @@
 </head>
 
 <body>
+<!--顶部导航条 -->
+  <div class="am-container header">
+    <ul class="message-l">
+      <div class="topMessage">
+        <div class="menu-hd">
+          @if(!session('username'))
+          <a href="{{ url('/login') }}" target="_top" class="h">亲，请登录</a>
+          <a href="{{ url('/register') }}" target="_top">免费注册</a>
+          @else
+          <a href="{{ url('/person') }}" target="_top" class="h">Hi，{{ session('username') }}</a>
+          @endif
+        </div>
+      </div>
+    </ul>
+    <ul class="message-r">
+      <div class="topMessage home">
+        <div class="menu-hd">
+          <a href="{{ url('/') }}" target="_top" class="h">商城首页</a>
+        </div>
+      </div>
+      <div class="topMessage my-shangcheng">
+        <div class="menu-hd MyShangcheng">
+          <a href="/person" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a>
+        </div>
+      </div>
+      <div class="topMessage favorite">
+        <div class="menu-hd">
+          <a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a>
+        </div>
+    </ul>
+  </div>
 
-@include('home.header')
+<!--悬浮搜索框-->
+  <div class="nav white">
+    <div class="logo">
+      <img src="{{ asset('home/images/logo.png') }}" />
+    </div>
+    <div class="logoBig">
+      <li><img src="{{ asset('home/images/logobig.png') }}" /></li>
+    </div>
+    <div class="search-bar pr">
+      <a name="index_none_header_sysc" href="#"></a>
+      <form>
+        <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off"> <input
+          id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
+      </form>
+    </div>
+  </div>
 
+      <div class="banner">
+                      <!--轮播 -->
+            <div class="am-slider am-slider-default scoll" data-am-flexslider id="demo-slider-0">
+              <ul class="am-slides">
+                <li class="banner1"><a><img src="{{ asset('home/images/ad1.jpg') }}" /></a></li>
+                <li class="banner2"><a><img src="{{ asset('home/images/ad2.jpg') }}" /></a></li>
+                <li class="banner3"><a><img src="{{ asset('home/images/ad3.jpg') }}" /></a></li>
+                <li class="banner4"><a><img src="{{ asset('home/images/ad4.jpg') }}" /></a></li>
+
+              </ul>
+            </div>
+            <div class="clear"></div>
+      </div>
+
+    <!--分类，导航-->
   <div class="shopNav">
     <div class="slideall">
       <div class="long-title">
@@ -25,8 +86,13 @@
       </div>
       <div class="nav-cont">
         <ul>
-          <li class="index"><a href="#">首页</a></li>
-          <li class="qc"><a href="{{ url('person/goods/create') }}">发布闲置</a></li>
+          <li class="index"><a href="{{ url('/') }}">首页</a></li>
+          <li class="qc">
+          @if(session('username'))
+            <a href="{{ url('person/goods/create') }}">发布闲置</a></li>
+          @else
+            <a href="{{ url('/login') }}">发布闲置</a></li>
+          @endif
           <li class="qc last">
           @if(session('username'))
             <a href="{{ url('person') }}">我的闲置</a>

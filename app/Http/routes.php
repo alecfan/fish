@@ -40,6 +40,11 @@ Route::resource('/person/address', 'Home\AddressController');
 Route::resource('/person/goods', 'Home\GoodsController');
 // ===============前台=======商品详情页显示===============
 Route::get('/goods/{id}', 'Home\GoodController@showGood');
+// 发布商品评论
+Route::post('/comment', 'Home\CommentController@store');
+// 商品收藏
+Route::post('/collect', 'Home\CollectController@store');
+Route::post('/cancelcollect', 'Home\CollectController@destroy');
 
 // 后台
 Route::group([
