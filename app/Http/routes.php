@@ -46,6 +46,7 @@ Route::post('/comment', 'Home\CommentController@store');
 // 商品收藏
 Route::post('/collect', 'Home\CollectController@store');
 Route::post('/cancelcollect', 'Home\CollectController@destroy');
+Route::get('/collect', 'Home\CollectController@index');
 
 // 后台
 Route::group([

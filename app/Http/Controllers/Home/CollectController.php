@@ -9,13 +9,22 @@ class CollectController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 显示用户所有的收藏
      */
     public function index()
     {
-        //
+        $collects = DB::table('goodscollect')->leftjoin('goods', 'goodscollect.gid', '=', 'goods.id')
+            ->leftjoin('goodspics', 'goods.id', '=', 'goodspics.gid')
+            ->select('goods.id as goodid', 'goods.title', 'goods.price', 'goodspics.picname', 'goods.locate')
+            ->where('goodspics.mpic', 1)
+            ->where('goodscollect.uid', session('userid'))
+            ->get();
+
+        // dd($collects);
+
+        return view('home.collect.showCollect', [
+            'collects' => $collects
+        ]);
     }
 
     /**

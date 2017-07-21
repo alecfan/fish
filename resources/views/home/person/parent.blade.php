@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <title>个人中心</title>
 
 <link href="{{ asset('home/AmazeUI-2.4.2/assets/css/admin.css') }}" rel="stylesheet" type="text/css">
@@ -20,8 +20,19 @@
 {{-- 收货地址页样式 --}}
 @yield('showAddCSS')
 
+{{-- 分配收藏页面样式 --}}
+@yield('showCollectCSS')
+
 <script src="{{ asset('home/AmazeUI-2.4.2/assets/js/jquery.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('home/AmazeUI-2.4.2/assets/js/amazeui.js') }}" type="text/javascript"></script>
+<script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+</script>
+
 
 </head>
 
@@ -53,7 +64,7 @@
       </div>
       <div class="topMessage favorite">
         <div class="menu-hd">
-          <a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a>
+          <a href="{{ url('/collect') }}" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a>
         </div>
     </ul>
   </div>
@@ -141,7 +152,7 @@
           </ul></li>
         <li class="person">我的小窝
           <ul>
-            <li><a href="collection.html">收藏</a></li>
+            <li class="@yield('collectActive')"><a href="/collect">收藏</a></li>
             <li><a href="foot.html">足迹</a></li>
             <li><a href="comment.html">评价</a></li>
             <li><a href="news.html">消息</a></li>
