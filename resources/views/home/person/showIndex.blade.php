@@ -10,6 +10,7 @@ active
 @endsection
 
 {{-- 页面主体 --}}
+@foreach($list as $v)
 @section('content')
 <div class="wrap-left">
   <div class="wrap-list">
@@ -18,8 +19,8 @@ active
       <div class="m-bg"></div>
       <div class="m-userinfo">
         <div class="m-baseinfo">
-          <a href="information.html"> <img src="{{ asset('home/images/getAvatar.do.jpg') }}">
-          </a> <em class="s-name">(小叮当)<span class="vip1"></em>
+          <a href="/person/info"> <img src="{{ url('/home/upload/'.$v->photo) }}">
+          </a> <em class="s-name">{{ $v->username }}<span class="vip1"></em>
           <div class="s-prestige am-btn am-round">
             </span>会员福利
           </div>
@@ -29,7 +30,7 @@ active
             <a href="news.html"><i class="am-icon-bell-o"></i>消息</a>
           </div>
           <div class="m-address">
-            <a href="address.html" class="i-trigger">我的收货地址</a>
+            <a href="/person/address" class="i-trigger">我的收货地址</a>
           </div>
         </div>
       </div>
@@ -389,4 +390,5 @@ active
   </div>
 
 </div>
+@endforeach
 @endsection
