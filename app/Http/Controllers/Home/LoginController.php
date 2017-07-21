@@ -2,9 +2,9 @@
 namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class LoginController extends Controller
 {
@@ -38,7 +38,13 @@ class LoginController extends Controller
             // 存在
             unset($user->password);
             // 将用户数据保存至session中
+            $request->session()->put('userid', $user->id);
             $request->session()->put('username', $user->username);
+            $request->session()->put('photo', $user->photo);
+
+            // redis中存储用户最后登录时间
+            Redis::set($user->username . ':lastLogin', time());
+
             // 跳转至首页
             return redirect('/');
         } else {
@@ -143,7 +149,9 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         // 销毁session
+        $request->session()->forget('userid');
         $request->session()->forget('username');
+        $request->session()->forget('photo');
         // 重新跳转至首页
         return redirect('/');
     }

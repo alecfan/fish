@@ -32,6 +32,7 @@ Route::get('/logout', 'Home\LoginController@logout');
 // 前台用户个人中心首页显示
 Route::get('/person', 'Home\PersonController@showIndex');
 // 前台用户个人信息显示,修改
+
 Route::get('/person/info', 'Home\PersonController@editInfo');
 Route::post('/person/info', 'Home\PersonController@updateInfo');
 // 用户收货地址添加，显示，修改，删除
@@ -42,7 +43,12 @@ Route::resource('/person/goods', 'Home\GoodsController');
 Route::get('/goods/{id}', 'Home\GoodController@showGood');
 // 商品订单页面显示
 Route::resource('/orders', 'Home\OrdersController');
-
+// 发布商品评论
+Route::post('/comment', 'Home\CommentController@store');
+// 商品收藏
+Route::post('/collect', 'Home\CollectController@store');
+Route::post('/cancelcollect', 'Home\CollectController@destroy');
+Route::get('/collect', 'Home\CollectController@index');
 // 后台
 Route::group([
     'prefix' => 'admin',

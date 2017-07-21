@@ -37,6 +37,7 @@ class GoodsController extends Controller
      */
     public function store(Request $request)
     {
+        // TODO 添加商品所在地
         // 获取商品信息
         $arr = $request->except('_token', 'first', 'second', 'main', 'minor');
         $arr['addtime'] = time();
