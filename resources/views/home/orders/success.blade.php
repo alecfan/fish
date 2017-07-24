@@ -1,15 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
+<?php
+date_default_timezone_set("PRC");
+?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>付款成功页面</title>
-<link rel="stylesheet"  type="text/css" href="../AmazeUI-2.4.2/assets/css/amazeui.css"/>
-<link href="../AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
-<link href="../basic/css/demo.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet"  type="text/css" href="{{ asset('home/AmazeUI-2.4.2/assets/css/amazeui.css') }}"/>
+<link href="{{ asset('home/AmazeUI-2.4.2/assets/css/admin.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset('home/basic/css/demo.css') }}" rel="stylesheet" type="text/css" />
 
-<link href="../css/sustyle.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../basic/js/jquery-1.7.min.js"></script>
+<link href="{{ asset('home/css/sustyle.css') }}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{{ asset('home/basic/js/jquery-1.7.min.js') }}"></script>
 
 </head>
 
@@ -36,17 +39,17 @@
 <!--悬浮搜索框-->
 
 <div class="nav white">
-	<div class="logo"><img src="../images/logo.png" /></div>
+	<div class="logo"><img src="{{ asset('home/images/logo.png') }}" /></div>
     <div class="logoBig">
-      <li><img src="../images/logobig.png" /></li>
+      <li><img src="{{ asset('home/images/logobig.png') }}" /></li>
     </div>
-    
+
     <div class="search-bar pr">
-        <a name="index_none_header_sysc" href="#"></a>       
+        <a name="index_none_header_sysc" href="#"></a>
         <form>
         <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
         <input id="ai-topsearch" class="submit" value="搜索" index="1" type="submit"></form>
-    </div>     
+    </div>
 </div>
 
 <div class="clear"></div>
@@ -58,14 +61,17 @@
    <h2>您已成功付款</h2>
    <div class="successInfo">
      <ul>
-       <li>付款金额<em>¥9.90</em></li>
+       <li>付款金额<em>{{ $order['price'] }}</em></li>
        <div class="user-info">
-         <p>收货人：艾迪</p>
-         <p>联系电话：15871145629</p>
-         <p>收货地址：湖北省 武汉市 武昌区 东湖路75号众环大厦</p>
+         <p>{{ date('Y-m-d H:i:s',time()) }}</p>
+         <p>订单编号：{{ $order['orderid'] }}</p>
+         <p>成交时间：{{ date("Y-m-d H:i:s",$order['addtime']) }}</p>
+         <p>收货人：{{ $order['name'] }}</p>
+         <p>联系电话：{{ $order['phone'] }}</p>
+         <p>收货地址：{{ $order['address'] }}</p>
        </div>
              请认真核对您的收货信息，如有错误请联系客服
-                               
+
      </ul>
      <div class="option">
        <span class="info">您可以</span>

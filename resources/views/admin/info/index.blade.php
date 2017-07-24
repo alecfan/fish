@@ -33,7 +33,7 @@
               <div class="profile-info-row">
                 <div class="profile-info-name">性别</div>
                 <div class="profile-info-value">
-                  <span class="editable" id="sex">{{ ($list->sex)==
+                  <span class="sex" id="sex">{{ ($list->sex)==
                     '1' ? '男':'女' }}</span>
                 </div>
               </div>
@@ -41,8 +41,7 @@
                 <div class="profile-info-name">所在地</div>
                 <div class="profile-info-value">
                   <i class="icon-map-marker light-orange bigger-110"></i>
-                  <span class="editable" id="country">Netherlands</span>
-                  <span class="editable" id="city">Amsterdam</span>
+                  <span class="editable" id="address">{{ $list->address }}</span>
                 </div>
               </div>
               <div class="profile-info-row">
@@ -90,6 +89,50 @@
 @endsection
 @section('inlinejs')
 <script>
+//修改下拉框
+$('.sex').dblclick(function() {
+    //获取修改的字段名
+    var name = 'sex';
+    //获取用户的ID
+    var id = {{ $list->id }};
+  var v = $(this).html();
+  var input = $('<select><option value ="1">男</option><option value ="0">女</option></select>');
+  input.val(v);
+  $(this).html(input);
+  input.dblclick(function () {
+         return false;
+    });
+  var span = $(this);
+  //当失去焦点时
+  input.blur(function() {
+    // 获取用户输入的内容
+    var value = $(this).val();
+    var url = "{{ url('admin/info/create') }}";
+     $.ajax({
+          url: url,
+          type: 'post',
+          dataType: 'json',
+          data: {
+            id:id,name:name,value:value,
+            '_token': "{{ csrf_token() }}"
+          },
+          success: function(data) {
+              if(data){
+                if(value == "1"){
+                	span.html('男');
+                }else {
+                	span.html('女');
+                }
+                alert('修改成功');
+              } else {
+                span.html(v);
+                alert('修改失败');
+              }
+          }
+    },'json');
+  });
+});
+//修改input框的
 $('.editable').dblclick(function() {
     //获取修改的字段名
     var name = $(this).attr('id');
@@ -107,6 +150,9 @@ $('.editable').dblclick(function() {
 	input.blur(function() {
 		// 获取用户输入的内容
 		var value = $(this).val();
+        if(!value){
+          value = v;
+        }
 		var url = "{{ url('admin/info/create') }}";
 		 $.ajax({
     	    url: url,

@@ -45,8 +45,8 @@ class OrdersController extends Controller
         $order['name'] = $adds->name;
         $order['address'] = $adds->province . $adds->city . $adds->county . $adds->info;
         $order['phone'] = $adds->phone;
-        // 用户ID
-        $order['buyer'] = 3;
+        $order['buyer'] = session('userid');
+        // dd($order);
         $list = DB::table('orders')->insert($order);
         if ($list) {
             DB::table('goods')->where('id', $request->input('gid'))
@@ -68,9 +68,7 @@ class OrdersController extends Controller
     public function show($id)
     {
         $goods = DB::table('goods')->where('id', $id)->first();
-        // dd($goods->uid);
         $usersadds = DB::table('usersadds')->where('uid', $goods->uid)->get();
-        // dd($usersadds);
         return view('home.orders.showOrders', [
             'goods' => $goods,
             'usersadds' => $usersadds
