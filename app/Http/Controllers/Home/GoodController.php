@@ -11,12 +11,12 @@ class GoodController extends Controller
     /**
      * 显示商品详情页
      */
-    public function showGood($id)
+    public function showGood($gid)
     {
         // 商品信息
         $good = DB::table('goods')->join('users', 'users.id', '=', 'goods.uid')
             ->select('goods.*', 'users.id as users_id', 'users.photo', 'users.username')
-            ->where('goods.id', $id)
+            ->where('goods.id', $gid)
             ->first();
         // 其他图片
         $goodpics = DB::table('goodspics')->where('gid', $good->id)
@@ -53,6 +53,30 @@ class GoodController extends Controller
             $isCollect = 0;
         }
 
+        // step 如果是登录用户，记录用户浏览商品的足迹
+        if (session()->has('userid')) {
+            $uid = session()->get('userid'); // 用户id
+
+            // 1.先看数据库中是否有这个用户对这个商品的浏览记录?
+            $record = DB::table('footprint')->where('uid', $uid)
+                ->where('gid', $gid)
+                ->first();
+            if ($record) {
+                // 如果有记录那么更新time字段
+                DB::table('footprint')->where('id', $record->id)->update([
+                    'time' => time()
+                ]);
+            } else {
+                // 如果没有记录，填加记录
+                DB::table('footprint')->insertGetId([
+                    'uid' => $uid,
+                    'gid' => $gid,
+                    'time' => time()
+                ]);
+            }
+        }
+
+        //
         return view('home.good.showGood', [
             'mpic' => $mpic,
             'good' => $good,

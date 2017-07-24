@@ -2,8 +2,7 @@
 namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
-use DB;
-use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class PersonController extends Controller
@@ -93,5 +92,86 @@ class PersonController extends Controller
         } else {
             return redirect('/person/info')->with('error', '修改失败');
         }
+    }
+
+    /**
+     * 用户浏览足迹
+     */
+    public function foot()
+    {
+        $uid = session()->get('userid'); // 用户id
+
+        // 查出所有浏览记录
+        $arr = DB::table('footprint')->where('uid', $uid)
+            ->select('gid', 'time')
+            ->get();
+
+        foreach ($arr as $v) {
+            $today = date('Y-m-d');
+            $st = strtotime($today); // 今天零点
+            $ed = $st + (60 * 60 * 24); // 今天24点
+            $lastweek = $st - 60 * 60 * 24 * 7; // 一周之前
+
+            if ($v->time > $st && $v->time < $ed) {
+                $todayGids[] = $v->gid; // 今天浏览的商品id
+            }
+
+            if ($v->time < $st && $v->time > $lastweek) {
+                $lastweekGids[] = $v->gid; // 一周内浏览的商品id
+            }
+        }
+
+        $goods = []; // 分配给前台的商品
+
+        // 今天浏览的商品
+        if (! empty($todayGids)) {
+            $todayGoods = DB::table('goods')->join('users', 'goods.uid', '=', 'users.id')
+                ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
+                ->select('goods.id', 'goods.title', 'goods.price', 'users.username', 'users.photo', 'goodspics.picname')
+                ->where('goodspics.mpic', 1)
+                ->whereIn('goods.id', $todayGids)
+                ->get();
+
+            $goods['todayGoods'] = $todayGoods;
+        }
+
+        // 最后一周浏览的商品
+        if (! empty($lastweekGids)) {
+            $lastweekGoods = DB::table('goods')->join('users', 'goods.uid', '=', 'users.id')
+                ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
+                ->select('goods.id', 'goods.title', 'goods.price', 'users.username', 'users.photo', 'goodspics.picname')
+                ->where('goodspics.mpic', 1)
+                ->whereIn('goods.id', $lastweekGids)
+                ->get();
+
+            $goods['lastweekGoods'] = $lastweekGoods;
+        }
+
+        // dd($goods);
+        /*
+         * array:1 [▼
+         * "todayGoods" => array:2 [▼
+         * 0 => {#280 ▼
+         * +"id": 80
+         * +"title": "母婴222"
+         * +"price": 3231.0
+         * +"username": "admin"
+         * +"photo": "user.jpg"
+         * +"picname": "15008595134075.jpg"
+         * }
+         * 1 => {#281 ▼
+         * +"id": 81
+         * +"title": "奶嘴达瓦大家"
+         * +"price": 4333.0
+         * +"username": "admin"
+         * +"photo": "user.jpg"
+         * +"picname": "15008595754437.jpg"
+         * }
+         * ]
+         * ]
+         */
+        return view('home.person.foot', [
+            'goods' => $goods
+        ]);
     }
 }

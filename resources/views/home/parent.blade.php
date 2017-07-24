@@ -26,9 +26,10 @@
         <div class="menu-hd">
           @if(!session('username'))
           <a href="{{ url('/login') }}" target="_top" class="h">亲，请登录</a>
-          <a href="{{ url('/register') }}" target="_top">免费注册</a>
+          <a href="{{ url('/register') }}" target="_top">&nbsp;&nbsp;&nbsp;&nbsp;免费注册</a>
           @else
           <a href="{{ url('/person') }}" target="_top" class="h">Hi，{{ session('username') }}</a>
+          <a href="{{ url('/logout') }}">&nbsp;&nbsp;注销</a>
           @endif
         </div>
       </div>
@@ -61,8 +62,9 @@
     </div>
     <div class="search-bar pr">
       <a name="index_none_header_sysc" href="#"></a>
-      <form>
-        <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+      <form action="/search" method="post">
+      {{ csrf_field() }}
+        <input id="searchInput" name="keyword" type="text" placeholder="搜索" autocomplete="off">
         <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
       </form>
     </div>

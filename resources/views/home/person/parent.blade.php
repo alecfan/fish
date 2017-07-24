@@ -23,6 +23,9 @@
 {{-- 分配收藏页面样式 --}}
 @yield('showCollectCSS')
 
+{{-- 指定页面的CSS样式 --}}
+@yield('specifiedCSS')
+
 <script src="{{ asset('home/AmazeUI-2.4.2/assets/js/jquery.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('home/AmazeUI-2.4.2/assets/js/amazeui.js') }}" type="text/javascript"></script>
 <script>
@@ -147,13 +150,12 @@ $.ajaxSetup({
             <li><a href="{{ url('lala') }}">我发布的</a></li>
             <li><a href="order.html">我卖出的</a></li>
             <li><a href="order.html">我买到的</a></li>
-            <li><a href="order.html">我收藏的</a></li>
             <li><a href="order.html">我的拍卖</a></li>
           </ul></li>
         <li class="person">我的小窝
           <ul>
-            <li class="@yield('collectActive')"><a href="/collect">收藏</a></li>
-            <li><a href="foot.html">足迹</a></li>
+            <li class="@yield('collectActive')"><a href="{{ url('/collect') }}">收藏</a></li>
+            <li class="@yield('footActive')"><a href="{{ url('/home/person/foot') }}">足迹</a></li>
             <li><a href="comment.html">评价</a></li>
             <li><a href="news.html">消息</a></li>
           </ul></li>

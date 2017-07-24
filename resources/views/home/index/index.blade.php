@@ -82,7 +82,7 @@
                               </dt>
                               @foreach($value2 as $key3=>$value3)
                               <dd>
-                                <a href="{{ url('/list/' . $value3->id) }}"><span>{{ $value3->tname }}</span></a>
+                                <a href="{{ url('/search/tid/' . $value3->id) }}"><span>{{ $value3->tname }}</span></a>
                               </dd>
                               @endforeach
                             </dl>

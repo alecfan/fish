@@ -2,9 +2,9 @@
 namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use DB;
+use Illuminate\Support\Facades\DB;
+use App\Org\Chinese;
 
 class GoodsController extends Controller
 {
@@ -41,7 +41,7 @@ class GoodsController extends Controller
         // 获取商品信息
         $arr = $request->except('_token', 'first', 'second', 'main', 'minor');
         $arr['addtime'] = time();
-        $arr['uid'] = 2;
+        $arr['uid'] = session('userid');
 
         // 主图上传
         if ($request->file('main')->isValid()) {
@@ -59,6 +59,16 @@ class GoodsController extends Controller
         } else {
             // 商品信息入库，并获得该商品ID
             $gid = DB::table('goods')->insertGetId($arr);
+
+            // 商品标题分词并插入分词库
+            $fenci = Chinese::fenci($arr['title']);
+            foreach ($fenci as $ci) {
+                DB::table('fenci')->insertGetId([
+                    'gid' => $gid,
+                    'title' => $ci['word']
+                ]);
+            }
+
             // 获取主图入库的数据
             $mainarr['gid'] = $gid;
             $mainarr['picname'] = $mainname;
