@@ -70,6 +70,7 @@
            {{ csrf_field() }}
            <input name="gid" type="hidden" value="{{ $goods->id }}">
            <input name="saler" type="hidden" value="{{ $goods->uid }}">
+           <input name="price" type="hidden" value="{{ $goods->price }}">
           <div class="address">
             <h3>确认收货地址 </h3>
             <div class="control">
@@ -77,6 +78,7 @@
             </div>
             <div class="clear"></div>
             <ul>
+            {{ date('Y-m-d H:i:s',time()) }}
               @foreach($usersadds as $adds )
                 <li><input name="adds" type="radio" value="{{  $adds->id }}" />{{ $adds->name }}&nbsp;&nbsp;{{ $adds->phone }}&nbsp;&nbsp;{{ $adds->province . $adds->city . $adds->county . $adds->info }}</li>
               @endforeach()
@@ -111,7 +113,7 @@
 
               <div class="buy-point-discharge ">
                 <p class="price g_price ">
-                                               合计（含运费） <span>¥</span><em class="pay-sum">244.00</em>
+                                               合计（含运费） <span>¥</span><em class="pay-sum">{{ $goods->price }}</em>
                 </p>
               </div>
 

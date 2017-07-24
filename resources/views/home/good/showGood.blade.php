@@ -195,7 +195,7 @@
           </div>
           <li>
             <div class="clearfix tb-btn tb-btn-buy theme-login">
-              <a id="LikBuy" title="点此按钮到下一步确认购买信息" href="{{ url('orders').'/37' }}">立即购买</a>
+              <a id="LikBuy" title="" href="{{ url('orders').'/'.$good->id }}">立即购买</a>
 
             </div>
           </li>

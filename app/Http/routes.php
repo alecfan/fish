@@ -39,6 +39,7 @@ Route::post('/person/info', 'Home\PersonController@updateInfo');
 Route::resource('/person/address', 'Home\AddressController');
 // 用户商品管理，添加，显示，删除，修改
 Route::resource('/person/goods', 'Home\GoodsController');
+Route::post('/person/auction', 'Home\AuctionController@index');
 // ===============前台=======商品详情页显示===============
 Route::get('/goods/{id}', 'Home\GoodController@showGood');
 
