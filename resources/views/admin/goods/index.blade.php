@@ -110,4 +110,5 @@ function doDel(id) {
                 form . submit();
             }
             ;
+</script>
 @endsection
