@@ -1,5 +1,4 @@
 <?php
-
 // ===================分词系统常量定义===================
 
 // Constant Define
@@ -68,6 +67,9 @@ define('PSCWS4_MAX_EWLEN', 16);
 define('PSCWS4_MAX_ZLEN', 128);
 
 // =========================分词系统常量定义=================
+
+date_default_timezone_set("PRC");
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *

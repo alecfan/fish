@@ -39,8 +39,20 @@ Route::resource('/person/address', 'Home\AddressController');
 // 用户商品管理，添加，显示，删除，修改
 Route::resource('/person/goods', 'Home\GoodsController');
 Route::get('/home/person/collect', 'Home\CollectController@index');
+Route::post('/person/auction', 'Home\AuctionController@index');
 // ===============前台=======商品详情页显示===============
 Route::get('/goods/{id}', 'Home\GoodController@showGood');
+
+// 用户的交易 显示，修改，删除
+Route::resource('/deal', 'Home\DealController');
+// 卖出的商品
+Route::get('/sell', 'Home\SellController@showGood');
+Route::post('/sell/{id}', 'Home\SellController@delete');
+// 买到的商品
+Route::get('/buy', 'Home\BuyController@showGood');
+Route::post('/buy/{id}', 'Home\BuyController@delete');
+Route::get('/orderinfo/{id}', 'Home\BuyController@showOrder');
+
 // 商品订单页面显示
 Route::resource('/orders', 'Home\OrdersController');
 // 发布商品评论
@@ -50,10 +62,9 @@ Route::post('/collect', 'Home\CollectController@store');
 Route::post('/cancelcollect', 'Home\CollectController@destroy');
 Route::get('/collect', 'Home\CollectController@index');
 // 商品搜索
-Route::post('/search', 'Home\IndexController@searchGoods'); // 关键字搜索
-Route::get('/search/tid/{tid}', 'Home\IndexController@searchGoods'); // 按照分类搜索
-Route::get('/search/tid/{tid}/staddtime/{staddtime}', 'Home\IndexController@searchGoods'); // 按照分类搜索
-                                                                                           // 我的足迹
+Route::post('/search', 'Home\IndexController@searchGoods');
+Route::get('/search/tid/{tid}', 'Home\IndexController@searchGoods');
+Route::get('/search/tid/{tid}/staddtime/{staddtime}', 'Home\IndexController@searchGoods');
 Route::get('/home/person/foot', 'Home\PersonController@foot');
 
 // 后台

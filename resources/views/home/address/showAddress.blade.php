@@ -27,8 +27,7 @@ alert('修改成功');
   <hr>
   <ul class="am-avg-sm-1 am-avg-md-3 am-thumbnails">
     @foreach($list as $v)
-    <li class="user-addresslist"><a href=""><span class="new-option-r"><i
-        class="am-icon-check-circle"></i>默认地址</span></a>
+    <li class="user-addresslist">
       <p class="new-tit new-p-re">
         <span class="new-txt">{{ $v->name }} </span> <span
           class="new-txt-rd2">{{ $v->phone }}</span>
@@ -99,9 +98,6 @@ alert('修改成功');
               <button class="am-btn am-btn-danger" type="submit">
                 <i class="icon-ok bigger-110"></i> 添加
               </button>
-              <a href="javascript: void(0)"
-                class="am-close am-btn am-btn-danger"
-                data-am-modal-close="">取消</a>
             </div>
           </div>
         </form>

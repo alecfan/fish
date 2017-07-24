@@ -23,7 +23,12 @@ class IndexController extends Controller
                 $type[$one->tname][$two->tname] = DB::table('type')->where('pid', $two->id)->get();
             }
         }
-
+        // 获取拍卖的商品
+        $auction = DB::table('goods')->where('goods.is_auction', 1)
+            ->join('auction', 'auction.gid', '=', 'goods.id')
+            ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
+            ->where('goodspics.mpic', 1)
+            ->get();
         // 查询母婴类别商品
         $muyinGoods = getGoods(14, 5);
 
@@ -36,7 +41,8 @@ class IndexController extends Controller
         return view('home.index.index', [
             'data' => $type,
             'muyinGoods' => $muyinGoods,
-            'shumaGoods' => $shumaGoods
+            'shumaGoods' => $shumaGoods,
+            'auction' => $auction
         ]);
     }
 
