@@ -30,42 +30,12 @@ active
             <a href="news.html"><i class="am-icon-bell-o"></i>消息</a>
           </div>
           <div class="m-address">
-            <a href="/person/address" class="i-trigger">我的收货地址</a>
+            <a href="{{ url('person/address') }}" class="i-trigger">我的收货地址</a>
           </div>
         </div>
       </div>
-
-      <!--个人资产-->
-      <div class="m-userproperty">
-        <div class="s-bar">
-          <i class="s-icon"></i>个人资产
-        </div>
-        <p class="m-bonus">
-          <a href="bonus.html"> <i><img src="{{ asset('home/images/bonus.png') }}" /></i> <span class="m-title">红包</span> <em
-            class="m-num">2</em>
-          </a>
-        </p>
-        <p class="m-coupon">
-          <a href="coupon.html"> <i><img src="{{ asset('home/images/coupon.png') }}" /></i> <span class="m-title">优惠券</span> <em
-            class="m-num">2</em>
-          </a>
-        </p>
-        <p class="m-bill">
-          <a href="bill.html"> <i><img src="{{ asset('home/images/wallet.png') }}" /></i> <span class="m-title">钱包</span> <em
-            class="m-num">2</em>
-          </a>
-        </p>
-        <p class="m-big">
-          <a href="#"> <i><img src="{{ asset('home/images/day-to.png') }}" /></i> <span class="m-title">签到有礼</span>
-          </a>
-        </p>
-        <p class="m-big">
-          <a href="#"> <i><img src="{{ asset('home/images/72h.png') }}" /></i> <span class="m-title">72小时发货</span>
-          </a>
-        </p>
-      </div>
     </div>
-    <div class="box-container-bottom"></div>
+
 
     <!--订单 -->
     <div class="m-order">
@@ -80,6 +50,7 @@ active
         <li><a href="change.html"><i><img src="{{ asset('home/images/refund.png') }}" /></i><span>退换货</span></a></li>
       </ul>
     </div>
+    <div class="box-container-bottom"></div>
     <!--九宫格-->
     <div class="user-patternIcon">
       <div class="s-bar">

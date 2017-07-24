@@ -37,13 +37,13 @@ class GoodsController extends Controller
      */
     public function store(Request $request)
     {
+        // TODO 添加商品所在地
         // 获取商品信息
         $arr = $request->except('_token', 'first', 'second', 'main', 'minor');
         $arr['addtime'] = time();
         $arr['uid'] = 2;
-        // 商品信息入库，并获得该商品ID
-        $gid = DB::table('goods')->insertGetId($arr);
-        // 主图入库
+
+        // 主图上传
         if ($request->file('main')->isValid()) {
             // 生成上传文件对象
             $main = $request->file('main');
@@ -53,26 +53,37 @@ class GoodsController extends Controller
         $mainname = time() . rand(1000, 9999) . '.' . $ext;
         // 移动文件
         $main->move('./home/images', $mainname);
-        // 获取主图入库的数据
-        $mainarr['gid'] = $gid;
-        $mainarr['picname'] = $mainname;
-        $mainarr['mpic'] = 1;
-        DB::table('goodspics')->insert($mainarr);
-        // 获取多图
-        $count = $request->file('minor');
-        foreach ($count as $minor) {
-            $extt = $minor->getClientOriginalExtension();
-            $minorname = time() . rand(1000, 9999) . '.' . $extt;
-            // 移动文件
-            $minor->move('./home/images', $minorname);
-            // 获取主图入库的数据
-            $minorarr['gid'] = $gid;
-            $minorarr['picname'] = $minorname;
-            DB::table('goodspics')->insert($minorarr);
-        }
+        // 判断上传是否成功
         if ($main->getError() > 0) {
-            return redirect('/')->with('error', '发布失败');
+            return redirect('/')->with('update', '发布失败');
         } else {
+            // 商品信息入库，并获得该商品ID
+            $gid = DB::table('goods')->insertGetId($arr);
+            // 获取主图入库的数据
+            $mainarr['gid'] = $gid;
+            $mainarr['picname'] = $mainname;
+            $mainarr['mpic'] = 1;
+            DB::table('goodspics')->insert($mainarr);
+
+            // 获取多图
+            $count = $request->file('minor');
+            // 判断是否上传多图
+            if ($count[0]) {
+                foreach ($count as $minor) {
+                    $extt = $minor->getClientOriginalExtension();
+                    $minorname = time() . rand(1000, 9999) . '.' . $extt;
+                    // 移动文件
+                    $minor->move('./home/images', $minorname);
+                    if ($minor->getError() > 0) {
+                        return redirect('/')->with('update', '发布失败');
+                    } else {
+                        // 获取多图入库的数据
+                        $minorarr['gid'] = $gid;
+                        $minorarr['picname'] = $minorname;
+                        DB::table('goodspics')->insert($minorarr);
+                    }
+                }
+            }
             return redirect('/')->with('update', '发布成功');
         }
     }

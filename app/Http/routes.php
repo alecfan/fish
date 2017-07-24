@@ -41,6 +41,7 @@ Route::resource('/person/address', 'Home\AddressController');
 Route::resource('/person/goods', 'Home\GoodsController');
 // ===============前台=======商品详情页显示===============
 Route::get('/goods/{id}', 'Home\GoodController@showGood');
+
 // 用户的交易 显示，修改，删除
 Route::resource('/deal', 'Home\DealController');
 // 卖出的商品
@@ -50,6 +51,15 @@ Route::post('/sell/{id}', 'Home\SellController@delete');
 Route::get('/buy', 'Home\BuyController@showGood');
 Route::post('/buy/{id}', 'Home\BuyController@delete');
 Route::get('/orderinfo/{id}', 'Home\BuyController@showOrder');
+
+// 商品订单页面显示
+Route::resource('/orders', 'Home\OrdersController');
+// 发布商品评论
+Route::post('/comment', 'Home\CommentController@store');
+// 商品收藏
+Route::post('/collect', 'Home\CollectController@store');
+Route::post('/cancelcollect', 'Home\CollectController@destroy');
+Route::get('/collect', 'Home\CollectController@index');
 
 // 后台
 Route::group([

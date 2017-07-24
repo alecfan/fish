@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <title>个人中心</title>
 
 <link href="{{ asset('home/AmazeUI-2.4.2/assets/css/admin.css') }}" rel="stylesheet" type="text/css">
@@ -20,14 +20,68 @@
 {{-- 收货地址页样式 --}}
 @yield('showAddCSS')
 
+{{-- 分配收藏页面样式 --}}
+@yield('showCollectCSS')
+
 <script src="{{ asset('home/AmazeUI-2.4.2/assets/js/jquery.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('home/AmazeUI-2.4.2/assets/js/amazeui.js') }}" type="text/javascript"></script>
+<script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+</script>
+
 
 </head>
 
 <body>
-  <!--头 -->
-  @include('home.header')
+<!--顶部导航条 -->
+  <div class="am-container header">
+    <ul class="message-l">
+      <div class="topMessage">
+        <div class="menu-hd">
+          @if(!session('username'))
+          <a href="{{ url('/login') }}" target="_top" class="h">亲，请登录</a>
+          <a href="{{ url('/register') }}" target="_top">免费注册</a>
+          @else
+          <a href="{{ url('/person') }}" target="_top" class="h">Hi，{{ session('username') }}</a>
+          @endif
+        </div>
+      </div>
+    </ul>
+    <ul class="message-r">
+      <div class="topMessage home">
+        <div class="menu-hd">
+          <a href="{{ url('/') }}" target="_top" class="h">商城首页</a>
+        </div>
+      </div>
+      <div class="topMessage my-shangcheng">
+        <div class="menu-hd MyShangcheng">
+          <a href="/person" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a>
+        </div>
+      </div>
+      <div class="topMessage favorite">
+        <div class="menu-hd">
+          <a href="{{ url('/collect') }}" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a>
+        </div>
+    </ul>
+  </div>
+
+<!--悬浮搜索框-->
+  <div class="nav white">
+    <div class="logoBig">
+      <li><img src="{{ asset('home/images/logobig.png') }}" /></li>
+    </div>
+    <div class="search-bar pr">
+      <a name="index_none_header_sysc" href="#"></a>
+      <form>
+        <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+        <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
+      </form>
+    </div>
+  </div>
 
   <div class="nav-table">
     <div class="long-title">
@@ -36,8 +90,19 @@
     <div class="nav-cont">
       <ul>
         <li class="index"><a href="{{ url('/') }}">首页</a></li>
-        <li class="qc"><a href="{{ url('person/goods/create') }}">发布闲置</a></li>
-        <li class="qc last"><a href="{{ url('person') }}">我的闲置</a></li>
+          <li class="qc">
+          @if(session('username'))
+            <a href="{{ url('person/goods/create') }}">发布闲置</a></li>
+          @else
+            <a href="{{ url('/login') }}">发布闲置</a></li>
+          @endif
+          <li class="qc last">
+          @if(session('username'))
+            <a href="{{ url('person') }}">我的闲置</a>
+          @else
+            <a href="{{ url('/login') }}">我的闲置</a>
+          @endif
+          </li>
       </ul>
     </div>
   </div>
@@ -79,15 +144,17 @@
           </ul></li>
         <li class="person">我的交易
           <ul>
+
             <li><a href="{{ url('/deal')}}">我发布的</a></li>
             <li><a href="{{ url('/sell')}}">我卖出的</a></li>
             <li><a href="{{ url('/buy') }}">我买到的</a></li>
+
             <li><a href="order.html">我收藏的</a></li>
             <li><a href="order.html">我的拍卖</a></li>
           </ul></li>
         <li class="person">我的小窝
           <ul>
-            <li><a href="collection.html">收藏</a></li>
+            <li class="@yield('collectActive')"><a href="/collect">收藏</a></li>
             <li><a href="foot.html">足迹</a></li>
             <li><a href="comment.html">评价</a></li>
             <li><a href="news.html">消息</a></li>

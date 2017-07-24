@@ -47,9 +47,15 @@ class IndexController extends Controller
      */
     public function showList(int $tid)
     {
-        //
+        $list = DB::table('goods')->join('goodspics', 'goods.id', '=', 'goodspics.gid')
+            ->where('goods.tid', $tid)
+            ->where('goodspics.mpic', 1)
+            ->select('goods.id', 'goods.price', 'goods.title', 'goodspics.picname')
+            ->paginate(4);
+
+        // dd($list);
         return view('home.index.list', [
-            'tid' => $tid
+            'list' => $list
         ]);
     }
 }
