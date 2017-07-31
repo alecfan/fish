@@ -58,7 +58,6 @@
             </div>
             <div class="clear"></div>
             <ul>
-            {{ date('Y-m-d H:i:s',time()) }}
               @foreach($usersadds as $adds )
                 <li><input name="adds" type="radio" value="{{  $adds->id }}" />{{ $adds->name }}&nbsp;&nbsp;{{ $adds->phone }}&nbsp;&nbsp;{{ $adds->province . $adds->city . $adds->county . $adds->info }}</li>
               @endforeach()

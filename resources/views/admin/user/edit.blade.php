@@ -22,7 +22,7 @@
   @endif
   <div class="row">
     <div class="col-xs-12">
-      <form action="/admin/user/{{ $list->id }}" method='post'
+      <form action="{{ url('admin/user') . '/' . $list->id }}" method='post'
         class="form-horizontal" role="form">
         {{ csrf_field() }} {{ method_field('PUT') }}
         <div class="form-group">

@@ -84,8 +84,8 @@ Description: 分类搜索列表页模板
               <div class="search-content">
                 <div class="sort">
                   <li class=""><a title="综合" href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=1' ) }}">综合排序</a></li>
-                  <li class=""><a title="评价" href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=1' . '&sort=addtime'  ) }}">最新发布</a></li>
-                  <li class=""><a title="价格" href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=1' . '&sort=price'  ) }}">价格</a></li>
+                  <li class=""><a title="评价" href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=1' . '&sort=addtime' . '&keyword=' . (isset($keyword)?$keyword:'') ) }}">最新发布</a></li>
+                  <li class=""><a title="价格" href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=1' . '&sort=price' . '&keyword=' . (isset($keyword)?$keyword:'') ) }}">价格</a></li>
                 </div>
                 <div class="clear"></div>
 
@@ -113,15 +113,15 @@ Description: 分类搜索列表页模板
               <!--分页 -->
               <ul class="am-pagination am-pagination-right">
                 <li class="{{ ($page->page == 1) ? 'am-disabled' : '' }}">
-                  <a href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=' . $page->prev . '&sort=' . (isset($sort) ? $sort : '') ) }}">&laquo;</a>
+                  <a href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=' . $page->prev . '&sort=' . (isset($sort) ? $sort : '') . '&keyword=' . (isset($keyword)?$keyword:'') ) }}">&laquo;</a>
                 </li>
                 @for($i = 1; $i<= $page->last; $i++)
                 <li class="{{ ($page->page == $i) ? 'am-active' : '' }}">
-                  <a href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=' . $i . '&sort=' . (isset($sort) ? $sort : '') ) }}">{{ $i }}</a>
+                  <a href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=' . $i . '&sort=' . (isset($sort) ? $sort : '') ) . '&keyword=' . (isset($keyword)?$keyword:'') }}">{{ $i }}</a>
                 </li>
                 @endfor
                 <li class="{{ ($page->page == $page->last) ? 'am-disabled' : '' }}">
-                  <a href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=' . $page->next . '&sort=' . (isset($sort) ? $sort : '') ) }}">&raquo;</a>
+                  <a href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=' . $page->next . '&sort=' . (isset($sort) ? $sort : '') . '&keyword=' . (isset($keyword)?$keyword:'') ) }}">&raquo;</a>
                 </li>
               </ul>
 

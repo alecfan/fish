@@ -87,6 +87,9 @@ class IndexController extends Controller
                     $gid[] = $v->gid; // 获取该关键字对应的所有gid
                 }
                 $db->whereIn('goods.id', $gid); // 关联去查分词表
+                $list['keyword'] = $request->input('keyword');
+            } else {
+                $db->whereIn('goods.id', 0);
             }
         }
 

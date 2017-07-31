@@ -195,7 +195,11 @@
           </div>
           <li>
             <div class="clearfix tb-btn tb-btn-buy theme-login">
+            @if(session()->has('userid'))
               <a id="LikBuy" title="" href="{{ url('/orders/create?gid=') . $good->id }}">立即购买</a>
+            @else
+              <a id="LikBuy" title="" href="{{ url('/login') }}">立即购买</a>
+            @endif
             </div>
           </li>
           <li>

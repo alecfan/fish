@@ -72,6 +72,11 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        //
+        $goods = DB::table('goods')->where('id', $id)->first();
+        $usersadds = DB::table('usersadds')->where('uid', session('userid'))->get();
+        return view('home.orders.showOrders', [
+            'goods' => $goods,
+            'usersadds' => $usersadds
+        ]);
     }
 }

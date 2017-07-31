@@ -42,12 +42,20 @@
       </div>
       <div class="topMessage my-shangcheng">
         <div class="menu-hd MyShangcheng">
+        @if(session()->has('userid'))
           <a href="{{ url('/person') }}" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a>
+        @else
+          <a href="{{ url('/login') }}" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a>
+        @endif
         </div>
       </div>
       <div class="topMessage favorite">
         <div class="menu-hd">
+        @if(session()->has('userid'))
           <a href="{{ url('/person/collect') }}" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a>
+        @else
+          <a href="{{ url('/login') }}" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a>
+        @endif
         </div>
     </ul>
   </div>
@@ -69,6 +77,7 @@
       </form>
     </div>
   </div>
+
 
 
 {{-- 指定页面主体内容 --}}
