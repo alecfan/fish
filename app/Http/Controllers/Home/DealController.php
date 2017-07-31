@@ -10,22 +10,24 @@ class DealController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
+     * 我的发布显示页面
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $list = DB::table('goods')->where('goods.uid', '=', '2')
+        // 显示我的发布商品的信息
+        $list = DB::table('goods')->where('goods.uid', session('userid'))
             ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
             ->where('goodspics.mpic', '=', '1')
             ->select('goods.*', 'goodspics.picname', 'goodspics.mpic')
             ->paginate(2);
         // paginate(3);
         // dd($list);
-
+        // $page = $list->paginate(2);
         return view('home.deal.deal', [
             'list' => $list
+
         ]);
     }
 
@@ -63,12 +65,15 @@ class DealController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * 显示我发布的修改页面
      *
      * @param int $id
+     *            要修改的商品id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
+        // 显示修改商品
         $goods = DB::table('goods')->where('id', $id)->first();
         // dd($goods);
         return view('home.deal.dealedit', [
@@ -78,15 +83,19 @@ class DealController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * 提交我的发布的修改状态
      *
      * @param \Illuminate\Http\Request $request
+     *            修改的内容
      * @param int $id
+     *            修改的商品id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         // 获取商品信息先存到商品表
         $arr = $request->except('_token', '_method', 'main', 'minor');
+        // 添加时间存到数组
         $arr['addtime'] = time();
 
         // 商品信息入库，并获得该商品ID
@@ -157,8 +166,10 @@ class DealController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * 我的发布的状态的删除
      *
      * @param int $id
+     *            删除的商品的id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

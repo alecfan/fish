@@ -32,13 +32,13 @@ Route::get('/logout', 'Home\LoginController@logout');
 // 前台用户个人中心首页显示
 Route::get('/person', 'Home\PersonController@showIndex');
 // 前台用户个人信息显示,修改
-
 Route::get('/person/info', 'Home\PersonController@editInfo');
 Route::post('/person/info', 'Home\PersonController@updateInfo');
 // 用户收货地址添加，显示，修改，删除
 Route::resource('/person/address', 'Home\AddressController');
 // 用户商品管理，添加，显示，删除，修改
 Route::resource('/person/goods', 'Home\GoodsController');
+Route::get('/home/person/collect', 'Home\CollectController@index');
 Route::post('/person/auction', 'Home\AuctionController@index');
 // ===============前台=======商品详情页显示===============
 Route::get('/goods/{id}', 'Home\GoodController@showGood');
@@ -64,6 +64,11 @@ Route::post('/comment', 'Home\CommentController@store');
 Route::post('/collect', 'Home\CollectController@store');
 Route::post('/cancelcollect', 'Home\CollectController@destroy');
 Route::get('/collect', 'Home\CollectController@index');
+// 商品搜索
+Route::post('/search', 'Home\IndexController@searchGoods');
+Route::get('/search/tid/{tid}', 'Home\IndexController@searchGoods');
+Route::get('/search/tid/{tid}/staddtime/{staddtime}', 'Home\IndexController@searchGoods');
+Route::get('/home/person/foot', 'Home\PersonController@foot');
 
 // 后台
 Route::group([

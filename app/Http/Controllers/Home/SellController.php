@@ -11,12 +11,14 @@ class SellController extends Controller
 
     /**
      * Display a listing of the resource.
+     * 我卖出的商品的显示
      *
      * @return \Illuminate\Http\Response
      */
     public function showGood()
     {
-        $list = DB::table('goods')->where('goods.uid', '=', '2')
+        // 联查我卖出的商品的信息
+        $list = DB::table('goods')->where('goods.uid', session('userid'))
             ->where('goods.status', '=', '3')
             ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
             ->select('goods.*', 'goodspics.picname', 'goodspics.mpic')
@@ -32,8 +34,10 @@ class SellController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * 删除我卖出的商品
      *
      * @param int $id
+     *            商品的id
      * @return \Illuminate\Http\Response
      */
     public function delete($id)

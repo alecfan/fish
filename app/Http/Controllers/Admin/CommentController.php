@@ -11,16 +11,19 @@ class CommentController extends Controller
 
     /**
      * Display a listing of the resource.
+     * 显示商品评论
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        // 查询该商品对于的评论
         $list = DB::table('comment')->join('goods', 'comment.gid', '=', 'goods.id')
             ->join('users', 'comment.uid', '=', 'users.id')
             ->select('comment.*', 'goods.title', 'users.username');
 
         $list = $list->paginate(6);
+        // 获取当前页
         $now = $list->currentPage();
         // dd($list);
         // 加载模板的同时，把查询的数据，以及分页时需要携带的参数传到模板上
@@ -102,8 +105,10 @@ class CommentController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * 删除评论操作
      *
      * @param int $id
+     *            商品id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

@@ -18,8 +18,9 @@ class GoodsController extends Controller
      */
     public function index(request $request)
     {
+        // 定义搜索的空数组
         $where = [];
-
+        // 查询商品的信息
         $list = DB::table('goods')->where('goods.is_auction', '=', ' 0')
             ->join('type', 'goods.tid', '=', 'type.id')
             ->join('users', 'goods.uid', '=', 'users.id')
@@ -166,6 +167,7 @@ class GoodsController extends Controller
     {
         $list = DB::table('goods')->where('id', $id)->first();
         // dd($list);
+
         $sale = $list->status;
         // dd($sale);
         if ($sale == 0) {
