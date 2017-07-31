@@ -10,10 +10,20 @@
  * |
  */
 
-// 前台首页显示
+/*
+ * *****************前***台*******************************
+ */
+// ===============首页显示=======================
 Route::get('/', 'Home\IndexController@index');
 Route::get('/list/{tid}', 'Home\IndexController@showList');
-// ===============前台=======用户登录注册开始==========================
+// ==============商品搜索页================================
+Route::post('/search', 'Home\IndexController@searchGoods');
+Route::get('/search', 'Home\IndexController@searchGoods');
+
+// ============== 商品详情页============================
+Route::get('/goods/{id}', 'Home\GoodController@showGood');
+
+// ==============用户登录注册==========================
 // 登录显示
 Route::get('/login', 'Home\LoginController@showLogin');
 // 登录处理
@@ -28,46 +38,55 @@ Route::post('/register/checksms', 'Home\LoginController@checkSMS');
 Route::post('/register', 'Home\LoginController@doReg');
 // 注销
 Route::get('/logout', 'Home\LoginController@logout');
-// ===============前台=======用户登录注册结束==========================
-// 前台用户个人中心首页显示
+// ===============个人中心显示=============================
 Route::get('/person', 'Home\PersonController@showIndex');
-// 前台用户个人信息显示,修改
+// 显示个人信息
 Route::get('/person/info', 'Home\PersonController@editInfo');
+// 修改个人信息
 Route::post('/person/info', 'Home\PersonController@updateInfo');
-// 用户收货地址添加，显示，修改，删除
+// 显示用户发布商品
+Route::get('/person/selling', 'Home\PersonController@showSelling');
+// 显示用户卖出商品
+Route::get('/person/sold', 'Home\PersonController@showSold');
+// 显示用户买到商品
+Route::get('/person/bought', 'Home\PersonController@showBought');
+// ==============TODO用户信息管理=========================
+// ==============用户收货地址管理==========================
 Route::resource('/person/address', 'Home\AddressController');
-// 用户商品管理，添加，显示，删除，修改
+// ================用户商品管理============================
 Route::resource('/person/goods', 'Home\GoodsController');
-Route::get('/home/person/collect', 'Home\CollectController@index');
-Route::post('/person/auction', 'Home\AuctionController@index');
-// ===============前台=======商品详情页显示===============
-Route::get('/goods/{id}', 'Home\GoodController@showGood');
 
-// 用户的交易 显示，修改，删除
+// ================用户订单管理============================
+Route::resource('/orders', 'Home\OrdersController');
+// ================商品收藏管理============================
+// 显示
+Route::get('/person/collect', 'Home\CollectController@index');
+// 存储
+Route::post('/collect', 'Home\CollectController@store');
+// 删除
+Route::post('/cancelcollect', 'Home\CollectController@destroy');
+// ================商品足迹管理==============================
+// 显示浏览足迹
+Route::get('/home/person/foot', 'Home\PersonController@foot');
+// ================商品评论管理==============================
+// 显示用户商品评论
+Route::get('/home/person/comment', 'Home\CommentController@index');
+// 存储商品评论
+Route::post('/comment', 'Home\CommentController@store');
+// ================商品拍卖管理===============================
+Route::post('/person/auction', 'Home\AuctionController@index');
+
+// 用户的交易 FIXME 写到商品模块或订单模块中
 Route::resource('/deal', 'Home\DealController');
-// 卖出的商品
-Route::get('/sell', 'Home\SellController@showGood');
 Route::post('/sell/{id}', 'Home\SellController@delete');
-// 买到的商品
-Route::get('/buy', 'Home\BuyController@showGood');
+
+// 买到的商品 FIXME 写到商品模块或订单模块中
 Route::post('/buy/{id}', 'Home\BuyController@delete');
 Route::get('/orderinfo/{id}', 'Home\BuyController@showOrder');
 
-// 商品订单页面显示
-Route::resource('/orders', 'Home\OrdersController');
-// 发布商品评论
-Route::post('/comment', 'Home\CommentController@store');
-// 商品收藏
-Route::post('/collect', 'Home\CollectController@store');
-Route::post('/cancelcollect', 'Home\CollectController@destroy');
-Route::get('/collect', 'Home\CollectController@index');
-// 商品搜索
-Route::post('/search', 'Home\IndexController@searchGoods');
-Route::get('/search/tid/{tid}', 'Home\IndexController@searchGoods');
-Route::get('/search/tid/{tid}/staddtime/{staddtime}', 'Home\IndexController@searchGoods');
-Route::get('/home/person/foot', 'Home\PersonController@foot');
-
-// 后台
+/*
+ * ******************后****台**************************************
+ */
 Route::group([
     'prefix' => 'admin',
     'middleware' => 'login'

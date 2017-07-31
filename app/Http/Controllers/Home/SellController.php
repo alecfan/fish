@@ -16,18 +16,18 @@ class SellController extends Controller
      */
     public function showGood()
     {
-        $list = DB::table('goods')->where('goods.uid', '=', '2')
-            ->where('goods.status', '=', '3')
-            ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
-            ->select('goods.*', 'goodspics.picname', 'goodspics.mpic')
-            ->where('goodspics.mpic', '=', '1')
-            ->paginate(2);
+        // $list = DB::table('goods')->where('goods.uid', '=', '2')
+        // ->where('goods.status', '=', '3')
+        // ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
+        // ->select('goods.*', 'goodspics.picname', 'goodspics.mpic')
+        // ->where('goodspics.mpic', '=', '1')
+        // ->paginate(2);
 
-        // paginate(3);
+        // // paginate(3);
 
-        return view('home.deal.sell', [
-            'list' => $list
-        ]);
+        // return view('home.deal.sell', [
+        // 'list' => $list
+        // ]);
     }
 
     /**

@@ -113,7 +113,7 @@
 
               <div class="buy-point-discharge ">
                 <p class="price g_price ">
-                                               合计（含运费） <span>¥</span><em class="pay-sum">{{ $goods->price }}</em>
+                        合计（含运费） <span>¥</span><em class="pay-sum">{{ $goods->price }}</em>
                 </p>
               </div>
 
@@ -130,7 +130,7 @@
                   <div class="clear"></div>
                 </div>
               </div>
-              </from>
+             </form>
             </div>
 
             <div class="clear"></div>

@@ -9,6 +9,15 @@ class CommentController extends Controller
 {
 
     /**
+     * 显示用户对商品的评论
+     */
+    public function index()
+    {
+        // 需要uid 从session中取
+        return view('home.comment.index');
+    }
+
+    /**
      * 存储用户给商品的评论
      */
     public function store(Request $request)

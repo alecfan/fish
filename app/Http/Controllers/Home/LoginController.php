@@ -1,4 +1,10 @@
 <?php
+/*********************************************
+ * FileName : LoginController.php
+ * Author : Zhuyunfei
+ * Date : 2017-07-30
+ * Description : 登录注册模块控制器
+ *********************************************/
 namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
@@ -10,13 +16,10 @@ class LoginController extends Controller
 {
 
     /**
-     * 显示用户登录的界面
-     *
-     * @return \Illuminate\Http\Response
+     * 显示用户登录界面
      */
     public function showLogin()
     {
-        //
         return view('home.login.showLogin');
     }
 
@@ -27,28 +30,28 @@ class LoginController extends Controller
     {
         // 验证用户输入数据
         $username = $request->input('username');
-        $password = md5($request->input('password'));
+
         // 判断用户在数据中是否存在 FIXME查询用户字段筛选
         $user = DB::table('users')->where('username', $username)
             ->orWhere('phone', $username)
             ->orWhere('email', $username)
             ->first();
 
+        $password = md5($request->input('password'));
+
         if ($user && ($user->password == $password)) {
-            // 存在
             unset($user->password);
             // 将用户数据保存至session中
             $request->session()->put('userid', $user->id);
             $request->session()->put('username', $user->username);
             $request->session()->put('photo', $user->photo);
 
-            // redis中存储用户最后登录时间
-            Redis::set($user->username . ':lastLogin', time());
+            // 更新用户最后登录时间
+            Redis::set("lastLogin:" . $user->username, time());
 
             // 跳转至首页
             return redirect('/');
         } else {
-            // 不存在
             // 返回登录页(带提示信息）
             return redirect('/login')->with('status', '用户名或密码错误，请重新登录。');
         }
@@ -56,8 +59,6 @@ class LoginController extends Controller
 
     /**
      * 显示用户注册界面
-     *
-     * @return \Illuminate\Http\Response
      */
     public function showReg()
     {
@@ -138,6 +139,7 @@ class LoginController extends Controller
             'password' => $password,
             'username' => $username
         ]);
+
         // FIXME 注册成功跳转至登录页（待添加延时跳转功能）
         if ($id > 0) {
             return redirect('/login');
@@ -145,13 +147,15 @@ class LoginController extends Controller
     }
 
     /**
+     * 处理用户注销操作
      */
     public function logout(Request $request)
     {
-        // 销毁session
+        // 销毁session中关于用户的数据
         $request->session()->forget('userid');
         $request->session()->forget('username');
         $request->session()->forget('photo');
+
         // 重新跳转至首页
         return redirect('/');
     }

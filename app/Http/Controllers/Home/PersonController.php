@@ -1,4 +1,10 @@
 <?php
+/**************************************
+ * FileName : PersonController.php
+ * Author : Zhuyunfei
+ * Date : 2017-07-30
+ * Description : 个人中心模块控制器
+ **************************************/
 namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
@@ -9,15 +15,12 @@ class PersonController extends Controller
 {
 
     /**
-     * 显示前台用户个人中心首页
-     *
-     * @return \Illuminate\Http\Response
+     * 显示用户个人中心页面
      */
     public function showIndex()
     {
         $list = DB::table('users')->where('id', 3)->get();
 
-        // dd($list);
         return view('home.person.showIndex', [
             'list' => $list
         ]);
@@ -95,11 +98,12 @@ class PersonController extends Controller
     }
 
     /**
-     * 用户浏览足迹
+     * 显示用户浏览足迹
      */
     public function foot()
     {
-        $uid = session()->get('userid'); // 用户id
+        // 用户id
+        $uid = session()->get('userid');
 
         // 查出所有浏览记录
         $arr = DB::table('footprint')->where('uid', $uid)
@@ -147,31 +151,100 @@ class PersonController extends Controller
             $goods['lastweekGoods'] = $lastweekGoods;
         }
 
-        // dd($goods);
-        /*
-         * array:1 [▼
-         * "todayGoods" => array:2 [▼
-         * 0 => {#280 ▼
-         * +"id": 80
-         * +"title": "母婴222"
-         * +"price": 3231.0
-         * +"username": "admin"
-         * +"photo": "user.jpg"
-         * +"picname": "15008595134075.jpg"
-         * }
-         * 1 => {#281 ▼
-         * +"id": 81
-         * +"title": "奶嘴达瓦大家"
-         * +"price": 4333.0
-         * +"username": "admin"
-         * +"photo": "user.jpg"
-         * +"picname": "15008595754437.jpg"
-         * }
-         * ]
-         * ]
-         */
         return view('home.person.foot', [
             'goods' => $goods
+        ]);
+    }
+
+    /**
+     * 显示我发布的商品
+     */
+    public function showSelling()
+    {
+        // 用户id
+        $uid = session()->get('userid');
+
+        $redis = new \Redis();
+        $redis->connect('192.168.184.222', 6379);
+        $redis->auth('123456');
+        $redis->select(1);
+        $arr = $redis->lrange('ids:user-' . $uid . '-goods', 0, - 1);
+        if (! empty($arr)) {
+            foreach ($arr as $v) {
+                $good = $redis->hGetAll('goods:' . $v);
+                $good['id'] = $v;
+                if ($good['status'] == 0 && $good['is_auction'] == 0) {
+                    $arr_ids_goodspics = $redis->lrange('ids:goodspics-' . $v, 0, - 1);
+
+                    foreach ($arr_ids_goodspics as $ids_goodspics) {
+                        $goodspics = $redis->hGetAll('goodspics:' . $v . '-' . $ids_goodspics);
+                        if (isset($goodspics['mpic'])) {
+                            $good['picname'] = $goodspics['picname'];
+                        }
+                    }
+
+                    $list[] = $good;
+                }
+            }
+        } else {
+            $res = DB::table('goods')->where('goods.uid', '=', $uid)
+                ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
+                ->where('goodspics.mpic', '=', '1')
+                ->where('goods.status', 0)
+                ->where('goods.is_auction', 0)
+                ->select('goods.*', 'goodspics.picname', 'goodspics.mpic')
+                ->get(); // 0为正常上架状态
+
+            $list = [];
+            foreach ($res as $value) {
+                $list[]['title'] = $value->title;
+                $list[]['description'] = $value->description;
+                $list[]['price'] = $value->price;
+                $list[]['addtime'] = $value->addtime;
+                $list[]['status'] = $value->status;
+            }
+        }
+
+        // 加载模板
+        return view('home.person.selling', [
+            'list' => $list
+        ]);
+    }
+
+    /**
+     * 显示我卖出的商品
+     */
+    public function showSold()
+    {
+        $list = DB::table('goods')->where('goods.uid', '=', '2')
+            ->where('goods.status', '=', '3')
+            ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
+            ->select('goods.*', 'goodspics.picname', 'goodspics.mpic')
+            ->where('goodspics.mpic', '=', '1')
+            ->paginate(2);
+
+        // paginate(3);
+
+        return view('home.deal.sell', [
+            'list' => $list
+        ]);
+    }
+
+    /**
+     * 显示我买到的商品
+     */
+    public function showBought()
+    {
+        //
+        $list = DB::table('orders')->where('buyer', '=', '2')
+            ->join('goods', 'goods.id', '=', 'orders.gid')
+            ->join('goodspics', 'goodspics.gid', '=', 'goods.id')
+            ->where('goodspics.mpic', '=', 1)
+            ->select('orders.*', 'goodspics.picname', 'goodspics.mpic', 'goods.title')
+            ->paginate(2);
+        // dd($list);
+        return view('home.deal.buy', [
+            'list' => $list
         ]);
     }
 }

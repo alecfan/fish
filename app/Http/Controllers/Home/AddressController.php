@@ -2,17 +2,14 @@
 namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
 
     /**
      * 显示用户收货地址
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -33,10 +30,7 @@ class AddressController extends Controller
     }
 
     /**
-     * 添加用户收货地址
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * 存储用户收货地址
      */
     public function store(Request $request)
     {

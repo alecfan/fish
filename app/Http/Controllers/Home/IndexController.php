@@ -1,10 +1,16 @@
 <?php
+/****************************************
+ * FileName : IndexController.php
+ * Author : Zhuyunfei
+ * Date : 2017-07-30
+ * Description : 前台首页模块控制器
+ ***************************************/
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\Types\Null_;
+use App\Org\Page;
 
 class IndexController extends Controller
 {
@@ -14,30 +20,32 @@ class IndexController extends Controller
      */
     public function index()
     {
-        // 查询分类
+        // 所有分类组成的三维数组
         $type = [];
+
         $tmp1 = DB::table('type')->where('pid', '0')->get();
+
         foreach ($tmp1 as $one) {
             $tmp2 = DB::table('type')->where('pid', $one->id)->get();
             foreach ($tmp2 as $two) {
                 $type[$one->tname][$two->tname] = DB::table('type')->where('pid', $two->id)->get();
             }
         }
+
         // 获取拍卖的商品
         $auction = DB::table('goods')->where('goods.is_auction', 1)
             ->join('auction', 'auction.gid', '=', 'goods.id')
             ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
             ->where('goodspics.mpic', 1)
             ->get();
+
         // 查询母婴类别商品
         $muyinGoods = getGoods(14, 5);
 
         // 查询数码类型商品
         $shumaGoods = getGoods(1, 5);
 
-        // 查询
-
-        // 分配所有变量到主页
+        // 加载模板(同时分配变量到模板)
         return view('home.index.index', [
             'data' => $type,
             'muyinGoods' => $muyinGoods,
@@ -47,36 +55,22 @@ class IndexController extends Controller
     }
 
     /**
-     * 分类列表显示页
-     *
-     * @param int $tid
-     *            分类id
+     * 显示分类搜索列表页
      */
-    public function showList(int $tid)
+    public function searchGoods(Request $request)
     {
-        $list = DB::table('goods')->join('goodspics', 'goods.id', '=', 'goodspics.gid')
-            ->where('goods.tid', $tid)
-            ->where('goodspics.mpic', 1)
-            ->select('goods.id', 'goods.price', 'goods.title', 'goodspics.picname')
-            ->paginate(4);
+        // 分配到模板的参数数组
+        $list = [];
 
-        return view('home.index.list', [
-            'list' => $list
-        ]);
-    }
-
-    /**
-     * 商品搜索
-     */
-    public function searchGoods(Request $request, $tid = null, $staddtime = null)
-    {
-        // 分析：根据商品关键字搜索keyword，根据发布用户名搜索username，根据分类搜索tid，默认排序st_trust=1，最新发布时间排序st_edtime=1，根据价格排序st_price=1|0
+        // 初始化商品model对象
         $db = DB::table('goods')->join('users', 'goods.uid', '=', 'users.id')
             ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
             ->select('goods.id', 'goods.price', 'goods.title', 'goods.tid', 'goodspics.picname', 'users.username', 'users.photo')
-            ->where('goodspics.mpic', 1);
+            ->where('goodspics.mpic', 1)
+            ->where('goods.status', 0)
+            ->where('goods.is_auction', 0);
 
-        // 判断关键字搜索条件
+        // 如果有关键字搜索,增加搜索条件
         if ($request->has('keyword')) {
             $keyword = $request->input('keyword'); // 获取搜索关键字
             $arr = DB::table('fenci')->where('title', $keyword)->get();
@@ -88,50 +82,63 @@ class IndexController extends Controller
             }
         }
 
-        // 判断用户搜索条件
-        if ($request->has('username')) {
-            $username = $request->input('username');
-            $db->join('users', 'goods.uid', 'users.id')->where('users.username', $username);
-        }
-
-        // 判断分类条件
-        if (isset($tid)) {
+        // 如果有分类条件,增加分类搜索条件
+        if ($request->has('tid')) {
+            $tid = $request->get('tid');
             $db->where('goods.tid', $tid);
+            $list['tid'] = $tid;
         }
 
         // 商品添加时间排序
-        if (isset($staddtime)) {
-            $db->orderBy('goods.addtime', 'desc');
-        }
-
-        // 商品价格排序
-        // if (isset($stprice)) {
-        // if ($stprice == '1') {
-        // $db->orderBy('goods.price', 'asc');
-        // } else {
-        // $db->orderBy('goods.price', 'desc');
-        // }
+        // if (isset($staddtime)) {
+        // $db->orderBy('goods.addtime', 'desc');
         // }
 
-        // 查询商品
-        $goods = $db->get(); // 返回数组（空就为空数组）
-
-        // dd($goods);
-
-        // 准备条件数组sear分配到模板
-        if (isset($keyword)) {
-            $sear['keyword'] = $keyword;
-        }
-        if (isset($username)) {
-            $sear['username'] = $username;
-        }
-        if (isset($tid)) {
-            $sear['tid'] = $tid;
+        // 商品排序
+        if ($request->has('sort')) {
+            if ($request->input('sort') == 'addtime') {
+                $db->orderBy('goods.addtime', 'desc');
+                $list['sort'] = $request->input('sort');
+            } else {
+                $db->orderBy('goods.price', 'desc');
+                $list['sort'] = $request->input('price');
+            }
         }
 
-        return view('home.index.search', [
-            'tid' => $tid,
-            'goods' => $goods
-        ]);
+        // 分页
+        $tmpgoods = $db->get(); // 返回的是数组
+        if ($tmpgoods) {
+            $total = count($tmpgoods); // 总条数
+            $num = 3; // 每页显示条数
+            $page = new Page($total, $num);
+            $page->page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $start = ($page->page - 1) * $num; // 开始索引
+            $end = $start + $num; // 结束索引
+
+            for ($i = $start; $i < ($end > $total ? $total : $end); $i ++) {
+                $goods[] = $tmpgoods[$i];
+            }
+
+            $list['goods'] = $goods;
+            $list['page'] = $page;
+        } else {
+            $list['goods'] = $tmpgoods;
+            $page = new Page(0, 3);
+            $list['page'] = $page;
+        }
+
+        // 获取所有的三级分类
+        $types = DB::table('type')->get();
+        $type3 = [];
+        foreach ($types as $type) {
+            $arr = explode(',', $type->path);
+            if (count($arr) == 3) {
+                $type3[] = $type;
+            }
+        }
+        $list['type3'] = $type3;
+
+        // 加载模板(同时分配变量到模板)
+        return view('home.index.search', $list);
     }
 }

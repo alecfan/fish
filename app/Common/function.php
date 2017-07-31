@@ -89,6 +89,7 @@ function getGoods($tid, $num)
         ->select('goods.id', 'goods.title', 'goods.price', 'goodspics.picname')
         ->whereIn('goods.tid', $ids)
         ->where('goodspics.mpic', 1)
+        ->where('goods.status', 0)
         ->orderBy('goods.addtime', 'desc')
         ->limit($num)
         ->get();

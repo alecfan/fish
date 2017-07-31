@@ -1,3 +1,9 @@
+{{-- ********************************
+FileName： search.blade.php
+Author: Zhuyunfei  Date: 2017-07-30
+Description: 分类搜索列表页模板
+********************************* --}}
+
 @extends('home.parent')
 
 @section('title')
@@ -62,53 +68,24 @@
                 <div class="clear"></div>
                 <li class="select-list">
                   <dl id="select1">
-                    <dt class="am-badge am-round">品牌</dt>
-
+                    <dt class="am-badge am-round">所有分类</dt>
                      <div class="dd-conent">
-                      <dd class="select-all selected"><a href="#">全部</a></dd>
-                      <dd><a href="#">百草味</a></dd>
-                      <dd><a href="#">良品铺子</a></dd>
-                      <dd><a href="#">新农哥</a></dd>
-                      <dd><a href="#">楼兰蜜语</a></dd>
-                      <dd><a href="#">口水娃</a></dd>
-                      <dd><a href="#">考拉兄弟</a></dd>
+                      <dd class="select-all"><a href="/search">全部</a></dd>
+                      @foreach($type3 as $type)
+                      <dd class="{{ (isset($tid) && $tid == $type->id) ? 'selected' : '' }}"><a href="{{ url('/search?tid=' . $type->id) }}">{{ $type->tname }}</a></dd>
+                      @endforeach
                      </div>
-
-                  </dl>
-                </li>
-                <li class="select-list">
-                  <dl id="select2">
-                    <dt class="am-badge am-round">种类</dt>
-                    <div class="dd-conent">
-                      <dd class="select-all selected"><a href="#">全部</a></dd>
-                      <dd><a href="#">东北松子</a></dd>
-                      <dd><a href="#">巴西松子</a></dd>
-                      <dd><a href="#">夏威夷果</a></dd>
-                      <dd><a href="#">松子</a></dd>
-                    </div>
-                  </dl>
-                </li>
-                <li class="select-list">
-                  <dl id="select3">
-                    <dt class="am-badge am-round">选购热点</dt>
-                    <div class="dd-conent">
-                      <dd class="select-all selected"><a href="#">全部</a></dd>
-                      <dd><a href="#">手剥松子</a></dd>
-                      <dd><a href="#">薄壳松子</a></dd>
-                      <dd><a href="#">进口零食</a></dd>
-                      <dd><a href="#">有机零食</a></dd>
-                    </div>
                   </dl>
                 </li>
 
               </ul>
               <div class="clear"></div>
-                        </div>
+            </div>
               <div class="search-content">
                 <div class="sort">
-                  <li class=""><a title="综合" href="{{ url('/search/tid/' . $tid  ) }}">综合排序</a></li>
-                  <li class=""><a title="评价" href="{{ url('/search/tid/' . $tid . '/staddtime/1' ) }}">最新发布</a></li>
-                  <li class=""><a title="价格" href="">价格</a></li>
+                  <li class=""><a title="综合" href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=1' ) }}">综合排序</a></li>
+                  <li class=""><a title="评价" href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=1' . '&sort=addtime'  ) }}">最新发布</a></li>
+                  <li class=""><a title="价格" href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=1' . '&sort=price'  ) }}">价格</a></li>
                 </div>
                 <div class="clear"></div>
 
@@ -135,15 +112,20 @@
               <div class="clear"></div>
               <!--分页 -->
               <ul class="am-pagination am-pagination-right">
-                <li class="am-disabled"><a href="#">&laquo;</a></li>
-                <li class="am-active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
+                <li class="{{ ($page->page == 1) ? 'am-disabled' : '' }}">
+                  <a href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=' . $page->prev . '&sort=' . (isset($sort) ? $sort : '') ) }}">&laquo;</a>
+                </li>
+                @for($i = 1; $i<= $page->last; $i++)
+                <li class="{{ ($page->page == $i) ? 'am-active' : '' }}">
+                  <a href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=' . $i . '&sort=' . (isset($sort) ? $sort : '') ) }}">{{ $i }}</a>
+                </li>
+                @endfor
+                <li class="{{ ($page->page == $page->last) ? 'am-disabled' : '' }}">
+                  <a href="{{ url('/search?tid='. (isset($tid)?$tid:'') .'&page=' . $page->next . '&sort=' . (isset($sort) ? $sort : '') ) }}">&raquo;</a>
+                </li>
               </ul>
 
             </div>
           </div>
+
 @endsection

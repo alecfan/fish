@@ -1,36 +1,30 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class AuctionController extends Controller
 {
+
     /**
      * 显示拍卖列表界面
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //从数据库查询数据
-        $goods = DB::table('goods')->where('is_auction', '=', '1')
+        $goods = DB::table('goods')->where('goods.is_auction', '=', '1')
             ->join('auction', 'goods.id', '=', 'auction.gid')
             ->join('users', 'goods.uid', '=', 'users.id')
-            ->select('goods.title', 'goods.description', 'goods.addtime', 'goods.status', 'auction.startprice', 'auction.cash', 'auction.incre', 'auction.starttime', 'auction.endtime', 'users.username')
+            ->select('goods.id', 'goods.title', 'goods.description', 'goods.addtime', 'goods.status', 'auction.startprice', 'auction.cash', 'auction.incre', 'auction.starttime', 'auction.endtime', 'users.username')
             ->paginate(3);
 
-        // dd($goods);
-        return view('admin.auction.index', ['goods' => $goods]);
+        return view('admin.auction.index', [
+            'goods' => $goods
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     * 显示添加拍卖界面
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -40,18 +34,16 @@ class AuctionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-
-    }
+    {}
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -62,7 +54,7 @@ class AuctionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -73,8 +65,8 @@ class AuctionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -83,13 +75,21 @@ class AuctionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 删除拍卖商品操作
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
      */
     public function destroy($id)
     {
         //
+        $a = DB::table('goods')->where('goods.id', $id)->delete();
+        $b = $DB::table('goodspics')->where('gid', $id)->delete();
+        $c = DB::table('auction')->where('gid', $id)->delete();
+
+        if ($a && $b && $c) {
+            return redirect('/admin/auction')->with('hasDel', 'ok');
+        } else {
+            return redirect('/admin/auction')->with('hasDel', 'failed');
+        }
     }
 }

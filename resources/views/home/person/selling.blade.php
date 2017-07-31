@@ -13,8 +13,10 @@
 <script src="{{ asset('home/AmazeUI-2.4.2/assets/js/amazeui.js') }}"></script>
 
 <!--标题 -->
-<form name='myform' action="" style='display: none' method='post'>{{
-  csrf_field() }} {{ method_field('DELETE') }}</form>
+<form name='myform' action="" style='display: none' method='post'>
+  {{ csrf_field() }} {{ method_field('DELETE') }}
+</form>
+
 <div class="am-cf am-padding">
   <div class="am-fl am-cf">
     <strong class="am-text-danger am-text-lg">我的发布</strong> / <small>release</small>
@@ -50,7 +52,7 @@
             <div class="order-title">
               <div class="dd-num">
                 发布时间<a href="javascript:;">{{ date('Y-m-d H:i',
-                  $v->addtime) }}</a>
+                  $v['addtime']) }}</a>
               </div>
               <!--    <em>店铺：小桔灯</em>-->
             </div>
@@ -59,18 +61,16 @@
                 <ul class="item-list">
                   <li class="td td-item">
                     <div class="item-pic">
-                      <a href="#" class="J_MakePoint"> <img
-                        src="{{ url('/home/images/' . $v->picname) }}"
-                        class="itempic J_ItemImg">
+                      <a href="{{ url('/goods/' . $v['id']) }}" class="J_MakePoint">
+                        <img src="{{ url('/home/images/' . $v['picname']) }}" class="itempic J_ItemImg">
                       </a>
                     </div>
                     <div class="item-info">
                       <div class="item-basic-info">
                         <a href="#">
-                          <p>{{ $v->title}}</p>
+                          <p>{{ $v['title'] }}</p>
                           <p class="info-little">
-                            <br> 地点：{{ $v->locate}} <br> 描述：{{
-                            $v->description}}
+                            描述：{{ $v['description'] }}
                           </p>
                         </a>
                       </div>
@@ -79,7 +79,7 @@
                   <ul class="td-changeorder">
                     <li class="td td-orderprice">
                       <div class="item-orderprice">
-                        <span>交易金额：</span>{{$v->price}}
+                        <span>交易金额：</span>{{ $v['price'] }}
                       </div>
                     </li>
                   </ul>
@@ -88,11 +88,11 @@
                       <div class="item-status">
                         <p class="Mystatus">
                                   <?php
-                                if ($v->status == 0) {
+                                if ($v['status'] == 0) {
                                     echo '上架';
-                                } else if ($v->status == 1) {
+                                } else if ($v['status'] == 1) {
                                     echo '下架';
-                                } else if ($v->status == 2) {
+                                } else if ($v['status'] == 2) {
                                     echo '被拍下';
                                 }
                                 ?>
@@ -102,29 +102,32 @@
                   </div>
                   <div class="clear"></div>
                 </ul>
-                <li class="td td-change td-changebutton"><a
-                  href="javascript:doDel({{ $v->id }})">
+                <li class="td td-change td-changebutton">
+                  <a href="javascript:doDel({{ $v['id'] }})">
                     <button class="am-btn am-btn-danger anniu">删除</button>
-                </a> <a href="/deal/{{ $v->id }}/edit">
+                  </a>
+                  <a href="/person/goods/{{ $v['id'] }}/edit">
                     <button class="am-btn am-btn-warning anniu">修改</button>
-                </a></li>
+                  </a>
+                </li>
               </div>
             </div>
           </div>
           @endforeach
         </div>
-        {!! $list->render() !!}
       </div>
     </div>
   </div>
 </div>
 <script>
 function doDel(id) {
-  var form = document . myform;
-  var url = "{{ url('/deal') }}"
-  form.action = url + '/' + id;
-                form . submit();
-            }
-            ;
+  if(confirm('你确定要删除这个商品吗？')){
+	  var form = document . myform;
+	  var url = "{{ url('/person/goods') }}"
+	  form.action = url + '/' + id;
+	                form . submit();
+	            }
+	            ;
+  }
 </script>
 @endsection

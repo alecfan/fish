@@ -24,7 +24,7 @@
     <div class="add-dress">
       <div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;">
 
-        <form action="{{ url('/deal').'/'.$goods->id }}" id="add" method='post' onSubmit="return doAdd()" enctype="multipart/form-data" class="am-form am-form-horizontal">
+        <form action="{{ url('/person/goods') . '/' . $goods->id }}" id="add" method='post' onSubmit="return doAdd()" enctype="multipart/form-data" class="am-form am-form-horizontal">
             {{ csrf_field() }} {{ method_field('PUT') }}
 <!--           <div class="am-form-group"> -->
 <!--             <label for="user-name" class="am-form-label">发布标题</label> -->

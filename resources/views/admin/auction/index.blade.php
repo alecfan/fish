@@ -9,6 +9,15 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="table-responsive">
+        @if(session()->has('hasDel') && session('hasDel') == 'ok')
+        <div class="alert alert-block alert-success">
+          <button type="button" class="close" data-dismiss="alert">
+            <i class="icon-remove"></i>
+          </button>
+          <i class="icon-ok green"></i>
+          删除成功
+        </div>
+        @endif
         <table id="sample-table-1" class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
@@ -20,7 +29,7 @@
               </th>
               <th>发布标题</th>
               <th>发布人</th>
-              <th class="hidden-480">点击数</th>
+              <th class="hidden-480">起拍价格</th>
               <th>
                 <i class="icon-time bigger-110 hidden-480"></i> 发布时间
               </th>
@@ -41,7 +50,7 @@
                 <a href="#">{{ $good->title }}</a>
               </td>
               <td>{{ $good->username }}</td>
-              <td class="hidden-480">3,330</td>
+              <td class="hidden-480">{{ $good->startprice }}</td>
               <td>{{ date('Y-m-d H:i', $good->addtime) }}</td>
               <td class="hidden-480">
                 @if($good->status == 0)
@@ -52,18 +61,26 @@
               </td>
               <td>
                 <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-                  <button class="btn btn-xs btn-success">
-                    <i class="icon-ok bigger-120"></i>
-                  </button>
-                  <button class="btn btn-xs btn-info">
-                    <i class="icon-edit bigger-120"></i>
-                  </button>
-                  <button class="btn btn-xs btn-danger">
+<form action="" method="post" name="myform">
+<input type="hidden" name="_method" value="DELETE">
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+</form>
+
+                  <button class="btn btn-xs btn-danger" onclick="doDel('{{ $good->id }}')">
                     <i class="icon-trash bigger-120"></i>
                   </button>
-                  <button class="btn btn-xs btn-warning">
-                    <i class="icon-flag bigger-120"></i>
-                  </button>
+
+<script>
+function doDel(id){
+  var myform = document.myform;
+  var url = "{{ url('/admin/auction') }}" +  '/' + id;
+  myform.action = url;
+  myform.submit();
+}
+
+</script>
+
                 </div>
                 <div class="visible-xs visible-sm hidden-md hidden-lg">
                   <div class="inline position-relative">

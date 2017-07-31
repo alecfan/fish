@@ -147,17 +147,16 @@ $.ajaxSetup({
           </ul></li>
         <li class="person">我的交易
           <ul>
-            <li><a href="{{ url('/deal')}}">我发布的</a></li>
-            <li><a href="{{ url('/sell')}}">我卖出的</a></li>
-            <li><a href="{{ url('/buy') }}">我买到的</a></li>
-            <li><a href="order.html">我收藏的</a></li>
+            <li><a href="{{ url('/person/selling')}}">我发布的</a></li>
+            <li><a href="{{ url('/person/sold')}}">我卖出的</a></li>
+            <li><a href="{{ url('/person/bought') }}">我买到的</a></li>
             <li><a href="order.html">我的拍卖</a></li>
           </ul></li>
         <li class="person">我的小窝
           <ul>
-            <li class="@yield('collectActive')"><a href="{{ url('/collect') }}">收藏</a></li>
+            <li class="@yield('collectActive')"><a href="{{ url('/person/collect') }}">收藏</a></li>
             <li class="@yield('footActive')"><a href="{{ url('/home/person/foot') }}">足迹</a></li>
-            <li><a href="comment.html">评价</a></li>
+            <li class="@yield('commentActive')"><a href="{{ url('/home/person/comment') }}">评价</a></li>
             <li><a href="news.html">消息</a></li>
           </ul></li>
       </ul>

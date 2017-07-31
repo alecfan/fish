@@ -1,5 +1,6 @@
 <?php
 // ===================分词系统常量定义===================
+date_default_timezone_set('PRC');
 
 // Constant Define
 define('XDB_VERSION', 34); // 0x01 ~ 0xff

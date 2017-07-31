@@ -19,16 +19,16 @@ class BuyController extends Controller
         // dd($id);
         // $list = DB::table('orders')->get();
         // dd($list);
-        $list = DB::table('orders')->where('buyer', '=', '2')
-            ->join('goods', 'goods.id', '=', 'orders.gid')
-            ->join('goodspics', 'goodspics.gid', '=', 'goods.id')
-            ->where('goodspics.mpic', '=', 1)
-            ->select('orders.*', 'goodspics.picname', 'goodspics.mpic', 'goods.title')
-            ->paginate(2);
-        // dd($list);
-        return view('home.deal.buy', [
-            'list' => $list
-        ]);
+        // $list = DB::table('orders')->where('buyer', '=', '2')
+        // ->join('goods', 'goods.id', '=', 'orders.gid')
+        // ->join('goodspics', 'goodspics.gid', '=', 'goods.id')
+        // ->where('goodspics.mpic', '=', 1)
+        // ->select('orders.*', 'goodspics.picname', 'goodspics.mpic', 'goods.title')
+        // ->paginate(2);
+        // // dd($list);
+        // return view('home.deal.buy', [
+        // 'list' => $list
+        // ]);
     }
 
     /**
