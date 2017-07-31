@@ -245,7 +245,7 @@
       <div class="clear "></div>
 
       <div id="f1">
-      <!-- 母婴栏目开始 -->
+      <!-- 商品拍卖开始 -->
         <div class="am-container ">
           <div class="shopTitle ">
             <h4>热门拍卖</h4>
@@ -264,17 +264,17 @@
           <div class="am-u-sm-7 am-u-md-4 text-two" style="float: left">
             <div class="outer-con ">
               <div class="title ">{{ $auctioninfo->title }}</div>
-              <div class="sub-title ">{{ $auctioninfo->price }}</div>
+              <div class="sub-title ">￥{{ $auctioninfo->price }}<a>({{ date("m-d H:i",$auctioninfo->endtime) }}结束)</a></div>
               <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
             </div>
-            <a href="{{ url() }}"><img src="{{ asset('home/images/' . $auctioninfo->picname) }}"></a>
+            <a href="{{ url('/auction/' . $auctioninfo->id) }}"><img src="{{ asset('home/images/' . $auctioninfo->picname) }}"></a>
           </div>
           @endforeach
             <!-- 遍历商品结束 -->
         </div>
         <div class="clear "></div>
       </div>
-    <!-- 母婴栏目结束 -->
+    <!-- 商品拍卖结束 -->
       <!-- 母婴栏目开始 -->
         <div class="am-container ">
           <div class="shopTitle ">

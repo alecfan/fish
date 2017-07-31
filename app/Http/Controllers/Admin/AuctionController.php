@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -8,6 +7,7 @@ use Illuminate\Http\Request;
 
 class AuctionController extends Controller
 {
+
     /**
      * 显示拍卖列表界面
      *
@@ -15,7 +15,7 @@ class AuctionController extends Controller
      */
     public function index()
     {
-        //从数据库查询数据
+        // 从数据库查询数据
         $goods = DB::table('goods')->where('is_auction', '=', '1')
             ->join('auction', 'goods.id', '=', 'auction.gid')
             ->join('users', 'goods.uid', '=', 'users.id')
@@ -23,7 +23,9 @@ class AuctionController extends Controller
             ->paginate(3);
 
         // dd($goods);
-        return view('admin.auction.index', ['goods' => $goods]);
+        return view('admin.auction.index', [
+            'goods' => $goods
+        ]);
     }
 
     /**
@@ -40,18 +42,16 @@ class AuctionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-
-    }
+    {}
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -62,7 +62,7 @@ class AuctionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -73,8 +73,8 @@ class AuctionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -85,7 +85,7 @@ class AuctionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

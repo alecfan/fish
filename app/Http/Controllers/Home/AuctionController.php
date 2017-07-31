@@ -10,17 +10,14 @@ class AuctionController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 发布商品
      */
     public function index(Request $request)
     {
-        // dd($request);
         // 获取商品信息
         $arr = $request->only('title', 'description', 'tid');
         $arr['addtime'] = time();
-        $arr['uid'] = 2;
+        $arr['uid'] = session('userid');
         $arr['price'] = $request->input('startprice');
         $arr['is_auction'] = 1;
         // 获取拍卖信息
@@ -75,68 +72,54 @@ class AuctionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 显示商品的详情页面
      */
-    public function create()
+    public function showAuction($id)
     {
-        //
+        $list = DB::table('goods')->where('goods.is_auction', 1)
+            ->where('goods.id', $id)
+            ->join('auction', 'auction.gid', '=', 'goods.id')
+            ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
+            ->where('goodspics.mpic', 1)
+            ->select('goods.*', 'auction.*', 'goodspics.picname')
+            ->first();
+
+        $pics = DB::table('goodspics')->where('gid', $id)
+            ->select('goodspics.picname')
+            ->get();
+
+        // 商品是否被收藏
+        // 判断是哪个用户登录的
+        $uid = session()->get('userid');
+        $res = DB::table('goodscollect')->where('uid', $uid)
+            ->where('gid', $list->gid)
+            ->first();
+        if ($res) {
+            $isCollect = 1;
+        } else {
+            $isCollect = 0;
+        }
+        return view('home.auction.showAuction', [
+            'list' => $list,
+            'pics' => $pics,
+            'iscollect' => $isCollect
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * 竞拍AJAX
      */
-    public function store(Request $request)
+    public function doIncrease(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $id = $request->input('id');
+        $auction = DB::table('auction')->where('id', $id)
+            ->select('increase')
+            ->first();
+        $increase = $auction->increase;
+        $a = $increase + 1;
+        DB::table('auction')->where('id', $id)->update([
+            'increase' => $a
+        ]);
+        echo $a;
     }
 }

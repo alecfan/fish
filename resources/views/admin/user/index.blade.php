@@ -32,7 +32,7 @@
         </div>
       </div>
     </form>
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
     <button onclick="doCatch()" type="submit"
       class="btn btn-purple btn-sm">
       <i class=""></i> 删除选中
@@ -119,7 +119,7 @@ function doCatch() {
     }
   }
   var id = arr.join("-");
-  var url = "{{ url('admin/ajax/del') }}";
+  var url = "{{ url('admin/user/doDel') }}";
   $.ajax({
     url: url,
     type: 'post',
@@ -129,8 +129,10 @@ function doCatch() {
       '_token': "{{ csrf_token() }}"
     },
     success: function(data) {
-      alert('删除成功');
-      window.location.reload()
+      if(data > 0){
+        alert('删除成功');
+        window.location.reload()
+      }
     }
   });
 }

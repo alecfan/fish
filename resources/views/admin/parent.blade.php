@@ -215,7 +215,7 @@
           </li>
           <li class="light-blue">
             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-              <img class="nav-user-photo" src="{{ asset('admin/images/upload') }}/{{ session('adminuser')->photo }}" alt="" />
+              <img class="nav-user-photo" src="{{ asset('home/upload') }}/{{ session('adminuser')->photo }}" alt="" />
               <span class="user-info">
                   <small>欢迎光临</small>
                   {{ session('adminuser')->username }}

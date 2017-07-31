@@ -10,9 +10,9 @@
         <div id="user-profile-1" class="user-profile row">
           <div class="col-xs-12 col-sm-2 center">
             <div>
-              <span class="profile-picture"><a href="/admin/info/{{ $list->id }}/edit"><img id="avatar"
+              <span class="profile-picture"><a href="{{ url('admin/info') . '/' . $list->id }}/edit"><img id="avatar"
                 class="editable img-responsive" alt="Alex's Avatar"
-                src="{{ asset('admin/images/upload') }}/{{ $list->photo }}"
+                src="{{ asset('home/upload') }}/{{ $list->photo }}"
                 style="width: 280px;" /></a>
               </span>
               <div class="space-4"></div>
@@ -33,47 +33,44 @@
               <div class="profile-info-row">
                 <div class="profile-info-name">性别</div>
                 <div class="profile-info-value">
-                  <span class="sex" id="sex">{{ ($list->sex)==
-                    '1' ? '男':'女' }}</span>
+                  <span class="sex" id="sex">{{ ($list->sex)== '1' ? '男':'女' }}</span>
                 </div>
               </div>
               <div class="profile-info-row">
                 <div class="profile-info-name">所在地</div>
                 <div class="profile-info-value">
                   <i class="icon-map-marker light-orange bigger-110"></i>
-                  <span class="editable" id="address">{{ $list->address }}</span>
+                  <span class="editable" id="address">{{ $list->address == '' ? '未填写' : $list->address }}</span>
                 </div>
               </div>
               <div class="profile-info-row">
                 <div class="profile-info-name">邮箱</div>
                 <div class="profile-info-value">
-                  <span class="editable" id="email">{{ $list->email }}</span>
+                  <span class="editable" id="email">{{ $list->email == '' ? '未填写' : $list->email }}</span>
                 </div>
               </div>
               <div class="profile-info-row">
                 <div class="profile-info-name">手机</div>
                 <div class="profile-info-value">
-                  <span class="editable" id="phone">{{ $list->phone }}</span>
+                  <span class="editable" id="phone">{{ $list->phone == '' ? '未填写' : $list->phone }}</span>
                 </div>
               </div>
               <div class="profile-info-row">
                 <div class="profile-info-name">生日</div>
                 <div class="profile-info-value">
-                  <span class="editable" id="birthday">{{
-                    $list->birthday }}</span>
+                  <span class="editable" id="birthday">{{ $list->birthday == '' ? '未填写' : $list->birthday }}</span>
                 </div>
               </div>
               <div class="profile-info-row">
                 <div class="profile-info-name">积分</div>
                 <div class="profile-info-value">
-                  <span class="editable" id="score">{{ $list->score }}</span>
+                  <span class="lala" id="score">{{ $list->score == '' ? '未填写' : $list->score }}</span>
                 </div>
               </div>
               <div class="profile-info-row">
                 <div class="profile-info-name">个人简介</div>
                 <div class="profile-info-value">
-                  <span class="editable" id="description">{{
-                    $list->description }}</span>
+                  <span class="editable" id="description">{{ $list->description == '' ? '未填写' : $list->description }}</span>
                 </div>
               </div>
             </div>

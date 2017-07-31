@@ -42,7 +42,10 @@ Route::resource('/person/goods', 'Home\GoodsController');
 Route::post('/person/auction', 'Home\AuctionController@index');
 // ===============前台=======商品详情页显示===============
 Route::get('/goods/{id}', 'Home\GoodController@showGood');
-
+// 竞拍
+Route::get('/auction/increase', 'Home\AuctionController@doIncrease');
+// 拍卖商品详情显示
+Route::get('/auction/{id}', 'Home\AuctionController@showAuction');
 // 用户的交易 显示，修改，删除
 Route::resource('/deal', 'Home\DealController');
 // 卖出的商品
@@ -77,7 +80,7 @@ Route::group([
     Route::resource('/info', 'Admin\InfoController');
     Route::post('/info/create', 'Admin\InfoController@create');
     // 用户模块
-    Route::post('/user/del', 'Admin\UserController@doDel');
+    Route::post('/user/doDel', 'Admin\UserController@doDel');
     Route::resource('/user', 'Admin\UserController');
     // 用户退出
     Route::get('/quit', 'Admin\LoginController@quit');
