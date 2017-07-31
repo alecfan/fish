@@ -303,12 +303,12 @@
             </a>
             <ul class="submenu" @yield( 'usersShow')>
               <li @yield( 'usersListActive')>
-                <a href="/admin/user">
+                <a href="{{ url('/admin/user') }}">
                   <i class="icon-double-angle-right"></i> 用户列表
                 </a>
               </li>
               <li @yield( 'usersAddActive')>
-                <a href="/admin/user/create">
+                <a href="{{ url('/admin/user/create') }}">
                   <i class="icon-double-angle-right"></i> 添加用户
                 </a>
               </li>
@@ -374,33 +374,14 @@
             </a>
             <ul class="submenu">
               <li>
-                <a href="/admin/comment">
+                <a href="{{ url('/admin/comment') }}">
                   <i class="icon-double-angle-right"></i> 消息列表
                 </a>
               </li>
             </ul>
           </li>
           <!-- 商品评论结束 -->
-          <!-- 用户消息开始 -->
-          <li>
-            <a href="#" class="dropdown-toggle">
-              <i class="icon-envelope"></i>
-              <span class="menu-text"> 用户消息 </span>
-              <b class="arrow icon-angle-down"></b>
-            </a>
-            <ul class="submenu">
-              <li>
-                <a href="/admin/user">
-                  <i class="icon-double-angle-right"></i> 广告列表
-                </a>
-              </li>
-              <li>
-                <a href="/admin/user/create">
-                  <i class="icon-double-angle-right"></i> 添加广告
-                </a>
-              </li>
-            </ul>
-          </li>
+
           <li>
             <a href="#" class="dropdown-toggle">
               <i class="icon-list"></i>
@@ -409,24 +390,11 @@
             </a>
             <ul class="submenu">
               <li>
-                <a href="/admin/comment">
+                <a href="{{ url('/admin/comment') }}">
                   <i class="icon-double-angle-right"></i> 留言列表
                 </a>
               </li>
             </ul>
-          </li>
-          <li>
-            <a href="#" class="dropdown-toggle">
-              <i class="icon-list"></i>
-              <span class="menu-text"> 友情链接</span>
-              <b class="arrow icon-angle-down"></b>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="dropdown-toggle">
-              <i class="icon-cog"></i>
-              <span class="menu-text"> 站点设置 </span>
-            </a>
           </li>
         </ul>
         <div class="sidebar-collapse" id="sidebar-collapse">

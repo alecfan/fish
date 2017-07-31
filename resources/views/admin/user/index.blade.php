@@ -68,7 +68,7 @@
               <td>
                 <div
                   class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-                  <a href='/admin/user/{{ $v->id }}/edit'>
+                  <a href="{{ url('admin/user') . '/' . $v->id . '/' . 'edit' }}">
                     <button class="btn btn-xs btn-info">
                       <i class="icon-edit bigger-120"></i>
                     </button>
@@ -96,7 +96,8 @@
 function doDel(id) {
   if (confirm('确定删除？')) {
     var form = document.myform;
-    form.action = '/admin/user/' + id;
+    form.action = "{{ url('admin/user') }}" + '/' + id;
+    alert(form.action);
     form.submit();
   }
 }

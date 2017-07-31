@@ -19,7 +19,7 @@
   </div>
   @endif
   <div class="row">
-    <form action="/admin/type" method='get'>
+    <form action="{{ url('admin/type') }}" method='get'>
       <div class="col-xs-12 col-sm-4">
         <div class="input-group">
           <input type="text" name="tname" class="form-control search-query" placeholder="分类名" /><span class="input-group-btn">
@@ -71,7 +71,7 @@
                    {{ $v->tname }}</td>
               <td>
                 <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-                  <a href='/admin/type/{{ $v->id }}/edit'>
+                  <a href="{{ url('admin/type') . '/' . $v->id  . '/' . 'edit'}}">
                     <button class="btn btn-xs btn-info">
                       <i class="icon-edit bigger-120"></i>
                     </button>
