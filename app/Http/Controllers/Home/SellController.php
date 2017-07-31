@@ -11,6 +11,7 @@ class SellController extends Controller
 
     /**
      * Display a listing of the resource.
+     * 我卖出的商品的显示
      *
      * @return \Illuminate\Http\Response
      */
@@ -32,8 +33,10 @@ class SellController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * 删除我卖出的商品
      *
      * @param int $id
+     *            商品的id
      * @return \Illuminate\Http\Response
      */
     public function delete($id)

@@ -1,5 +1,5 @@
 @extends('admin.parent') @section('content')
-<div class="main-content">
+
   <div class="page-content">
     <div class="page-header">
       <h1>
@@ -50,6 +50,6 @@
     <!-- /.row -->
   </div>
   <!-- /.page-content -->
-</div>
+
 <!-- /.main-content -->
 @endsection

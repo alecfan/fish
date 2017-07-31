@@ -53,7 +53,7 @@
     </div>
 
     <ol class="am-breadcrumb am-breadcrumb-slash">
-      <img src="{{ asset('home/images/' . $good->photo ) }}" width="50" height="50" />
+      <img src="{{ asset('home/upload/' . $good->photo ) }}" width="50" height="50" />
       <li style="font-size: 20px">{{ $good->username }}</li>
       <li>
         {{ $timeMess }}来过&nbsp;&nbsp;
@@ -347,36 +347,29 @@
               <ul class="am-pagination am-pagination-right">
                 <li class="am-disabled"><a href="#">&laquo;</a></li>
                 <li class="am-active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
+                <li class="am-disabled"><a href="#">&raquo;</a></li>
               </ul>
               <div class="clear"></div>
 
-              <div class="tb-reviewsft">
-                <div class="tb-rate-alert type-attention">
-                  购买前请查看该商品的 <a href="#" target="_blank">购物保障</a>，明确您的售后保障权益。
-                </div>
-              </div>
 
             </div>
-
+            {{-- 猜你喜欢开始 --}}
             <div class="am-tab-panel am-fade">
               <div class="like">
                 <ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
+                  @foreach($likes as $like)
                   <li>
                     <div class="i-pic limit">
-                      <img src="{{ asset('home/images/imgsearch1.jpg') }}" />
+                      <img src="{{ asset('home/images/' . $like->picname ) }}" />
                       <p>
-                        【良品铺子_开口松子】零食坚果特产炒货 <span>东北红松子奶油味</span>
+                        {{ $like->title }}
                       </p>
                       <p class="price fl">
-                        <b>¥</b> <strong>298.00</strong>
+                        <b>¥</b> <strong>{{ $like->price }}</strong>
                       </p>
                     </div>
                   </li>
+                  @endforeach
                 </ul>
               </div>
               <div class="clear"></div>
@@ -385,15 +378,12 @@
               <ul class="am-pagination am-pagination-right">
                 <li class="am-disabled"><a href="#">&laquo;</a></li>
                 <li class="am-active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
                 <li><a href="#">&raquo;</a></li>
               </ul>
               <div class="clear"></div>
 
             </div>
+            {{-- 猜你喜欢结束 --}}
           </div>
         </div>
         <div class="clear"></div>

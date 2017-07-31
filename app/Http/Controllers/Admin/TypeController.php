@@ -17,6 +17,7 @@ class TypeController extends Controller
      */
     public function index(Request $request)
     {
+        // 定义搜索的空数组
         $where = [];
         // 实例化需要的表
         $ob = DB::table('type')->select(DB::raw('concat(path,",",id) as newpath, id, tname,pid,path'))->orderBy('newpath');
@@ -100,6 +101,7 @@ class TypeController extends Controller
      */
     public function edit($id)
     {
+        // 获取修改的分类
         $type = DB::table('type')->where('id', $id)->first();
         return view('admin.type.edit', [
             'type' => $type
@@ -117,7 +119,9 @@ class TypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // 请求中的有用值
         $arr = $request->except('_token', '_method');
+        // 提交修改信息
         $res = DB::table('type')->where('id', $id)->update($arr);
         if ($res > 0) {
             return redirect('/admin/type')->with('msg', '修改成功');
@@ -148,6 +152,12 @@ class TypeController extends Controller
         }
     }
 
+    /**
+     * 添加子分类
+     *
+     * @param unknown $id
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function createSon($id)
     {
 
@@ -159,6 +169,14 @@ class TypeController extends Controller
         ]);
     }
 
+    /**
+     *
+     * 提交添加的子分类
+     *
+     * @param Request $request
+     *            添加的信息
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function storeSon(Request $request)
     {
         // 自定义错误消息格式

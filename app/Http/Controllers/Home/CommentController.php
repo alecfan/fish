@@ -14,7 +14,14 @@ class CommentController extends Controller
     public function index()
     {
         // 需要uid 从session中取
-        return view('home.comment.index');
+        $uid = session()->get('userid');
+
+        $comments = DB::table('comment')->join('goods', 'goods.id', '=', 'comment.gid')
+            ->where('comment.uid', $uid)
+            ->get();
+
+        $list['comments'] = $comments;
+        return view('home.comment.index', $list);
     }
 
     /**

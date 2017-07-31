@@ -62,7 +62,7 @@
 
               }}</td>
               <td>{{ $v->title }}</td>
-              <td>{{ $v->description }}</td>
+              <td style='width:230px'>{{ $v->description }}</td>
               <td>{{ $v->price }}</td>
               <td>{{ $v->tname }}</td>
               <td>{{ $v->username }}</td>

@@ -21,19 +21,7 @@ date_default_timezone_set("PRC");
 
 <!--顶部导航条 -->
 <div class="am-container header">
-  <ul class="message-l">
-    <div class="topMessage">
-     <div class="menu-hd">
-       <a href="#" target="_top" class="h">亲，请登录</a>
-       <a href="#" target="_top">免费注册</a>
-     </div></div>
-  </ul>
-  <ul class="message-r">
-    <div class="topMessage home"><div class="menu-hd"><a href="#" target="_top" class="h">商城首页</a></div></div>
-    <div class="topMessage my-shangcheng"><div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div></div>
-    <div class="topMessage mini-cart"><div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div></div>
-    <div class="topMessage favorite"><div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
-  </ul>
+
 </div>
 
 <!--悬浮搜索框-->
@@ -75,8 +63,8 @@ date_default_timezone_set("PRC");
      </ul>
      <div class="option">
        <span class="info">您可以</span>
-        <a href="../person/order.html" class="J_MakePoint">查看<span>已买到的宝贝</span></a>
-        <a href="../person/orderinfo.html" class="J_MakePoint">查看<span>交易详情</span></a>
+        <a href="{{ url('buy') }}" class="J_MakePoint">查看<span>已买到的宝贝</span></a>
+        <a href="{{ url('') }}" class="J_MakePoint">查看<span>更多商品</span></a>
      </div>
     </div>
   </div>

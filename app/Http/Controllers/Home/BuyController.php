@@ -1,16 +1,15 @@
 <?php
 namespace App\Http\Controllers\home;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class BuyController extends Controller
 {
 
     /**
      * Display a listing of the resource.
+     * 我买到的商品订单显示
      *
      * @return \Illuminate\Http\Response
      */
@@ -33,20 +32,29 @@ class BuyController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * 删除买过的订单
      *
      * @param int $id
+     *            买过的订单号
      * @return \Illuminate\Http\Response
      */
     public function delete($id)
     {
         $res = DB::table('orders')->where('id', $id)->delete();
         if ($res > 0) {
-            return redirect('/sell')->with('msg', '删除成功');
+            return redirect('/buy')->with('msg', '删除成功');
         } else {
-            return redirect('/sell')->with('error', '删除失败');
+            return redirect('/buy')->with('error', '删除失败');
         }
     }
 
+    /**
+     * 显示订单详情
+     *
+     * @param unknown $id
+     *            商品订单id
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function showOrder($id)
     {
         $list = DB::table('orders')->where('id', $id)->first();

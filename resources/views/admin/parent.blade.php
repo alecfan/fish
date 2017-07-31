@@ -215,7 +215,7 @@
           </li>
           <li class="light-blue">
             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-              <img class="nav-user-photo" src="{{ asset('admin/images/upload') }}/{{ session('adminuser')->photo }}" alt="" />
+              <img class="nav-user-photo" src="{{ asset('home/upload') }}/{{ session('adminuser')->photo }}" alt="" />
               <span class="user-info">
                   <small>欢迎光临</small>
                   {{ session('adminuser')->username }}
@@ -324,12 +324,12 @@
             </a>
             <ul class="submenu" @yield( 'goodsShow')>
               <li @yield( 'goodsListActive')>
-                <a href="/admin/goods">
+                <a href="{{ url('/admin/goods')}}">
                   <i class="icon-double-angle-right"></i> 商品列表
                 </a>
               </li>
               <li @yield( 'goodsAddActive')>
-                <a href="/admin/goods/create">
+                <a href="{{ url('/admin/goods/create')}}">
                   <i class="icon-double-angle-right"></i> 添加商品
                 </a>
               </li>
@@ -345,12 +345,12 @@
             </a>
             <ul class="submenu" @yield( 'typeShow')>
               <li @yield( 'typeListActive')>
-                <a href="/admin/type">
+                <a href="{{ url ('/admin/type') }}">
                   <i class="icon-double-angle-right"></i> 分类列表
                 </a>
               </li>
               <li @yield( 'typeAddActive')>
-                <a href="/admin/type/create">
+                <a href="{{ url ('/admin/type/create') }}">
                   <i class="icon-double-angle-right"></i> 添加分类
                 </a>
               </li>
@@ -359,7 +359,7 @@
           <!-- 分类管理结束 -->
           <!-- 拍卖管理开始 -->
           <li @yield( 'auctionActive')>
-            <a href="/admin/auction">
+            <a href=" {{ url('/admin/auction') }}">
               <i class="icon-legal"></i>
               <span class="menu-text"> 拍卖管理 </span>
             </a>
@@ -367,7 +367,7 @@
           <!-- 拍卖管理结束 -->
           <!-- 商品评论开始 -->
           <li @yield( 'commentActive')>
-            <a href="/admin/comment" class="dropdown-toggle">
+            <a href=" {{ url('/admin/comment') }}" class="dropdown-toggle">
               <i class="icon-comment"></i>
               <span class="menu-text"> 商品评论 </span>
               <b class="arrow icon-angle-down"></b>

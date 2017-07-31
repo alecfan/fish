@@ -13,7 +13,7 @@
 @endsection
 {{-- 显示分类列表页 --}}
 @section('content')
-<div class="main-content">
+
   <div class="page-content">
     <div class="page-header">
       <h1>
@@ -57,16 +57,7 @@
               <input type="text" name="description" id="form-field-1" class="col-xs-10 col-sm-5" placeholder="商品描述" />
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">商品类别</label>
-            <select class="col-xs-10 col-sm-3" id="form-field-select-1" style='margin-left:12px' name='tid'>
-              <option value="1" selected>手机</option>
-              <option value="2">服装</option>
-              <option value="3">电脑</option>
-              <option value="4">运动户外</option>
-              <option value="5">美妆</option>
-            </select>
-          </div>
+
           <div>
             <input type="hidden" value='0' />
           </div>
@@ -89,6 +80,6 @@
     <!-- /.row -->
   </div>
   <!-- /.page-content -->
-</div>
+
 <!-- /.main-content -->
 @endsection

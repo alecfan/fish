@@ -13,6 +13,7 @@ class AuctionController extends Controller
      */
     public function index()
     {
+        // 从数据库查询数据
         $goods = DB::table('goods')->where('goods.is_auction', '=', '1')
             ->join('auction', 'goods.id', '=', 'auction.gid')
             ->join('users', 'goods.uid', '=', 'users.id')
@@ -78,6 +79,7 @@ class AuctionController extends Controller
      * 删除拍卖商品操作
      *
      * @param int $id
+     *
      */
     public function destroy($id)
     {

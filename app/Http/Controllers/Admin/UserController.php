@@ -10,8 +10,6 @@ class UserController extends Controller
 
     /**
      * 查询用户数据并返回页面
-     *
-     * @return [type] [description]
      */
     public function index(Request $request)
     {
@@ -35,8 +33,6 @@ class UserController extends Controller
 
     /**
      * 返回用户添加页面
-     *
-     * @return [type] [description]
      */
     public function create()
     {
@@ -45,9 +41,6 @@ class UserController extends Controller
 
     /**
      * 执行用户添加操作
-     *
-     * @param Request $request
-     *            [请求数据]
      */
     public function store(Request $request)
     {
@@ -75,10 +68,6 @@ class UserController extends Controller
 
     /**
      * 返回用户修改页面
-     *
-     * @param [type] $id
-     *            [description]
-     * @return [type] [description]
      */
     public function edit($id)
     {
@@ -90,12 +79,6 @@ class UserController extends Controller
 
     /**
      * 执行修改操作
-     *
-     * @param Request $request
-     *            [description]
-     * @param [type] $id
-     *            [description]
-     * @return [type] [description]
      */
     public function update(Request $request, $id)
     {
@@ -125,10 +108,6 @@ class UserController extends Controller
 
     /**
      * 执行用户删除操作
-     *
-     * @param [type] $id
-     *            [description]
-     * @return [type] [description]
      */
     public function destroy($id)
     {
@@ -138,5 +117,15 @@ class UserController extends Controller
         } else {
             return redirect('/admin/user')->with('error', '删除失败');
         }
+    }
+
+    /**
+     * 执行多删除
+     */
+    public function doDel(Request $request)
+    {
+        $arr = explode('-', $request->id);
+        $list = DB::table('users')->whereIn('id', $arr)->delete();
+        echo json_encode($list);
     }
 }

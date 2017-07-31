@@ -11,19 +11,7 @@ class GoodsController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * 显示用户发布商品界面
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -32,13 +20,9 @@ class GoodsController extends Controller
 
     /**
      * 商品发布操作
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        // TODO 添加商品所在地
         // 获取商品信息
         $arr = $request->except('_token', 'first', 'second', 'main', 'minor');
         $arr['addtime'] = time();
@@ -119,10 +103,7 @@ class GoodsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * 查询分类Ajax
      */
     public function show(Request $request)
     {

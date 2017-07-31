@@ -13,24 +13,14 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $list = DB::table('usersadds')->where('uid', 2)->get();
+        $list = DB::table('usersadds')->where('uid', session('userid'))->get();
         return view('home.address.showAddress', [
             'list' => $list
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * 存储用户收货地址
+     * 添加用户收货地址
      */
     public function store(Request $request)
     {
@@ -50,7 +40,7 @@ class AddressController extends Controller
         $arr['province'] = $province->name;
         $arr['city'] = $city->name;
         $arr['county'] = $county->name;
-        $arr['uid'] = 2;
+        $arr['uid'] = session('userid');
         $list = DB::table('usersadds')->insert($arr);
         if ($list) {
             return redirect('person/address')->with('add', '添加成功');
@@ -59,9 +49,6 @@ class AddressController extends Controller
 
     /**
      * 查询全国城市三级联动
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
     {
@@ -71,10 +58,7 @@ class AddressController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * 显示修改页面
      */
     public function edit($id)
     {
@@ -86,10 +70,6 @@ class AddressController extends Controller
 
     /**
      * 修改用户收货地址
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -117,9 +97,6 @@ class AddressController extends Controller
 
     /**
      * 删除用户收获地址
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {

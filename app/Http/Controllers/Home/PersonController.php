@@ -19,10 +19,20 @@ class PersonController extends Controller
      */
     public function showIndex()
     {
-        $list = DB::table('users')->where('id', 3)->get();
+
+        // 获取登陆的用户信息
+        $list = DB::table('users')->where('id', session('userid'))->get();
+        // 获取登录用户的收藏信息
+        $collects = DB::table('goodscollect')->leftjoin('goods', 'goodscollect.gid', '=', 'goods.id')
+            ->leftjoin('goodspics', 'goods.id', '=', 'goodspics.gid')
+            ->select('goods.id as goodid', 'goods.title', 'goods.price', 'goodspics.picname', 'goods.locate')
+            ->where('goodspics.mpic', 1)
+            ->where('goodscollect.uid', session('userid'))
+            ->get();
 
         return view('home.person.showIndex', [
-            'list' => $list
+            'list' => $list,
+            'collects' => $collects
         ]);
     }
 
@@ -32,13 +42,19 @@ class PersonController extends Controller
     public function editInfo()
     {
         // TODO id需改
-        $list = DB::table('users')->where('id', 3)->get();
-
+        $list = DB::table('users')->where('id', session('userid'))->get();
         return view('home.person.editInfo', [
             'list' => $list
         ]);
     }
 
+    /**
+     * 提交个人信息的修改
+     *
+     * @param request $request
+     *            修改的内容
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function UpdateInfo(request $request)
     {
         $messages = array(
@@ -87,7 +103,7 @@ class PersonController extends Controller
             echo $arr['birthday'] = strtotime($arr['birthday']);
         }
 
-        $res = DB::table('users')->where('id', 3)->update($arr);
+        $res = DB::table('users')->where('id', session('userid'))->update($arr);
         // unlink('./home/upload/' . $old);
 
         if ($res > 0) {

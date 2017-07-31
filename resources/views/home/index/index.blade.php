@@ -210,50 +210,29 @@
           <img src="{{ asset('home/images/2016.png') }}"></img>
           <p>
             今日<br>推荐
-
           </p>
         </div>
+        {{-- 今日遍历推荐 --}}
         <div class="am-u-sm-4 am-u-lg-3 ">
           <div class="info ">
-            <h3>真的有鱼</h3>
-            <h4>开年福利篇</h4>
+            <h3>{{ $todays->title }}</h3>
+            <h4>{{ $todays->description }}</h4>
           </div>
           <div class="recommendationMain one">
-            <a href="introduction.html"><img src="{{ asset('home/images/tj.png') }}"></img></a>
+            <a href="{{ url('/goods/' . $todays->id) }}"><img src="{{ asset('home/images/' . $todays->picname ) }}"></img></a>
           </div>
         </div>
-        <div class="am-u-sm-4 am-u-lg-3 ">
-          <div class="info ">
-            <h3>囤货过冬</h3>
-            <h4>让爱早回家</h4>
-          </div>
-          <div class="recommendationMain two">
-            <img src="{{ asset('home/images/tj1.png') }}"></img>
-          </div>
-        </div>
-        <div class="am-u-sm-4 am-u-lg-3 ">
-          <div class="info ">
-            <h3>浪漫情人节</h3>
-            <h4>甜甜蜜蜜</h4>
-          </div>
-          <div class="recommendationMain three">
-            <img src="{{ asset('home/images/tj2.png') }}"></img>
-          </div>
-        </div>
-
+        {{-- 今日遍历推荐结束 --}}
       </div>
       <div class="clear "></div>
 
       <div id="f1">
-      <!-- 母婴栏目开始 -->
+      <!-- 商品拍卖开始 -->
         <div class="am-container ">
           <div class="shopTitle ">
             <h4>热门拍卖</h4>
-            <div class="today-brands">
-              <a href="# ">桂花糕</a>
-            </div>
             <span class="more ">
-              <a href="# ">更多拍卖<i class="am-icon-angle-right" style="padding-left: 10px;"></i></a>
+              <a href="# ">更多<i class="am-icon-angle-right" style="padding-left: 10px;"></i></a>
             </span>
           </div>
         </div>
@@ -264,26 +243,24 @@
           <div class="am-u-sm-7 am-u-md-4 text-two" style="float: left">
             <div class="outer-con ">
               <div class="title ">{{ $auctioninfo->title }}</div>
-              <div class="sub-title ">{{ $auctioninfo->price }}</div>
+              <div class="sub-title ">￥{{ $auctioninfo->price }}<a>({{ date("m-d H:i",$auctioninfo->endtime) }}结束)</a></div>
               <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
             </div>
-            <a href="{{ url() }}"><img src="{{ asset('home/images/' . $auctioninfo->picname) }}"></a>
+            <a href="{{ url('/auction/' . $auctioninfo->id) }}"><img src="{{ asset('home/images/' . $auctioninfo->picname) }}"></a>
           </div>
           @endforeach
             <!-- 遍历商品结束 -->
         </div>
         <div class="clear "></div>
       </div>
-    <!-- 母婴栏目结束 -->
+    <!-- 商品拍卖结束 -->
       <!-- 母婴栏目开始 -->
         <div class="am-container ">
           <div class="shopTitle ">
-            <h4>辣妈爱萌宝</h4>
-            <div class="today-brands">
-              <a href="# ">桂花糕</a>
-            </div>
+            <h4>母婴闲置</h4>
+
             <span class="more ">
-              <a href="# ">更多美味<i class="am-icon-angle-right" style="padding-left: 10px;"></i></a>
+              <a href="# ">更多<i class="am-icon-angle-right" style="padding-left: 10px;"></i></a>
             </span>
           </div>
         </div>
@@ -310,60 +287,31 @@
         <!-- 摄影栏目 -->
         <div class="am-container ">
           <div class="shopTitle ">
-            <h4>爱摄影≠穷三代</h4>
-            <div class="today-brands ">
-              <a href="# ">腰果</a>
-            </div>
-            <span class="more "> <a href="# ">更多美味<i class="am-icon-angle-right" style="padding-left: 10px;"></i></a>
+            <h4>数码闲置</h4>
+
+            <span class="more "> <a href="# ">更多<i class="am-icon-angle-right" style="padding-left: 10px;"></i></a>
             </span>
           </div>
         </div>
         <div class="am-g am-g-fixed floodThree ">
         <!-- 遍历商品 -->
+        @foreach($shumaGoods as $shumaGood)
           <div class="am-u-sm-4 text-four">
-            <a href="# "> <img src="{{ asset('home/images/6.jpg') }}" />
+            <a href="{{ url('/goods/' . $shumaGood->id) }}"> <img src="{{ asset('home/images/' . $shumaGood->picname) }}" />
               <div class="outer-con ">
-                <div class="title ">雪之恋和风大福</div>
-                <div class="sub-title ">¥13.8</div>
+                <div class="title ">{{ $shumaGood->title }}</div>
+                <div class="sub-title ">¥{{ $shumaGood->price }}</div>
                 <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
               </div>
             </a>
           </div>
+          @endforeach
         <!-- 遍历商品结束 -->
         </div>
 
         <div class="clear "></div>
       </div>
 
-
-      <div id="f3">
-        <!--甜点-->
-
-        <div class="am-container ">
-          <div class="shopTitle ">
-            <h4>再见老乔，我还是果粉</h4>
-            <div class="today-brands ">
-              <a href="# ">桂花糕</a>
-            </div>
-            <span class="more "> <a href="# ">更多美味<i class="am-icon-angle-right" style="padding-left: 10px;"></i></a>
-            </span>
-          </div>
-        </div>
-
-        <div class="am-g am-g-fixed floodFour">
-<!-- 遍历商品开始 -->
-          <div class="am-u-sm-7 am-u-md-4 text-two">
-            <div class="outer-con ">
-              <div class="title ">雪之恋和风大福</div>
-              <div class="sub-title ">¥13.8</div>
-              <i class="am-icon-shopping-basket am-icon-md  seprate"></i>
-            </div>
-            <a href="# "><img src="http://fish.com/home/images/1.jpg"></a>
-          </div>
-
-        </div>
-        <div class="clear "></div>
-      </div>
 <!-- 遍历商品结束 -->
 
 @endsection

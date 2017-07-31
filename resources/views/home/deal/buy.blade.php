@@ -56,7 +56,7 @@
                   <div class="order-main">
 
                    <?php
-                if ($list == []) {
+                if (empty($list)) {
                     ?>
                     <div style="font-size:25px; text-align:center;margin-top:100px;font-family:'宋体';color:red;"> 您还没有购物哦。亲！！ </div>
                    <?php
@@ -76,7 +76,7 @@
                             <li class="td td-item">
                               <div class="item-pic">
                                 <a href="#" class="J_MakePoint">
-                                  <img src="{{ url('/home/images/' . $v->picname) }}" class="itempic J_ItemImg">
+                                  <img src="{{ url('/home/images/' . $v->picname) }}" class="itempic J_ItemImg" style="width:80px;height:80px">
                                 </a>
                               </div>
                               <div class="item-info">
@@ -142,7 +142,7 @@
                 }
                 ?>
                   </div>
-                  {!! $list->render() !!}
+{!! $list->render() !!}
                 </div>
               </div>
             </div>

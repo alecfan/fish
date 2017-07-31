@@ -36,7 +36,9 @@ class IndexController extends Controller
         $auction = DB::table('goods')->where('goods.is_auction', 1)
             ->join('auction', 'auction.gid', '=', 'goods.id')
             ->join('goodspics', 'goods.id', '=', 'goodspics.gid')
+            ->where('auction.endtime', '>', time())
             ->where('goodspics.mpic', 1)
+            ->select('goods.id', 'goods.title', 'goods.price', 'auction.endtime', 'goodspics.picname')
             ->get();
 
         // 查询母婴类别商品
@@ -45,12 +47,18 @@ class IndexController extends Controller
         // 查询数码类型商品
         $shumaGoods = getGoods(1, 5);
 
+        // 今日推荐
+        $todays = DB::table('goods')->join('goodspics', 'goods.id', '=', 'goodspics.gid')
+            ->where('goods.is_auction', 0)
+            ->first();
+
         // 加载模板(同时分配变量到模板)
         return view('home.index.index', [
             'data' => $type,
             'muyinGoods' => $muyinGoods,
             'shumaGoods' => $shumaGoods,
-            'auction' => $auction
+            'auction' => $auction,
+            'todays' => $todays
         ]);
     }
 
@@ -88,11 +96,6 @@ class IndexController extends Controller
             $db->where('goods.tid', $tid);
             $list['tid'] = $tid;
         }
-
-        // 商品添加时间排序
-        // if (isset($staddtime)) {
-        // $db->orderBy('goods.addtime', 'desc');
-        // }
 
         // 商品排序
         if ($request->has('sort')) {

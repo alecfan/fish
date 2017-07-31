@@ -67,7 +67,7 @@ $.ajaxSetup({
       </div>
       <div class="topMessage favorite">
         <div class="menu-hd">
-          <a href="{{ url('/collect') }}" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a>
+          <a href="{{ url('/person/collect') }}" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a>
         </div>
     </ul>
   </div>
@@ -122,14 +122,13 @@ $.ajaxSetup({
       <div class="footer">
         <div class="footer-hd">
           <p>
-            <a href="#">恒望科技</a> <b>|</b> <a href="#">商城首页</a> <b>|</b> <a href="#">支付宝</a> <b>|</b> <a href="#">物流</a>
+            </b> <a href="#">商城首页</a> <b>|</b> <a href="#">支付宝</a> <b>|</b> <a href="#">物流</a>
           </p>
         </div>
         <div class="footer-bd">
           <p>
-            <a href="#">关于恒望</a> <a href="#">合作伙伴</a> <a href="#">联系我们</a> <a href="#">网站地图</a> <em>© 2015-2025
-              Hengwang.com 版权所有. 更多模板 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect
-              from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+            <a href="#">关于</a> <a href="#">合作伙伴</a> <a href="#">联系我们</a> <a href="#">网站地图</a> <em>© 2015-2025
+              lamp184无名团队 版权所有.
             </em>
           </p>
         </div>
@@ -157,7 +156,6 @@ $.ajaxSetup({
             <li class="@yield('collectActive')"><a href="{{ url('/person/collect') }}">收藏</a></li>
             <li class="@yield('footActive')"><a href="{{ url('/home/person/foot') }}">足迹</a></li>
             <li class="@yield('commentActive')"><a href="{{ url('/home/person/comment') }}">评价</a></li>
-            <li><a href="news.html">消息</a></li>
           </ul></li>
       </ul>
 

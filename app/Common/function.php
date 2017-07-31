@@ -90,6 +90,7 @@ function getGoods($tid, $num)
         ->whereIn('goods.tid', $ids)
         ->where('goodspics.mpic', 1)
         ->where('goods.status', 0)
+        ->where('goods.is_auction', 0)
         ->orderBy('goods.addtime', 'desc')
         ->limit($num)
         ->get();

@@ -26,9 +26,18 @@ class GoodController extends Controller
         $mpic = DB::table('goodspics')->where('gid', $good->id)
             ->where('mpic', 1)
             ->first();
+        // 商品评论
         $comments = DB::table('comment')->join('users', 'comment.uid', '=', 'users.id')
             ->where('gid', $good->id)
             ->get();
+
+        // dd($good);
+        // 猜你喜欢
+        $likes = DB::table('goods')->join('goodspics', 'goods.id', '=', 'goodspics.gid')
+            ->where('goods.tid', $good->tid)
+            ->where('goods.id', '<>', $good->id)
+            ->get();
+        // dd($likes);
 
         // 发布该商品的用户最后登录时间
         $userLastLogin = Redis::get($good->username . ':lastLogin');
@@ -83,7 +92,8 @@ class GoodController extends Controller
             'goodpics' => $goodpics,
             'comments' => $comments,
             'timeMess' => $timeMess,
-            'iscollect' => $isCollect
+            'iscollect' => $isCollect,
+            'likes' => $likes
         ]);
     }
 }

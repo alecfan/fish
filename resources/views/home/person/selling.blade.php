@@ -46,6 +46,7 @@
             style='margin-left: 95px;'>交易状态</div>
           <div class="th th-change th-changebuttom">商品操作</div>
         </div>
+
         <div class="order-main">
           @foreach($list as $v)
           <div class="order-list" style='margin-bottom: 15px'>
@@ -63,6 +64,7 @@
                     <div class="item-pic">
                       <a href="{{ url('/goods/' . $v['id']) }}" class="J_MakePoint">
                         <img src="{{ url('/home/images/' . $v['picname']) }}" class="itempic J_ItemImg">
+
                       </a>
                     </div>
                     <div class="item-info">
@@ -96,6 +98,7 @@
                                     echo '被拍下';
                                 }
                                 ?>
+
                                 </p>
                       </div>
                     </li>
@@ -114,6 +117,7 @@
             </div>
           </div>
           @endforeach
+
         </div>
       </div>
     </div>
@@ -129,5 +133,6 @@ function doDel(id) {
 	            }
 	            ;
   }
+
 </script>
 @endsection

@@ -93,7 +93,7 @@ Description: 分类搜索列表页模板
                   @foreach($goods as $good)
                   <li>
                     <div class="i-pic limit">
-                      <p><img style="width:30px; height:30px" src="{{ asset('home/images/' . $good->photo) }}">
+                      <p><img style="width:30px; height:30px" src="{{ asset('home/upload/' . $good->photo) }}">
                       <a href="{{ url('/search/username/' . $good->username ) }}">{{ $good->username }}</a></p>
                       <a href="{{ url('/goods/' . $good->id) }}"><img src="{{ asset('home/images/' . $good->picname) }}" /></a>
                       <p class="title fl">{{ $good->title }}</p>
