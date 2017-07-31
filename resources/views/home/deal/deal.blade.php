@@ -44,6 +44,14 @@
             style='margin-left: 95px;'>交易状态</div>
           <div class="th th-change th-changebuttom">商品操作</div>
         </div>
+
+       <?php
+    if (empty('$list')) {
+        ?>
+            <div style="font-size:25px; text-align:center;margin-top:100px;font-family:'宋体';color:red;"> 您还没有发布过任何东西哦。 </div>
+           <?php
+    } else {
+        ?>
         <div class="order-main">
           @foreach($list as $v)
           <div class="order-list" style='margin-bottom: 15px'>
@@ -61,7 +69,7 @@
                     <div class="item-pic">
                       <a href="#" class="J_MakePoint"> <img
                         src="{{ url('/home/images/' . $v->picname) }}"
-                        class="itempic J_ItemImg">
+                        class="itempic J_ItemImg" style="width:80px;height:80px">
                       </a>
                     </div>
                     <div class="item-info">
@@ -88,14 +96,14 @@
                       <div class="item-status">
                         <p class="Mystatus">
                                   <?php
-                                if ($v->status == 0) {
-                                    echo '上架';
-                                } else if ($v->status == 1) {
-                                    echo '下架';
-                                } else if ($v->status == 2) {
-                                    echo '被拍下';
-                                }
-                                ?>
+        if ($v->status == 0) {
+            echo '上架';
+        } else if ($v->status == 1) {
+            echo '下架';
+        } else if ($v->status == 2) {
+            echo '被拍下';
+        }
+        ?>
                                 </p>
                       </div>
                     </li>
@@ -112,7 +120,11 @@
             </div>
           </div>
           @endforeach
+
         </div>
+        <?php
+    }
+    ?>
         {!! $list->render() !!}
       </div>
     </div>
@@ -125,6 +137,6 @@ function doDel(id) {
   form.action = url + '/' + id;
                 form . submit();
             }
-            ;
+
 </script>
 @endsection
