@@ -67,7 +67,7 @@
                 <ul class="item-list">
                   <li class="td td-item">
                     <div class="item-pic">
-                      <a href="#" class="J_MakePoint"> <img
+                      <a href=" {{ url('goods/'.$v->id) }}" class="J_MakePoint"> <img
                         src="{{ url('/home/images/' . $v->picname) }}"
                         class="itempic J_ItemImg" style="width:80px;height:80px">
                       </a>
@@ -113,7 +113,7 @@
                 <li class="td td-change td-changebutton"><a
                   href="javascript:doDel({{ $v->id }})">
                     <button class="am-btn am-btn-danger anniu">删除</button>
-                </a> <a href="/deal/{{ $v->id }}/edit">
+                </a> <a href="/deal/$v->id/edit">
                     <button class="am-btn am-btn-warning anniu">修改</button>
                 </a></li>
               </div>
