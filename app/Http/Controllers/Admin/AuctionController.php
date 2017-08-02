@@ -85,7 +85,7 @@ class AuctionController extends Controller
     {
         //
         $a = DB::table('goods')->where('goods.id', $id)->delete();
-        $b = $DB::table('goodspics')->where('gid', $id)->delete();
+        $b = DB::table('goodspics')->where('gid', $id)->delete();
         $c = DB::table('auction')->where('gid', $id)->delete();
 
         if ($a && $b && $c) {

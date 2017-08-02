@@ -63,7 +63,7 @@ date_default_timezone_set("PRC");
      </ul>
      <div class="option">
        <span class="info">您可以</span>
-        <a href="{{ url('buy') }}" class="J_MakePoint">查看<span>已买到的宝贝</span></a>
+        <a href="{{ url('/person/bought') }}" class="J_MakePoint">查看<span>已买到的宝贝</span></a>
         <a href="{{ url('') }}" class="J_MakePoint">查看<span>更多商品</span></a>
      </div>
     </div>

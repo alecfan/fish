@@ -24,7 +24,7 @@ class DealController extends Controller
         // paginate(3);
         // dd($list);
         // $page = $list->paginate(2);
-        return view('home.deal.deal', [
+        return view('home.person.selling', [
             'list' => $list
 
         ]);

@@ -61,19 +61,18 @@
               </td>
               <td>
                 <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-<form action="" method="post" name="myform">
+<form action="" method="post" name="myform" id="myform">
 <input type="hidden" name="_method" value="DELETE">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 </form>
-
                   <button class="btn btn-xs btn-danger" onclick="doDel('{{ $good->id }}')">
                     <i class="icon-trash bigger-120"></i>
                   </button>
 
 <script>
 function doDel(id){
-  var myform = document.myform;
+  var myform = document.getElementById('myform');
   var url = "{{ url('/admin/auction') }}" +  '/' + id;
   myform.action = url;
   myform.submit();

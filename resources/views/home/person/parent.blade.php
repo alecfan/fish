@@ -158,7 +158,6 @@ $.ajaxSetup({
             <li><a href="{{ url('/person/selling')}}">我发布的</a></li>
             <li><a href="{{ url('/person/sold')}}">我卖出的</a></li>
             <li><a href="{{ url('/person/bought') }}">我买到的</a></li>
-            <li><a href="order.html">我的拍卖</a></li>
           </ul></li>
         <li class="person">我的小窝
           <ul>

@@ -34,40 +34,11 @@
 
         <div class="am-tabs" id="doc-my-tabs">
           <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify">
-            <li class="am-active"><a href="">邮箱注册</a></li>
-            <li><a href="">手机号注册</a></li>
+            <li class="am-active"><a href="">手机号注册</a></li>
           </ul>
 
           <div class="am-tabs-bd">
             <div class="am-tab-panel am-active">
-              <form method="post">
-
-                <div class="user-email">
-                  <label for="email"><i class="am-icon-envelope-o"></i></label> <input type="email" name="" id="email"
-                    placeholder="请输入邮箱账号">
-                </div>
-                <div class="user-pass">
-                  <label for="password"><i class="am-icon-lock"></i></label> <input type="password" name=""
-                    id="password" placeholder="设置密码">
-                </div>
-                <div class="user-pass">
-                  <label for="passwordRepeat"><i class="am-icon-lock"></i></label> <input type="password" name=""
-                    id="passwordRepeat" placeholder="确认密码">
-                </div>
-
-              </form>
-
-              <div class="login-links">
-                <label for="reader-me"> <input id="reader-me" type="checkbox"> 点击表示您同意商城《服务协议》
-                </label>
-              </div>
-              <div class="am-cf">
-                <input type="submit" name="" value="注册" class="am-btn am-btn-primary am-btn-sm am-fl">
-              </div>
-
-            </div>
-
-            <div class="am-tab-panel">
               <form action="{{ url('/register') }}" method="post">
                 {{ csrf_field() }}
                 <div class="user-phone">
@@ -92,12 +63,24 @@
                 </div>
               </form>
               <hr>
+              <p><a href="{{ url('/login') }}">已有账号？现在登录</a></p>
             </div>
 
             <script>
                   $(function() {
                       $('#doc-my-tabs').tabs();
                     })
+
+                  $('#phone').blur(function(){
+                      var phone = $(this).val();  // 手机号码
+
+                      $.post('/register/checkphone', { 'phone' : phone }, function(data){
+                           if(data == 1){
+                               alert('用户名已存在');
+                           }
+                      });
+                  });
+
                 </script>
 
           </div>
@@ -137,11 +120,16 @@
                     alert("手机号码有误，请重填");
                     return false;
                 }
+
                 // 发送手机号码到后台处理
                 jQuery.post('/register/sendsms', {phone : phone}, function(data){
                     if (data == 'fail'){
                         alert('验证码发送失败');
                     }
+
+                    //alert('1111');
+                    //$('#dyMobileButton').html('60');
+
                 },'json');
             }
 

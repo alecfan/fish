@@ -32,6 +32,8 @@ Route::post('/login', 'Home\LoginController@doLogin');
 Route::get('/register', 'Home\LoginController@showReg');
 // 注册发送短信
 Route::post('/register/sendsms', 'Home\LoginController@sendSMS');
+// 验证手机号码是否注册
+Route::post('/register/checkphone', 'Home\LoginController@checkPhone');
 // 验证手机验证码
 Route::post('/register/checksms', 'Home\LoginController@checkSMS');
 // 注册处理

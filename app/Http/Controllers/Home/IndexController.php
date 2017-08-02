@@ -50,6 +50,8 @@ class IndexController extends Controller
         // 今日推荐
         $todays = DB::table('goods')->join('goodspics', 'goods.id', '=', 'goodspics.gid')
             ->where('goods.is_auction', 0)
+            ->where('goods.tid', 27)
+            ->select('goods.title', 'goods.description', 'goodspics.picname', 'goods.id')
             ->first();
 
         // 加载模板(同时分配变量到模板)

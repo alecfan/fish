@@ -47,7 +47,7 @@ class LoginController extends Controller
             $request->session()->put('photo', $user->photo);
 
             // 更新用户最后登录时间
-            Redis::set("lastLogin:" . $user->username, time());
+            Redis::set($user->username . ":lastLogin", time());
 
             // 跳转至首页
             return redirect('/');
@@ -98,6 +98,22 @@ class LoginController extends Controller
             // 将结果返回给前台
             return 'ok';
         }
+    }
+
+    /**
+     * 验证手机号码是否存在
+     */
+    public function checkPhone(Request $request)
+    {
+        //
+        $phone = $request->input('phone');
+
+        $res = DB::table('users')->where('phone', $phone)->first();
+        if (! empty($res)) {
+            return '1'; // 存在
+        }
+
+        return '2'; // 不存在
     }
 
     /**

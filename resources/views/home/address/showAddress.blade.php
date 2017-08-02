@@ -181,7 +181,7 @@ function doCheck()
 function doDel(id) {
 	  if (confirm('确定删除？')) {
 	    var form = document.getElementById('form');
-	    form.action = '/person/address/' + id;
+	    form.action = "{{ url('/person/address') }}" + '/' + id;
 	    form.submit();
 	  }
 	}
